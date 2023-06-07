@@ -45,7 +45,7 @@ return new class extends Migration
             $table->foreign('pendkualifikasi_id')->references('id')->on('pendidikankualifikasis')->onDelete('cascade');
             $table->foreign('pangkat_id')->references('id')->on('pangkats')->onDelete('cascade');
             $table->foreign('kelompokpegawai_id')->references('id')->on('kelompokpegawais')->onDelete('cascade');
-            $table->foreign('jabatan_id')->references('id')->on('kelompokpegawais')->onDelete('cascade');
+            $table->foreign('jabatan_id')->references('id')->on('jabatans')->onDelete('cascade');
             $table->timestamps();
         });
     }
