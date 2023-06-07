@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('pangkat_namalainnya', 50);
             $table->tinyInteger('pangkat_aktif')->default('0')->comment('0=aktif,1=nonaktif');
             
-            $table->foreign('golonganpegawai_id')->references('id')->on('golonganpegawai')->onDelete('cascade');
+            $table->foreign('golonganpegawai_id')->references('id')->on('golonganpegawais')->onDelete('cascade');
             $table->timestamps();
         });
     }
