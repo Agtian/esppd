@@ -36,6 +36,8 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
         Route::get('/sppd/{sppd}/edit', 'edit');
         Route::put('/sppd/{sppd}', 'update');
         Route::get('/sppd/{sppd}/delete', 'destroy');
+
+        Route::get('/sppd/autocomplete-get-pegawai', 'getPegawai');
     });
 
     Route::controller(UserController::class)->group(function () {

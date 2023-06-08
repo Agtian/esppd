@@ -1,3 +1,9 @@
+@push('style')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+@endpush
+
 @extends('layouts.app')
 
 @section('content')
@@ -38,7 +44,7 @@
                             </button>
                         </div>
                     </div>
-                    <form action="{{ url('dashboard/admin/user') }}" method="POST" class="form-horizontal">
+                    <form action="{{ url('dashboard/admin/sppd') }}" method="POST" class="form-horizontal">
                         @csrf
 
                         <div class="card-body">
@@ -55,10 +61,11 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama_pegawai" class="col-sm-3 col-form-label">Nama Pegawai</label>
+                                <label class="col-sm-3 col-form-label">Nama Pegawai</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="nama_pegawai" name="nama_pegawai" placeholder="Nama Pegawai" value="{{ old('nama_pegawai') }}">
+                                    <div class="select2-purple">
+                                        <select class="livesearch_pegawai" name="livesearch_pegawai[]" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;"></select>
+                                    </div>
                                     @error('nama_pegawai')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -194,3 +201,31 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.livesearch_pegawai').select2({
+                placeholder: 'Pilih Pegawai',
+                ajax: {
+                    url: '/dashboard/admin/sppd/autocomplete-get-pegawai',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.nama_pegawai,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            })
+        });
+    </script>
+@endpush
