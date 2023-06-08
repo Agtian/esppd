@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DevelopmentSPPD\SppdController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,15 @@ Route::get('/dashboard/dashboard-v3', [App\Http\Controllers\Dashboard\DashboardV
 
 Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
-    // Category Routes
+    Route::controller(SppdController::class)->group(function () {
+        Route::get('/sppd', 'index');
+        Route::get('/sppd/create', 'create');
+        Route::post('/sppd', 'store');
+        Route::get('/sppd/{sppd}/edit', 'edit');
+        Route::put('/sppd/{sppd}', 'update');
+        Route::get('/sppd/{sppd}/delete', 'destroy');
+    });
+
     Route::controller(UserController::class)->group(function () {
         Route::get('/user', 'index');
         Route::get('/user/create', 'create');

@@ -18,10 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'pegawai_id',
+        'username',
         'name',
         'email',
         'password',
-        'role_as'
+        'role_as',
+        'status_user'
     ];
 
     /**
