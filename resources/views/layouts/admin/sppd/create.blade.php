@@ -49,24 +49,12 @@
 
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="no_sppd" class="col-sm-3 col-form-label">NO SPPD</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('no_sppd') is-invalid @enderror"
-                                        id="no_sppd" name="no_sppd" placeholder="No SPPD" value="{{ old('no_sppd') }}">
-                                    @error('no_sppd')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Nama Pegawai</label>
                                 <div class="col-sm-9">
                                     <div class="select2-purple">
-                                        <select class="livesearch_pegawai" name="livesearch_pegawai[]" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;"></select>
+                                        <select class="livesearch_pegawai" name="pegawai_id[]" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;"></select>
                                     </div>
-                                    @error('nama_pegawai')
+                                    @error('pegawai_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

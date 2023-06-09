@@ -7,6 +7,8 @@ use App\Models\PerjalananDinas;
 use Illuminate\Http\Request;
 use App\Helpers\BantuAku;
 use App\Models\Pegawais;
+use App\Models\PelaksanaPerjalananDinas;
+use Illuminate\Support\Facades\Auth;
 
 class SppdController extends Controller
 {
@@ -34,9 +36,8 @@ class SppdController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->livesearch_pegawai);
         $validatedData = $request->validate([
-            'nama_pegawai'              => 'required',
+            'pegawai_id'                => 'required',
             'dasar'                     => 'required',
             'lokasi_ditetapkan'         => 'required',
             'jumlah_hari'               => 'required',
@@ -63,11 +64,12 @@ class SppdController extends Controller
         $romawi     = $addRomawi.'/'.$tahun;
         $no_sppd    = '094/'.$noUrutPerjal.'/'.$romawi;
 
-        PerjalananDinas::create([
-            'pegawai_id'                => $validatedData['nama_pegawai'],
+        $perjalananDinas = PerjalananDinas::create([
+            'no_perjal'                 => $valNoPerjal,
             'no_sppd'                   => $no_sppd,
             'dasar'                     => $validatedData['dasar'],
             'lokasi_ditetapkan'         => $validatedData['lokasi_ditetapkan'],
+            'tgl_ditetapkan'            => $validatedData['tgl_sppd'],
             'jumlah_hari'               => $validatedData['jumlah_hari'],
             'hari'                      => $validatedData['hari'],
             'tgl_mulai'                 => $validatedData['tgl_mulai'],
@@ -75,8 +77,22 @@ class SppdController extends Controller
             'tgl_sppd'                  => $validatedData['tgl_sppd'],
             'maksud_perjalanan'         => $validatedData['maksud_perjalanan'],
             'tempat_tujuan'             => $validatedData['tempat_tujuan'],
-            'jam_acara'                 => $validatedData['jam_acara']
+            'jam_acara'                 => $validatedData['jam_acara'],
+            'user_id'                   => Auth::user()->id
         ]);
+
+        foreach ($request->pegawai_id as $idPegawaisArr) {
+            $detPegawai = Pegawais::findOrFail($idPegawaisArr);
+            PelaksanaPerjalananDinas::create([
+                'perjalanandinas_id'    => 1,
+                'pegawai_id'            => $idPegawaisArr,
+                'gelardepan'            => $detPegawai->gelardepan,
+                'nama_pegawai'          => $detPegawai->nama_pegawai,
+                'gelarbelakang_nama'    => $detPegawai->gelarbelakang_nama,
+                'nomorindukpegawai'     => $detPegawai->nomorindukpegawai,
+                'tgl_sppd'              => date('Y-m-d'),
+            ]);
+        }
 
         return redirect('dashboard/admin/sppd/create')->with('message', 'SPPD added successfully.');
     }
