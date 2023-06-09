@@ -11,4 +11,10 @@ class PerjalananDinas extends Model
     protected $table = 'perjalanandinas';
 
     protected $guarded = [];
+
+    public function pelaksanaPerjals()
+    {
+        return $this->hasMany(PelaksanaPerjalananDinas::class, 'perjalanandinas_id', 'id');
+    }
+
 }
