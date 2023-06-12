@@ -1,3 +1,9 @@
+@push('style')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+@endpush
+
 <div>
     <div class="card card-dark">
         <div class="card-header border-transparent">
@@ -66,6 +72,17 @@
         </div>
     </div>
     
+    @if (session('message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Sukses!</strong> <br> {{ session('message') }}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @include('livewire.sppd.modals.form-edit-pelaksana-perjal')
+    
     @if ($showDetail)
         <div class="card card-dark">
             <div class="card-header border-transparent">
@@ -81,12 +98,12 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="" method="POST" class="form-horizontal">
+                <form wire:submit.prevent="updateSPPD()" class="form-horizontal">
                     @csrf
                     @method('PUT')
 
                     <div class="mb-3">
-                        <button class="btn btn-md btn-outline-success">Simpan SPPD</button>
+                        <button type="submit" class="btn btn-md btn-outline-success">Simpan SPPD</button>
                         <button class="btn btn-md btn-outline-primary">Tambah Pelaksana</button>
                     </div>
 
@@ -109,8 +126,10 @@
                                                 <td>{{ $item->nama_pegawai.' '.$item->gelarbelakang_nama }}</td>
                                                 <td>{{ $item->nomorindukpegawai }}</td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-outline-dark">Edit</button>
-                                                    <button class="btn btn-sm btn-outline-danger">Hapus</button>
+                                                    <button type="button" wire:click="$emit('refreshComponent')" class="btn btn-sm btn-outline-primary">Reload</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-dark" wire:click="editPelaksanaPerjal({{ $item->id }})" data-toggle="modal"
+                                                        data-target="#editPelaksanaPerjalModal">Edit</button>
+                                                    <button class="btn btn-sm btn-outline-danger" wire:click="deletePelaksanaPerjal({{ $item->id }})">Hapus</button>
                                                 </td>
                                             </tr>
                                         @empty
@@ -126,114 +145,231 @@
 
                     <hr>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Dasar</label>
-                        <div class="col-sm-9">
-                            <textarea wire:model.defer="dasar" cols="20" rows="3" class="form-control @error('dasar') is-invalid @enderror">{{ old('dasar') }}</textarea>
-                            @error('dasar')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                    <div class="card card-secondary card-tabs">
+                        <div class="card-header p-0 pt-1">
+                            <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                                <li class="pt-2 px-3"><h3 class="card-title">Rincian SPPD</h3></li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="kegiatan-tab" data-toggle="pill" href="#custom-tabs-two-kegiatan" role="tab" aria-controls="custom-tabs-two-kegiatan" aria-selected="true">Kegiatan</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="biaya-tab" data-toggle="pill" href="#custom-tabs-two-biaya" role="tab" aria-controls="custom-tabs-two-biaya" aria-selected="false">Biaya</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Messages</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill" href="#custom-tabs-two-settings" role="tab" aria-controls="custom-tabs-two-settings" aria-selected="false">Settings</a>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Lokasi Ditetapkan</label>
-                        <div class="col-sm-9">
-                            <textarea wire:model.defer="lokasi_ditetapkan" cols="20" rows="3" class="form-control @error('lokasi_ditetapkan') is-invalid @enderror">{{ old('dasar') }}</textarea>
-                            @error('lokasi_ditetapkan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Jumlah Hari</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control @error('jumlah_hari') is-invalid @enderror" wire:model.defer="jumlah_hari" value="{{ old('jumlah_hari') }}">
-                            @error('jumlah_hari')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Hari</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control @error('hari') is-invalid @enderror" wire:model.defer="hari" value="{{ old('hari') }}">
-                            @error('hari')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Tanggal Mulai</label>
-                        <div class="col-sm-9">
-                            <input type="date" class="form-control @error('tgl_mulai') is-invalid @enderror" wire:model.defer="tgl_mulai" value="{{ old('tgl_mulai') }}">
-                            @error('tgl_mulai')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Tanggal Selesai</label>
-                        <div class="col-sm-9">
-                            <input type="date" class="form-control @error('tgl_selesai') is-invalid @enderror" wire:model.defer="tgl_selesai" value="{{ old('tgl_selesai') }}">
-                            @error('tgl_selesai')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Tanggal SPPD Dibuat</label>
-                        <div class="col-sm-9">
-                            <input type="date" class="form-control @error('tgl_sppd') is-invalid @enderror" wire:model.defer="tgl_sppd" value="{{ old('tgl_sppd') }}">
-                            @error('tgl_sppd')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Maksud Perjalanan</label>
-                        <div class="col-sm-9">
-                            <textarea wire:model.defer="maksud_perjalanan" cols="20" rows="3" class="form-control @error('maksud_perjalanan') is-invalid @enderror">{{ old('maksud_perjalanan') }}</textarea>
-                            @error('maksud_perjalanan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Tempat Tujuan</label>
-                        <div class="col-sm-9">
-                            <textarea wire:model.defer="tempat_tujuan" cols="20" rows="3" class="form-control @error('tempat_tujuan') is-invalid @enderror">{{ old('tempat_tujuan') }}</textarea>
-                            @error('tempat_tujuan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Jam Acara</label>
-                        <div class="col-sm-9">
-                            <input type="time" class="form-control @error('jam_acara') is-invalid @enderror" wire:model.defer="jam_acara" value="{{ old('jam_acara') }}">
-                            @error('jam_acara')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <div class="card-body">
+                            <div class="tab-content" id="custom-tabs-two-tabContent">
+                                <div class="tab-pane fade" id="custom-tabs-two-kegiatan" role="tabpanel" aria-labelledby="kegiatan-tab">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Dasar</label>
+                                        <div class="col-sm-9">
+                                            <textarea wire:model.defer="dasar" cols="20" rows="3" class="form-control @error('dasar') is-invalid @enderror">{{ old('dasar') }}</textarea>
+                                            @error('dasar')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Lokasi Ditetapkan</label>
+                                        <div class="col-sm-9">
+                                            <textarea wire:model.defer="lokasi_ditetapkan" cols="20" rows="3" class="form-control @error('lokasi_ditetapkan') is-invalid @enderror">{{ old('dasar') }}</textarea>
+                                            @error('lokasi_ditetapkan')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Jumlah Hari</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control @error('jumlah_hari') is-invalid @enderror" wire:model.defer="jumlah_hari" value="{{ old('jumlah_hari') }}">
+                                            @error('jumlah_hari')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Hari</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control @error('hari') is-invalid @enderror" wire:model.defer="hari" value="{{ old('hari') }}">
+                                            @error('hari')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Tanggal Mulai</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control @error('tgl_mulai') is-invalid @enderror" wire:model.defer="tgl_mulai" value="{{ old('tgl_mulai') }}">
+                                            @error('tgl_mulai')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Tanggal Selesai</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control @error('tgl_selesai') is-invalid @enderror" wire:model.defer="tgl_selesai" value="{{ old('tgl_selesai') }}">
+                                            @error('tgl_selesai')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Tanggal SPPD Dibuat</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control @error('tgl_sppd') is-invalid @enderror" wire:model.defer="tgl_sppd" value="{{ old('tgl_sppd') }}">
+                                            @error('tgl_sppd')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Maksud Perjalanan</label>
+                                        <div class="col-sm-9">
+                                            <textarea wire:model.defer="maksud_perjalanan" cols="20" rows="3" class="form-control @error('maksud_perjalanan') is-invalid @enderror">{{ old('maksud_perjalanan') }}</textarea>
+                                            @error('maksud_perjalanan')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Tempat Tujuan</label>
+                                        <div class="col-sm-9">
+                                            <textarea wire:model.defer="tempat_tujuan" cols="20" rows="3" class="form-control @error('tempat_tujuan') is-invalid @enderror">{{ old('tempat_tujuan') }}</textarea>
+                                            @error('tempat_tujuan')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Jam Acara</label>
+                                        <div class="col-sm-9">
+                                            <input type="time" class="form-control @error('jam_acara') is-invalid @enderror" wire:model.defer="jam_acara" value="{{ old('jam_acara') }}">
+                                            @error('jam_acara')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show active" id="custom-tabs-two-biaya" role="tabpanel" aria-labelledby="biaya-tab">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Uang Harian</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control @error('uang_harian') is-invalid @enderror" wire:model="uang_harian" value="0">
+                                                    @error('uang_harian')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Biaya Transport</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control @error('biaya_transport') is-invalid @enderror" wire:model="biaya_transport" value="0">
+                                                    @error('biaya_transport')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Biaya Penginapan</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control @error('biaya_penginapan') is-invalid @enderror" wire:model="biaya_penginapan" value="0">
+                                                    @error('biaya_penginapan')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Total Biaya</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly class="form-control @error('resultTotalBiaya') is-invalid @enderror" wire:model="resultTotalBiaya" value="0">
+                                                    @error('resultTotalBiaya')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Uang Representasi</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control @error('uang_representasi') is-invalid @enderror" wire:model="uang_representasi" value="0">
+                                                    @error('uang_representasi')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Biaya Pesawat</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control @error('biaya_pesawat') is-invalid @enderror" wire:model="biaya_pesawat" value="{{ old('biaya_pesawat') }}">
+                                                    @error('biaya_pesawat')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Biaya Lainnya</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control @error('biaya_lainnya') is-invalid @enderror" wire:model="biaya_lainnya" value="0">
+                                                    @error('biaya_lainnya')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+                                    Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel" aria-labelledby="custom-tabs-two-settings-tab">
+                                    Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -241,3 +377,38 @@
         </div>
     @endif
 </div>
+
+@push('script')
+    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.livesearch_pegawai').select2({
+                placeholder: 'Pilih Pegawai',
+                ajax: {
+                    url: '/dashboard/admin/sppd/autocomplete-get-pegawai',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.nama_pegawai,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            })
+        });
+    </script>
+    <script>
+        window.addEventListener('close-modal', event => {
+            // $('#addBrandModel').modal('hide');
+            $('#editPelaksanaPerjalModal').modal('hide');
+            // $('#deleteBrandModel').modal('hide');
+        });
+    </script>
+@endpush
