@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DevelopmentSPPD\PrintOutController;
 use App\Http\Controllers\Admin\DevelopmentSPPD\SppdController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/dashboard/dashboard-v1', [App\Http\Controllers\Dashboard\DashboardV1::class, 'index'])->name('dashboard-v1');
 Route::get('/dashboard/dashboard-v2', [App\Http\Controllers\Dashboard\DashboardV2::class, 'index'])->name('dashboard-v2');
 Route::get('/dashboard/dashboard-v3', [App\Http\Controllers\Dashboard\DashboardV3::class, 'index'])->name('dashboard-v3');
+
+Route::controller(PrintOutController::class)->group(function () {
+    Route::get('/printout/surat-tugas/{perjalanandinas_id}', 'suratTugas');
+});
 
 Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(function () {
 

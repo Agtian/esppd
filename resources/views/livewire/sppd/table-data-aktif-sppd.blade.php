@@ -53,9 +53,12 @@
                                 <td>{{ $item->tempat_tujuan }}</td>
                                 <td align="center">{{ $item->jam_acara }}</td>
                                 <td>{{ date('d M Y', strtotime($item->tgl_mulai)).' s.d '.date('d M Y', strtotime($item->tgl_selesai)) }}</td>
-                                <td width="170" align="center">
-                                    <button wire:click="openDetail({{ $item->id }})" class="btn btn-outline-dark btn-sm">DETAIL</button>
-                                    <a href="" class="btn btn-outline-danger btn-sm">SELESAI</a>
+                                <td width="150">
+                                    <button wire:click="openDetail({{ $item->id }})" class="btn btn-outline-dark btn-sm m-1">DETAIL</button>
+                                    <a href="{{ url('printout/surat-tugas/'.$item->id) }}" class="btn btn-outline-primary btn-sm m-1" target="_blank">Surat Tugas</a>
+                                    <a href="" class="btn btn-outline-primary btn-sm m-1">SPPD</a>
+                                    <a href="" class="btn btn-outline-primary btn-sm m-1">Rincian Biaya</a>
+                                    <a href="" class="btn btn-outline-danger btn-sm m-1">SELESAI</a>
                                 </td>
                             </tr>
                         @empty
