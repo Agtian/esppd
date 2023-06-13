@@ -16,21 +16,35 @@ class PrintOutController extends Controller
         ]);
         
         PDF::SetTitle('e SPPD | Surat Tugas');
-        PDF::AddPage();
+        PDF::AddPage('P', [215,330]);
         PDF::writeHTML($html, true, false, true, false, '');
 
         PDF::Output('Surat Tugas.pdf');
     }
 
-    public function suratSPPD($perjalanandinas_id)
+    public function suratSPPDLembarPertama($perjalanandinas_id)
     {
         // use TCPDF
-        $html = view('layouts.admin.sppd.printout.surat-perintah-perjalanan-dinas')->with([
+        $html = view('layouts.admin.sppd.printout.surat-perintah-perjalanan-dinas-i')->with([
             // 'detail'    => (new tDiklat())->getDetailSuratBalasan($no_pendaftaran)
         ]);
         
         PDF::SetTitle('e SPPD | Surat Perintah Perjalanan Dinas');
-        PDF::AddPage();
+        PDF::AddPage('P', [215,330]);
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output('SPPD.pdf');
+    }
+
+    public function suratSPPDLembarKedua()
+    {
+        // use TCPDF
+        $html = view('layouts.admin.sppd.printout.surat-perintah-perjalanan-dinas-ii')->with([
+            // 'detail'    => (new tDiklat())->getDetailSuratBalasan($no_pendaftaran)
+        ]);
+        
+        PDF::SetTitle('e SPPD | Surat Perintah Perjalanan Dinas');
+        PDF::AddPage('P', [215,330]);
         PDF::writeHTML($html, true, false, true, false, '');
 
         PDF::Output('SPPD.pdf');
