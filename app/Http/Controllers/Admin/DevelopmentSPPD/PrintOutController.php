@@ -15,16 +15,25 @@ class PrintOutController extends Controller
             // 'detail'    => (new tDiklat())->getDetailSuratBalasan($no_pendaftaran)
         ]);
         
-        PDF::SetTitle('e Diklat | Surat Balasan');
+        PDF::SetTitle('e SPPD | Surat Tugas');
         PDF::AddPage();
         PDF::writeHTML($html, true, false, true, false, '');
 
         PDF::Output('Surat Tugas.pdf');
     }
 
-    public function suratSPPD()
+    public function suratSPPD($perjalanandinas_id)
     {
+        // use TCPDF
+        $html = view('layouts.admin.sppd.printout.surat-perintah-perjalanan-dinas')->with([
+            // 'detail'    => (new tDiklat())->getDetailSuratBalasan($no_pendaftaran)
+        ]);
         
+        PDF::SetTitle('e SPPD | Surat Perintah Perjalanan Dinas');
+        PDF::AddPage();
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output('SPPD.pdf');
     }
 
     public function rincianBiaya()

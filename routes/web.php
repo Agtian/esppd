@@ -30,6 +30,7 @@ Route::get('/dashboard/dashboard-v3', [App\Http\Controllers\Dashboard\DashboardV
 
 Route::controller(PrintOutController::class)->group(function () {
     Route::get('/printout/surat-tugas/{perjalanandinas_id}', 'suratTugas');
+    Route::get('/printout/sppd/{perjalanandinas_id}', 'suratSPPD');
 });
 
 Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(function () {

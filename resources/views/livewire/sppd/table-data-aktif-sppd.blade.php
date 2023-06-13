@@ -56,7 +56,7 @@
                                 <td width="150">
                                     <button wire:click="openDetail({{ $item->id }})" class="btn btn-outline-dark btn-sm m-1">DETAIL</button>
                                     <a href="{{ url('printout/surat-tugas/'.$item->id) }}" class="btn btn-outline-primary btn-sm m-1" target="_blank">Surat Tugas</a>
-                                    <a href="" class="btn btn-outline-primary btn-sm m-1">SPPD</a>
+                                    <a href="{{ url('printout/sppd/'.$item->id) }}" class="btn btn-outline-primary btn-sm m-1" target="_blank">SPPD</a>
                                     <a href="" class="btn btn-outline-primary btn-sm m-1">Rincian Biaya</a>
                                     <a href="" class="btn btn-outline-danger btn-sm m-1">SELESAI</a>
                                 </td>
