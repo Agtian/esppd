@@ -29,9 +29,13 @@ Route::get('/dashboard/dashboard-v2', [App\Http\Controllers\Dashboard\DashboardV
 Route::get('/dashboard/dashboard-v3', [App\Http\Controllers\Dashboard\DashboardV3::class, 'index'])->name('dashboard-v3');
 
 Route::controller(PrintOutController::class)->group(function () {
-    Route::get('/printout/surat-tugas/{perjalanandinas_id}', 'suratTugas');
-    Route::get('/printout/sppd-i/{perjalanandinas_id}', 'suratSPPDLembarPertama');
-    Route::get('/printout/sppd-ii', 'suratSPPDLembarKedua');
+    Route::get('/printout/surat-tugas-i/{perjalanandinas_id}', 'suratTugasKurangDari4Orang');
+    Route::get('/printout/sppd/{perjalanandinas_id}', 'suratSPPD');
+    Route::get('/printout/rincian-biaya-i/{perjalanandinas_id}', 'rincianBiayaI');
+    
+    Route::get('/printout/surat-tugas-ii/{perjalanandinas_id}', 'suratTugasLebihDari4Orang');
+    Route::get('/printout/sppd-iii/{perjalanandinas_id}', 'suratSPPDLebihDari4Orang');
+    Route::get('/printout/rincian-biaya-ii/{perjalanandinas_id}', 'rincianBiayaLebihDari4Orang');
 });
 
 Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(function () {

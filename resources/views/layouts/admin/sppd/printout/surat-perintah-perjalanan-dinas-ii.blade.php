@@ -1,6 +1,7 @@
 <style>
     .print {
         font-family: "Times New Roman", Times, serif;
+        font-size: 11pt;
     }
 
     .justify {
@@ -10,7 +11,8 @@
 </style>
 
 <div class="print">
-    <table border="0.3" cellpadding="6" width="100%">
+    <h4>Lembar II SPPD</h4>
+    <table border="0.3" cellpadding="1" width="100%">
         <tr>
             <td></td>
             <td>
@@ -33,7 +35,7 @@
             <td>
                 II. &nbsp; Tiba di : ... <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pada Tanggal : .. <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kepala : .. <br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kepala : .. <br>
                     <p>&nbsp;&nbsp;&nbsp; (..........................................................................)
                         <br>&nbsp;&nbsp;&nbsp; NIP.
                     </p>
@@ -42,7 +44,7 @@
                 &nbsp; Berangkat dari : ... <br>
                 &nbsp; Ke : .. <br>
                 &nbsp; Pada Tanggal : .. <br>
-                &nbsp; Kepala : .. <br>
+                &nbsp; Kepala : .. 
                 <p>&nbsp;&nbsp;&nbsp; (..........................................................................)
                     <br>&nbsp;&nbsp;&nbsp; NIP.
                 </p>
@@ -52,7 +54,7 @@
             <td>
                 III. &nbsp; Tiba di : ... <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pada Tanggal : .. <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kepala : .. <br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kepala : .. <br>
                     <p>&nbsp;&nbsp;&nbsp; (..........................................................................)
                         <br>&nbsp;&nbsp;&nbsp; NIP.
                     </p>
@@ -61,7 +63,7 @@
                 &nbsp; Berangkat dari : ... <br>
                 &nbsp; Ke : .. <br>
                 &nbsp; Pada Tanggal : .. <br>
-                &nbsp; Kepala : .. <br>
+                &nbsp; Kepala : .. 
                 <p>&nbsp;&nbsp;&nbsp; (..........................................................................)
                     <br>&nbsp;&nbsp;&nbsp; NIP.
                 </p>
@@ -71,7 +73,7 @@
             <td>
                 IV. &nbsp; Tiba di : ... <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pada Tanggal : .. <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kepala : .. <br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kepala : .. <br>
                     <p>&nbsp;&nbsp;&nbsp; (..........................................................................)
                         <br>&nbsp;&nbsp;&nbsp; NIP.
                     </p>
@@ -80,7 +82,7 @@
                 &nbsp; Berangkat dari : ... <br>
                 &nbsp; Ke : .. <br>
                 &nbsp; Pada Tanggal : .. <br>
-                &nbsp; Kepala : .. <br>
+                &nbsp; Kepala : .. 
                 <p>&nbsp;&nbsp;&nbsp; (..........................................................................)
                     <br>&nbsp;&nbsp;&nbsp; NIP.
                 </p>
@@ -90,7 +92,7 @@
             <td>
                 V. &nbsp; Tiba di : ... <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pada Tanggal : .. <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kepala : .. <br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kepala : .. <br>
                     <p>&nbsp;&nbsp;&nbsp; (..........................................................................)
                         <br>&nbsp;&nbsp;&nbsp; NIP.
                     </p>
@@ -99,7 +101,7 @@
                 &nbsp; Berangkat dari : ... <br>
                 &nbsp; Ke : .. <br>
                 &nbsp; Pada Tanggal : .. <br>
-                &nbsp; Kepala : .. <br>
+                &nbsp; Kepala : .. 
                 <p>&nbsp;&nbsp;&nbsp; (..........................................................................)
                     <br>&nbsp;&nbsp;&nbsp; NIP.
                 </p>
@@ -110,19 +112,32 @@
                 VI. Tiba ditempat kedudukan : ... <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pada Tanggal : .. <br><br>
                     <div align="center">
-                        An. Kuasa Pengguna Anggaran <br>Pejabat Pembuat Komitmen<br>
+                        Direktur RSUD Kelet <br>Provinsi Jawa Tengah<br>
                         <br><br>
                         <b><u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u></b><br>
                         NIP. 19701111 2005 01 1 003
                     </div>
             </td>
             <td class="justify">Telah diperiksa dengan keterangan bahwa perjalanan tersebut atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.
+                <br>
                 <div align="center">
-                    An. Kuasa Pengguna Anggaran <br>Pejabat Pembuat Komitmen<br>
+                    Direktur RSUD Kelet <br>Provinsi Jawa Tengah<br>
                     <br><br>
                     <b><u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u></b><br>
                     NIP. 19701111 2005 01 1 003
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" height="30">
+                VII. Catatan Lain-lain
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                VIII. Perhatian
+                <div class="ml-10 justify">Pengguna Anggaran/Kuasa Pengguna Anggaran yang menerbitkan SPPD, Gubernur/Wakil Gubernur, Pimpinandan Anggota DPRD, Pegawai ASN, CPNS, dan Pegawai Non ASN yang melakukan perjalanan dinas, parapejabat yang mengesahkan tanggal berangkat/tiba, serta bendahara pengeluaran bertanggung jawab
+                    berdasarkan peraturan-peraturan Keuangan Daerah apabila daerah menderita rugi akibat kesalahan, kelalaian,dan kealpaanya.</div>
             </td>
         </tr>
     </table>

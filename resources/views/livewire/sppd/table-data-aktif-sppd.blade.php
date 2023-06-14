@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive">
+            <div class="table-responsive" style="height: 600px;">
                 <table class="table table-striped table-bordered m-0">
                     <thead>
                         <tr align="center">
@@ -53,13 +53,26 @@
                                 <td>{{ $item->tempat_tujuan }}</td>
                                 <td align="center">{{ $item->jam_acara }}</td>
                                 <td>{{ date('d M Y', strtotime($item->tgl_mulai)).' s.d '.date('d M Y', strtotime($item->tgl_selesai)) }}</td>
-                                <td width="160">
-                                    <button wire:click="openDetail({{ $item->id }})" class="btn btn-outline-dark btn-sm m-1">DETAIL</button>
-                                    <a href="{{ url('printout/surat-tugas/'.$item->id) }}" class="btn btn-outline-primary btn-sm m-1" target="_blank">Surat Tugas</a>
-                                    <a href="{{ url('printout/sppd-i/'.$item->id) }}" class="btn btn-outline-primary btn-sm m-1" target="_blank">Lembar I SPPD</a>
-                                    <a href="{{ url('printout/sppd-ii') }}" class="btn btn-outline-primary btn-sm m-1" target="_blank">Lembar II SPPD</a>
-                                    <a href="" class="btn btn-outline-primary btn-sm m-1">Rincian Biaya</a>
-                                    <a href="" class="btn btn-outline-danger btn-sm m-1">SELESAI</a>
+                                <td width="100" align="center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-dark">OPTION</button>
+                                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-hover dropdown-icon" data-toggle="dropdown">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu">
+                                            <button class="dropdown-item" wire:click="openDetail({{ $item->id }})">Detail</button>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ url('printout/surat-tugas-i/'.$item->id) }}" target="_blank">SPPD</a>
+                                            <a class="dropdown-item" href="{{ url('printout/sppd') }}" target="_blank">SPPD</a>
+                                            <a class="dropdown-item" href="{{ url('printout/rincian-biaya-i') }}" target="_blank">Rincian Biaya</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ url('printout/surat-tugas-ii/'.$item->id) }}" target="_blank">Surat Tugas</a>
+                                            <a class="dropdown-item" href="{{ url('printout/sppd-iii/'.$item->id) }}" target="_blank">SPPD</a>
+                                            <a class="dropdown-item" href="{{ url('printout/rincian-biaya-ii') }}" target="_blank">Rincian Biaya</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="">SELESAI</a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
