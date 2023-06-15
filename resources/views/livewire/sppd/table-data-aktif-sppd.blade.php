@@ -72,7 +72,7 @@
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ url('printout/surat-tugas-ii/'.$item->id) }}" target="_blank">Surat Tugas</a>
                                                 <a class="dropdown-item" href="{{ url('printout/sppd-iii/'.$item->id) }}" target="_blank">SPPD</a>
-                                                <a class="dropdown-item" href="{{ url('printout/rincian-biaya-ii') }}" target="_blank">Rincian Biaya</a>
+                                                <a class="dropdown-item" href="{{ url('printout/rincian-biaya-ii/'.$item->id) }}" target="_blank">Rincian Biaya</a>
                                             @endif
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="">SELESAI</a>

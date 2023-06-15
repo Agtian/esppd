@@ -51,8 +51,8 @@
         </tr>
         <tr>
             <td width="30" align="center">6.</td>
-            <td>a. Tempat Berangkat <br>a. ...</td>
-            <td>a. Tempat Tujuan<br>b. ...</td>
+            <td>a. Tempat Berangkat <br>b. Tempat Tujuan</td>
+            <td>a. ...<br>b. ...</td>
         </tr>
         <tr>
             <td width="30" align="center">7.</td>

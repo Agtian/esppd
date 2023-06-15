@@ -46,7 +46,7 @@
         <tr>
             <td width="30" align="right">3.</td>
             <td width="200">a. Pangkat dan Golongan <br>b. Jabatan/Instansi</td>
-            <td width="295">... <br> ...</td>
+            <td width="295">a. ... <br>b. ...</td>
         </tr>
         <tr>
             <td width="30" align="right">4.</td>
@@ -61,12 +61,12 @@
         <tr>
             <td width="30" align="right">6.</td>
             <td width="200">a. Tempat Berangkat <br>b. Tempat Tujuan</td>
-            <td width="295">... <br> ...</td>
+            <td width="295">a. ... <br>b. ...</td>
         </tr>
         <tr>
             <td width="30" align="right">7.</td>
             <td width="200">a. Lamanya Perjalanan Dinas <br>b. Tanggal Berangkat <br>c. Tanggal Harus Kembali</td>
-            <td width="295">... <br> ... <br> ...</td>
+            <td width="295">a. ... <br>b. ... <br>c. ...</td>
         </tr>
         <tr>
             <td width="30" align="right">8.</td>
@@ -76,7 +76,7 @@
         <tr>
             <td width="30" align="right">9.</td>
             <td width="200">Pembebanan Anggaran <br> a. Instansi <br> b. Mata Anggaran</td>
-            <td width="295">... <br> ...</td>
+            <td width="295">a. ... <br>b. (sesuai DPA kegiatan)</td>
         </tr>
         <tr>
             <td width="30" align="right">10.</td>
@@ -100,6 +100,14 @@
         <tr>
             <td width="280"></td>
             <td>Pada  tanggal </td>
+        </tr>
+        <tr>
+            <td width="280"></td>
+            <td>Ditetapkan di Jepara </td>
+        </tr>
+        <tr>
+            <td width="280"></td>
+            <td>Tanggal </td>
         </tr>
     </table>
     <br><br>

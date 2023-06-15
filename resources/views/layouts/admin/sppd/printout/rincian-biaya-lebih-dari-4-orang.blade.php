@@ -41,31 +41,31 @@
             <td align="center">1.</td>
             <td>Uang Harian*</td>
             <td></td>
-            <td></td>
+            <td rowspan="5" align="center">Terlampir</td>
         </tr>
         <tr>
             <td align="center">2.</td>
             <td>Biaya Transport*</td>
-            <td></td>
             <td></td>
         </tr>
         <tr>
             <td align="center">3.</td>
             <td>Biaya Penginapan*</td>
             <td></td>
-            <td></td>
         </tr>
         <tr>
             <td align="center">4.</td>
             <td>Uang Representasi*</td>
-            <td></td>
             <td></td>
         </tr>
         <tr>
             <td align="center">5.</td>
             <td>Lain-lain*</td>
             <td></td>
-            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">Terbilang</td>
+            <td colspan="2"></td>
         </tr>
     </table>
     <table>

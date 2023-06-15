@@ -27,6 +27,9 @@
             <td width="10">:</td>
             <td width="470"> ......</td>
         </tr>
+        <tr><td colspan="3"></td></tr>
+        <tr><td colspan="3" align="center"><h3>MEMERINTAHKAN</h3></td></tr>
+        <tr><td colspan="3"></td></tr>
         <tr>
             <td width="60">Kepada</td>
             <td width="10">:</td>
