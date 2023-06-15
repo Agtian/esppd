@@ -41,11 +41,13 @@
                                 <td>{{ $item->no_sppd }}</td>
                                 <td>
                                     <ul class="nav nav-pills flex-column">
-                                        @foreach ($item->pelaksanaPerjals as $listPelaksana)
+                                        @forelse ($item->pelaksanaPerjals as $listPelaksana)
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#"><i class="far fa-circle text-primary"></i> {{ $listPelaksana->nama_pegawai.' '.$listPelaksana->gelarbelakang_nama }}</a>
                                             </li>
-                                        @endforeach
+                                        @empty
+                                            <button class="btn btn-md btn-outline-danger">Pelaksana SPPD tidak tersedia !</button>
+                                        @endforelse
                                     </ul>
                                 </td>
                                 <td>{{ $item->dasar }}</td>
@@ -61,14 +63,17 @@
                                         </button>
                                         <div class="dropdown-menu" role="menu">
                                             <button class="dropdown-item" wire:click="openDetail({{ $item->id }})">Detail</button>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ url('printout/surat-tugas-i/'.$item->id) }}" target="_blank">SPPD</a>
-                                            <a class="dropdown-item" href="{{ url('printout/sppd') }}" target="_blank">SPPD</a>
-                                            <a class="dropdown-item" href="{{ url('printout/rincian-biaya-i') }}" target="_blank">Rincian Biaya</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ url('printout/surat-tugas-ii/'.$item->id) }}" target="_blank">Surat Tugas</a>
-                                            <a class="dropdown-item" href="{{ url('printout/sppd-iii/'.$item->id) }}" target="_blank">SPPD</a>
-                                            <a class="dropdown-item" href="{{ url('printout/rincian-biaya-ii') }}" target="_blank">Rincian Biaya</a>
+                                            @if ($item->pelaksanaPerjals->count() <= 4)
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="{{ url('printout/surat-tugas-i/'.$item->id) }}" target="_blank">Surat Tugas</a>
+                                                <a class="dropdown-item" href="{{ url('printout/sppd/'.$item->id) }}" target="_blank">SPPD</a>
+                                                <a class="dropdown-item" href="{{ url('printout/rincian-biaya-i/'.$item->id) }}" target="_blank">Rincian Biaya</a>
+                                            @else
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="{{ url('printout/surat-tugas-ii/'.$item->id) }}" target="_blank">Surat Tugas</a>
+                                                <a class="dropdown-item" href="{{ url('printout/sppd-iii/'.$item->id) }}" target="_blank">SPPD</a>
+                                                <a class="dropdown-item" href="{{ url('printout/rincian-biaya-ii') }}" target="_blank">Rincian Biaya</a>
+                                            @endif
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="">SELESAI</a>
                                         </div>
@@ -98,7 +103,10 @@
         </div>
     @endif
 
+    
+    @include('livewire.sppd.modals.form-tambah-pelaksana-perjal')
     @include('livewire.sppd.modals.form-edit-pelaksana-perjal')
+    @include('livewire.sppd.modals.form-delete-pelaksana-perjal')
     
     @if ($showDetail)
         <div class="card card-dark">
@@ -121,7 +129,9 @@
 
                     <div class="mb-3">
                         <button type="submit" class="btn btn-md btn-outline-success">Simpan SPPD</button>
-                        <button class="btn btn-md btn-outline-primary">Tambah Pelaksana</button>
+                        <button type="button" wire:click="$emit('refreshComponent')" class="btn btn-md btn-outline-primary">Reload Data</button>
+                        <button type="button" class="btn btn-md btn-outline-primary" data-toggle="modal"
+                        data-target="#tambahPelaksanaPerjalModal" wire:click="openAddPelaksanaModal">Tambah Pelaksana</button>
                     </div>
 
                     <div class="card card-outline card-secondary">
@@ -146,12 +156,13 @@
                                                     <button type="button" wire:click="$emit('refreshComponent')" class="btn btn-sm btn-outline-primary">Reload</button>
                                                     <button type="button" class="btn btn-sm btn-outline-dark" wire:click="editPelaksanaPerjal({{ $item->id }})" data-toggle="modal"
                                                         data-target="#editPelaksanaPerjalModal">Edit</button>
-                                                    <button class="btn btn-sm btn-outline-danger" wire:click="deletePelaksanaPerjal({{ $item->id }})">Hapus</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" wire:click="deletePelaksanaPerjal({{ $item->id }})" data-toggle="modal"
+                                                        data-target="#deletePelaksanaPerjalModal">Hapus</button>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="3">Data tidak tersedia !</td>
+                                                <td colspan="4" align="center" class="bg-danger">Data pelaksana tidak tersedia, silahkan input pelaksana perjalanan dinas!</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -423,9 +434,9 @@
     </script>
     <script>
         window.addEventListener('close-modal', event => {
-            // $('#addBrandModel').modal('hide');
+            $('#tambahPelaksanaPerjalModal').modal('hide');
             $('#editPelaksanaPerjalModal').modal('hide');
-            // $('#deleteBrandModel').modal('hide');
+            $('#deletePelaksanaPerjalModal').modal('hide');
         });
     </script>
 @endpush

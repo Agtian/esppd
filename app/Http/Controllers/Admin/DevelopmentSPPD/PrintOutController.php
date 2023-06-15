@@ -43,6 +43,20 @@ class PrintOutController extends Controller
         PDF::Output('SPPD.pdf');
     }
 
+    public function rincianBiayaI()
+    {
+        // use TCPDF
+        $html = view('layouts.admin.sppd.printout.rincian-biaya-i')->with([
+            // 'detail'    => (new tDiklat())->getDetailSuratBalasan($no_pendaftaran)
+        ]);
+        
+        PDF::SetTitle('e SPPD | Rincian Biaya');
+        PDF::AddPage('P', [215,330]);
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output('Rincian Biaya.pdf');
+    }
+
     public function suratTugasLebihDari4Orang()
     {
         // use TCPDF

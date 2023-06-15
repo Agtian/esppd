@@ -7,6 +7,7 @@ use App\Models\PelaksanaPerjalananDinas;
 use App\Models\PerjalananDinas;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class TableDataAktifSppd extends Component
 {
@@ -18,7 +19,7 @@ class TableDataAktifSppd extends Component
 
     public $pegawaiPelaksana = [];
     
-    public $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $lokasi_ditetapkan, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya;
+    public $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $lokasi_ditetapkan, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
 
     public $detailResultAktifSPPD;
 
@@ -40,6 +41,7 @@ class TableDataAktifSppd extends Component
 
     public function resetInput()
     {
+        $this->addpegawai_id = NULL;
         $this->gelardepan = NULL;
         $this->nama_pegawai = NULL;
         $this->gelarbelakang_nama = NULL;
@@ -50,6 +52,9 @@ class TableDataAktifSppd extends Component
     {
         $this->resultTotalBiaya = (($this->uang_harian == '') ? 0 : $this->uang_harian) + (($this->biaya_transport == '') ? 0 : $this->biaya_transport) + (($this->biaya_penginapan == '') ? 0 : $this->biaya_penginapan) + (($this->uang_representasi == '') ? 0 : $this->uang_representasi) + (($this->biaya_pesawat == '') ? 0 : $this->biaya_pesawat) + (($this->biaya_lainnya == '') ? 0 : $this->biaya_lainnya);
 
+        
+        $this->jumlahPelaksanaPerjal = PelaksanaPerjalananDinas::where('perjalanandinas_id', $this->perjalanandinas_id)->count();
+
         $resultAktifSPPD = PerjalananDinas::paginate(10);
         return view('livewire.sppd.table-data-aktif-sppd', compact('resultAktifSPPD'));
     }
@@ -57,7 +62,7 @@ class TableDataAktifSppd extends Component
     public function openDetail(int $perjalanandinas_id)
     {
         $this->showDetail =! $this->showDetail;
-
+        
         $perjalananDinas = PerjalananDinas::findOrFail($perjalanandinas_id);
         $this->detailResultAktifSPPD = PerjalananDinas::find($perjalanandinas_id);
 
@@ -121,6 +126,34 @@ class TableDataAktifSppd extends Component
         $this->resetInput();
     }
 
+    public function openAddPelaksanaModal()
+    {
+        $this->resetInput();
+        $this->pegawaiPelaksana = Pegawais::all();
+    }
+
+    public function storePelaksanaPerjal()
+    {
+        $validatedAdd = $this->validate([
+            'addpegawai_id'            => 'required',
+        ]);
+
+        $detPegawais = Pegawais::findOrFail($validatedAdd['addpegawai_id']);
+        PelaksanaPerjalananDinas::create([
+            'perjalanandinas_id'    => $this->perjalanandinas_id,
+            'pegawai_id'            => $validatedAdd['addpegawai_id'],
+            'gelardepan'            => $detPegawais->gelardepan,
+            'nama_pegawai'          => $detPegawais->nama_pegawai,
+            'gelarbelakang_nama'    => $detPegawais->gelarbelakang_nama,
+            'nomorindukpegawai'     => $detPegawais->nomorindukpegawai,
+            'tgl_sppd'              => $this->tgl_sppd,
+        ]);
+
+        session()->flash('message', 'Pelaksana perjalanan dinas berhasil disimpan');
+        $this->dispatchBrowserEvent('close-modal');
+        $this->resetInput();
+    }
+
     public function updateSPPD()
     {
         $validatedData = $this->validate();
@@ -154,6 +187,19 @@ class TableDataAktifSppd extends Component
         ]);
 
         session()->flash('message', "Rincian SPPD : $this->no_sppd berhasil diperbarui");
+        $this->resetInput();
+    }
+
+    public function deletePelaksanaPerjal($perjalanandinas_id)
+    {
+        $this->perjalanandinas_id = $perjalanandinas_id;
+    }
+
+    public function destroyPelaksanaPerjal()
+    {
+        PelaksanaPerjalananDinas::findOrFail($this->perjalanandinas_id)->delete();
+        session()->flash('message', 'Pelaksana perjalanan dinas berhasil dihapus');
+        $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
     }
 }
