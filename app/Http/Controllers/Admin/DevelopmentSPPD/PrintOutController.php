@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\DevelopmentSPPD;
 
 use App\Http\Controllers\Controller;
+use App\Models\PerjalananDinas;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -12,7 +13,7 @@ class PrintOutController extends Controller
     {
         // use TCPDF
         $html = view('layouts.admin.sppd.printout.surat-tugas-i')->with([
-            // 'detail'    => (new tDiklat())->getDetailSuratBalasan($no_pendaftaran)
+            'detail'    => PerjalananDinas::find($perjalanandinas_id),
         ]);
         
         PDF::SetTitle('e SPPD | Surat Tugas');

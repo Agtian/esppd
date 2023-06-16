@@ -15,10 +15,10 @@
     <br>
     <table>
         <tr>
-            <td align="center"><b>SURAT PERINTAH TUGAS</b></td>
+            <td align="center"><h2><b>SURAT PERINTAH TUGAS</b></h2></td>
         </tr>
         <tr>
-            <td align="center">Nomor :</td>
+            <td align="center">Nomor : {{ $detail->no_sppd }}</td>
         </tr>
     </table>
     <br>
@@ -26,56 +26,61 @@
         <tr>
             <td width="60">Dasar</td>
             <td width="5">: </td>
-            <td width="460" class="justify">Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.</td>
+            <td width="460" class="justify">{{ $detail->dasar }}</td>
         </tr>
+        <tr><td colspan="3"></td></tr>
         <tr>
             <td colspan="3" align="center">MEMERINTAHKAN</td>
         </tr>
     </table>
-    <br>
+    <br><br>
     <table>
-        <tr>
-            <td width="60" rowspan="4">Kepada</td>
-            <td width="5" rowspan="4">:</td>
-            <td width="15" rowspan="4">1.</td>
-            <td width="100"> Nama</td>
-            <td width="10">: </td>
-            <td width="430">orbi turpis dolor, vulputate vitae felis non</td>
-        </tr>
-        <tr>
-            <td width="100"> NIP</td>
-            <td width="10">: </td>
-            <td width="430">orbi turpis dolor, vulputate vitae felis non</td>
-        </tr>
-        <tr>
-            <td width="100"> Pangkat, gol, ruang</td>
-            <td width="10">: </td>
-            <td width="430">orbi turpis dolor</td>
-        </tr>
-        <tr>
-            <td width="100"> Jabatan</td>
-            <td width="10">: </td>
-            <td width="430">orbi turpis dolor</td>
-        </tr>
+        @foreach ($detail->pelaksanaPerjals as $item)
+            <tr>
+                <td width="60" rowspan="4">
+                    @if ($loop->iteration == 1) Kepada @endif
+                </td>
+                <td width="5" rowspan="4">@if ($loop->iteration == 1): @endif</td>
+                <td width="15" rowspan="4">{{ $loop->iteration }}.</td>
+                <td width="105"> Nama</td>
+                <td width="10">: </td>
+                <td width="430">{{ $item->nama_pegawai. ', ' .$item->gelarbelakang_nama }}</td>
+            </tr>
+            <tr>
+                <td width="105"> NIP</td>
+                <td width="10">: </td>
+                <td width="430">{{ $item->nomorindukpegawai }}</td>
+            </tr>
+            <tr>
+                <td width="105"> Pangkat, gol, ruang</td>
+                <td width="10">: </td>
+                <td width="430">orbi</td>
+            </tr>
+            <tr>
+                <td width="105"> Jabatan</td>
+                <td width="10">: </td>
+                <td width="430">orbi</td>
+            </tr>
+        @endforeach
     </table>
-    
+    <br><br>
     <table>
         <tr>
             <td width="60">Untuk</td>
             <td width="5">:</td>
-            <td width="460">orbi turpis dolor, vulputate vitae felis non</td>
+            <td width="460">{{ $detail->maksud_perjalanan }}</td>
         </tr>
     </table>
     
     <br><br><br>
     <table>
         <tr>
-            <td width="280"></td>
+            <td width="320"></td>
             <td>Ditetapkan di Jepara</td>
         </tr>
         <tr>
-            <td width="280"></td>
-            <td>Pada  tanggal </td>
+            <td width="320"></td>
+            <td>Pada tanggal {{ date('d F Y', strtotime($item->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
