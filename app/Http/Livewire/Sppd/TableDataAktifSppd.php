@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Sppd;
 
+use App\Models\Golonganpegawais;
+use App\Models\Pangkats;
 use App\Models\Pegawais;
 use App\Models\PelaksanaPerjalananDinas;
 use App\Models\PerjalananDinas;
@@ -113,12 +115,18 @@ class TableDataAktifSppd extends Component
     public function updatePelaksanaPerjal()
     {
         $detPegawai = Pegawais::findOrFail($this->pegawai_id);
+        $detPangkat = Pangkats::findOrFail($this->pegawai_id);
+        $detGol     = Golonganpegawais::findOrFail($detPangkat->golonganpegawai_id);
         PelaksanaPerjalananDinas::findOrFail($this->pelaksanaPerjalananDinas_id)->update([
             'pegawai_id'            => $detPegawai->id,
             'gelardepan'            => $detPegawai->gelardepan,
             'nama_pegawai'          => $detPegawai->nama_pegawai,
             'gelarbelakang_nama'    => $detPegawai->gelarbelakang_nama,
             'nomorindukpegawai'     => $detPegawai->nomorindukpegawai,
+            'pangkat'               => $detPangkat->pangkat_nama,
+            'jabatan'               => $detPegawai->nama_jabatan,
+            'golongan'              => $detGol->golonganpegawai_nama,
+            'unit_kerja'            => $detPegawai->namaunitkerja,
         ]);
 
         session()->flash('message', 'Pelaksana perjalanan dinas berhasil diperbarui');
@@ -138,7 +146,9 @@ class TableDataAktifSppd extends Component
             'addpegawai_id'            => 'required',
         ]);
 
-        $detPegawais = Pegawais::findOrFail($validatedAdd['addpegawai_id']);
+        $detPegawais    = Pegawais::findOrFail($validatedAdd['addpegawai_id']);
+        $detPangkat     = Pangkats::findOrFail($detPegawais->pangkat_id);
+        $detGol         = Golonganpegawais::findOrFail($detPangkat->golonganpegawai_id);
         PelaksanaPerjalananDinas::create([
             'perjalanandinas_id'    => $this->perjalanandinas_id,
             'pegawai_id'            => $validatedAdd['addpegawai_id'],
@@ -146,6 +156,10 @@ class TableDataAktifSppd extends Component
             'nama_pegawai'          => $detPegawais->nama_pegawai,
             'gelarbelakang_nama'    => $detPegawais->gelarbelakang_nama,
             'nomorindukpegawai'     => $detPegawais->nomorindukpegawai,
+            'pangkat'               => $detPangkat->pangkat_nama,
+            'jabatan'               => $detPegawais->nama_jabatan,
+            'golongan'              => $detGol->golonganpegawai_nama,
+            'unit_kerja'            => $detPegawais->namaunitkerja,
             'tgl_sppd'              => $this->tgl_sppd,
         ]);
 

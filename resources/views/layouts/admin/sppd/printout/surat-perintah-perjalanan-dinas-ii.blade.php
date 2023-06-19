@@ -18,7 +18,7 @@
             <td>
                     I. &nbsp; Berangkat dari : ... <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ke : .. <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada Tanggal : .. 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada Tanggal : {{ date('d F Y', strtotime($detail->tgl_sppd)) }} 
                 <div><b align="center">
                     Direktur RSUD Kelet <br>
                     Provinsi Jawa Tengah

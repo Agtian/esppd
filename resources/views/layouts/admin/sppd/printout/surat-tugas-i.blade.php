@@ -55,12 +55,12 @@
             <tr>
                 <td width="105"> Pangkat, gol, ruang</td>
                 <td width="10">: </td>
-                <td width="430">orbi</td>
+                <td width="430">{{ $item->pangkat.', '.$item->golongan. ', '.$item->unit_kerja }}</td>
             </tr>
             <tr>
                 <td width="105"> Jabatan</td>
                 <td width="10">: </td>
-                <td width="430">orbi</td>
+                <td width="430">{{ $item->jabatan }}</td>
             </tr>
         @endforeach
     </table>

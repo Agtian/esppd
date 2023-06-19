@@ -16,7 +16,7 @@
             <td align="center"><h3>SURAT PERINTAH PERJALANAN DINAS</h3></td>
         </tr>
         <tr>
-            <td align="center">Nomor : </td>
+            <td align="center">Nomor : {{ $detail->no_sppd }}</td>
         </tr>
     </table>
     <br><br>
@@ -90,7 +90,7 @@
         </tr>
         <tr>
             <td width="330"></td>
-            <td>Pada tanggal </td>
+            <td>Pada tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
         <tr>
             <td width="330"></td>
@@ -98,7 +98,7 @@
         </tr>
         <tr>
             <td width="330"></td>
-            <td>tanggal </td>
+            <td>tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>

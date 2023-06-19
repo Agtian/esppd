@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\PerjalananDinas;
 use Illuminate\Http\Request;
 use App\Helpers\BantuAku;
+use App\Models\Golonganpegawais;
+use App\Models\Pangkats;
 use App\Models\Pegawais;
 use App\Models\PelaksanaPerjalananDinas;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +85,8 @@ class SppdController extends Controller
 
         foreach ($request->pegawai_id as $idPegawaisArr) {
             $detPegawai = Pegawais::findOrFail($idPegawaisArr);
+            $detPangkat = Pangkats::findOrFail($detPegawai->pangkat_id);
+            $detGol     = Golonganpegawais::findOrFail($detPangkat->golonganpegawai_id);
             PelaksanaPerjalananDinas::create([
                 'perjalanandinas_id'    => 1,
                 'pegawai_id'            => $idPegawaisArr,
@@ -90,6 +94,10 @@ class SppdController extends Controller
                 'nama_pegawai'          => $detPegawai->nama_pegawai,
                 'gelarbelakang_nama'    => $detPegawai->gelarbelakang_nama,
                 'nomorindukpegawai'     => $detPegawai->nomorindukpegawai,
+                'pangkat'               => $detPangkat->pangkat_nama,
+                'jabatan'               => $detPegawai->nama_jabatan,
+                'golongan'              => $detGol->golonganpegawai_nama,
+                'unit_kerja'            => $detPegawai->namaunitkerja,
                 'tgl_sppd'              => date('Y-m-d'),
             ]);
         }

@@ -19,12 +19,12 @@
         <tr>
             <td width="700"></td>
             <td width="60">Nomor</td>
-            <td>: ...</td>
+            <td>: {{ $detail->no_sppd }}</td>
         </tr>
         <tr>
             <td width="700"></td>
             <td width="60">Tanggal</td>
-            <td>: ...</td>
+            <td>: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <table>
@@ -42,11 +42,11 @@
         </tr>
         <tr>
             <td width="170">Tanggal Pelaksanaan Kegiatan</td>
-            <td>: ... s.d ...</td>
+            <td>: {{ date('d F Y', strtotime($detail->tgl_mulai)) }} s.d {{ date('d F Y', strtotime($detail->tgl_selesai)) }}</td>
         </tr>
         <tr>
             <td width="170">Tempat Pelaksanaan Kegiatan</td>
-            <td>: ...</td>
+            <td>: {{ $detail->tempat_tujuan }}</td>
         </tr>
         <tr>
             <td width="170">Bidang/UPT/Balai/Cabang Dinas</td>

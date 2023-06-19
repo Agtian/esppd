@@ -33,26 +33,31 @@
             <td width="330" align="center">Nama/NIP/Pangkat/Jabatan</td>
             <td width="170" align="center">Keterangan</td>
         </tr>
-        <tr>
-            <td align="center">1.</td>
-            <td width="330">Nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : ...</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td align="center"></td>
-            <td width="330">NIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : ...</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td align="center"></td>
-            <td width="330">Pangkat/Gol : ...</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td align="center"></td>
-            <td width="330">Jabatan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : ...</td>
-            <td></td>
-        </tr>
+        @forelse ($resultPelaksana as $item)
+            <tr>
+                <td align="center">1.</td>
+                <td width="330">Nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $item->nama_pegawai. ', ' .$item->gelarbelakang_nama }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="center"></td>
+                <td width="330">NIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $item->nomorindukpegawai }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="center"></td>
+                <td width="330">Pangkat/Gol : {{ $item->pangkat.' / '.$item->golongan }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="center"></td>
+                <td width="330">Jabatan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $item->jabatan }}</td>
+                <td></td>
+            </tr>
+        @empty
+            
+        @endforelse
+        
         <tr><td colspan="3"></td></tr>
     </table>
     <table>
@@ -62,7 +67,7 @@
         </tr>
         <tr>
             <td width="330"></td>
-            <td>Pada tanggal </td>
+            <td>Pada tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>

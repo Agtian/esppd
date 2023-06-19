@@ -17,7 +17,7 @@
             <td align="center"><h3>SURAT PERINTAH TUGAS</h3></td>
         </tr>
         <tr>
-            <td align="center">Nomor :</td>
+            <td align="center">Nomor : {{ $detail->no_sppd }}</td>
         </tr>
     </table>
     <br><br>
@@ -25,7 +25,7 @@
         <tr>
             <td width="60">Dasar</td>
             <td width="10">:</td>
-            <td width="470"> ......</td>
+            <td width="470"> {{ $detail->dasar }}</td>
         </tr>
         <tr><td colspan="3"></td></tr>
         <tr><td colspan="3" align="center"><h3>MEMERINTAHKAN</h3></td></tr>
@@ -33,19 +33,15 @@
         <tr>
             <td width="60">Kepada</td>
             <td width="10">:</td>
-            <td width="330"> Terlampir dengan ... Pengikut</td>
+            <td width="330"> Terlampir dengan {{ $resultPelaksana->count() }} Pengikut</td>
         </tr>
+        <tr><td colspan="3"></td></tr>
         <tr>
             <td width="60">Untuk</td>
             <td width="10">:</td>
             <td width="330">
                 <ol>
-                    <li>Admin 1</li>
-                    <li>Orang ke 2</li>
-                    <li>Orang ke 3</li>
-                    <li>Orang ke 4</li>
-                    <li>Orang ke 5</li>
-                    <li>Orang ke 6</li>
+                    <li>...</li>
                 </ol> 
             </td>
         </tr>
@@ -58,7 +54,7 @@
         </tr>
         <tr>
             <td width="350"></td>
-            <td>Pada tanggal ...</td>
+            <td>Pada tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>

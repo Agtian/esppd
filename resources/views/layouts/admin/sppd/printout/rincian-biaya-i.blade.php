@@ -19,11 +19,11 @@
         <tr><td></td></tr>
         <tr>
             <td width="130">Lampiran SPPD Nomor</td>
-            <td>: ..</td>
+            <td>: {{ $detail->no_sppd }}</td>
         </tr>
         <tr>
             <td width="130">Tanggal</td>
-            <td>: ..</td>
+            <td>: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
@@ -73,7 +73,7 @@
     <table>
         <tr>
             <td width="380"></td>
-            <td>Jepara, {{ date('d M Y') }}</td>
+            <td>Jepara, {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>

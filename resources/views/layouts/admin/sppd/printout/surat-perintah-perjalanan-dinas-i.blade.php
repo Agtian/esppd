@@ -27,7 +27,7 @@
             <td align="center"><b>SURAT PERINTAH PERJALANAN DINAS</b></td>
         </tr>
         <tr>
-            <td align="center">Nomor :</td>
+            <td align="center">Nomor : {{ $detail->no_sppd }}</td>
         </tr>
     </table>
     <br>
@@ -51,7 +51,7 @@
         <tr>
             <td width="30" align="right">4.</td>
             <td width="200">Maksud Mengadakan Perjalanan</td>
-            <td width="295">...</td>
+            <td width="295">{{ $detail->maksud_perjalanan }}</td>
         </tr>
         <tr>
             <td width="30" align="right">5.</td>
@@ -66,7 +66,7 @@
         <tr>
             <td width="30" align="right">7.</td>
             <td width="200">a. Lamanya Perjalanan Dinas <br>b. Tanggal Berangkat <br>c. Tanggal Harus Kembali</td>
-            <td width="295">a. ... <br>b. ... <br>c. ...</td>
+            <td width="295">a. {{ $detail->jumlah_hari }} hari <br>b. {{ date('d F Y', strtotime($detail->tgl_mulai)) }} <br>c. {{ date('d F Y', strtotime($detail->tgl_selesai)) }}</td>
         </tr>
         <tr>
             <td width="30" align="right">8.</td>
@@ -99,7 +99,7 @@
         </tr>
         <tr>
             <td width="280"></td>
-            <td>Pada  tanggal </td>
+            <td>Pada tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
         <tr>
             <td width="280"></td>
@@ -107,7 +107,7 @@
         </tr>
         <tr>
             <td width="280"></td>
-            <td>Tanggal </td>
+            <td>Tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
