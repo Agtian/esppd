@@ -76,7 +76,7 @@
 
                 <li class="nav-header mt-3">SETTINGS</li>
                 <li class="nav-item {{ request()->segment(3) == 'pegawai' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('dashboard/admin/pegawai') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Master Pegawai

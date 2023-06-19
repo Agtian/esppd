@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('nama_pegawai', 255);
             $table->string('gelarbelakang_nama', 20);
             $table->string('nomorindukpegawai', 50);
+            $table->string('jabatan', 50);
+            $table->string('golongan', 50);
+            $table->string('pangkat', 50);
             $table->date('tgl_sppd');
             $table->foreign('perjalanandinas_id')->references('id')->on('perjalanandinas')->onDelete('cascade');
             $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade');

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DevelopmentSPPD\PrintOutController;
 use App\Http\Controllers\Admin\DevelopmentSPPD\SppdController;
+use App\Http\Controllers\Admin\Master\PegawaiController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,5 +59,14 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
         Route::get('/user/{user}/edit', 'edit');
         Route::put('/user/{user}', 'update');
         Route::get('/user/{user}/delete', 'destroy');
+    });
+
+    Route::controller(PegawaiController::class)->group(function () {
+        Route::get('/pegawai', 'index');
+        Route::get('/pegawai/create', 'create');
+        Route::post('/pegawai', 'store');
+        Route::get('/pegawai/{pegawai}/edit', 'edit');
+        Route::put('/pegawai/{pegawai}', 'update');
+        Route::get('/pegawai/{pegawai}/delete', 'destroy');
     });
 });

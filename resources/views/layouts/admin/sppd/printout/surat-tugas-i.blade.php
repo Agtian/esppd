@@ -10,6 +10,7 @@
 </style>
 
 <div class="print">
+    
     <img src="assets/image_akun/kop_surat.png" alt="Kop Surat">
 
     <br>
