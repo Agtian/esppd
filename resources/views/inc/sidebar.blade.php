@@ -58,7 +58,7 @@
 
                 <li class="nav-header mt-3">REPORT</li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/biaya-sppd') }}" class="nav-link {{ request()->is('dashboard/admin/biaya-sppd') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Biaya SPPD
@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/pelaksana-sppd') }}" class="nav-link {{ request()->is('dashboard/admin/biaya-sppd') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file"></i>
                         <p>
                             Pelaksana SPPD

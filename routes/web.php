@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\DevelopmentSPPD\PelaksanaSPPDController;
 use App\Http\Controllers\Admin\DevelopmentSPPD\PrintOutController;
 use App\Http\Controllers\Admin\DevelopmentSPPD\SppdController;
 use App\Http\Controllers\Admin\Master\PegawaiController;
+use App\Http\Controllers\Admin\Report\BiayaController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,5 +70,15 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
         Route::get('/pegawai/{pegawai}/edit', 'edit');
         Route::put('/pegawai/{pegawai}', 'update');
         Route::get('/pegawai/{pegawai}/delete', 'destroy');
+    });
+
+    Route::controller(BiayaController::class)->group(function () {
+        Route::get('/biaya-sppd', 'index');
+        Route::get('/biaya-sppd/{id}/edit', 'edit');
+        Route::post('/biaya-sppd-filter', 'filterData');
+    });
+
+    Route::controller(PelaksanaSPPDController::class)->group(function () {
+        Route::get('/pelaksana-sppd', 'index');
     });
 });
