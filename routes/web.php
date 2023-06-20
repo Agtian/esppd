@@ -3,7 +3,16 @@
 use App\Http\Controllers\Admin\DevelopmentSPPD\PelaksanaSPPDController;
 use App\Http\Controllers\Admin\DevelopmentSPPD\PrintOutController;
 use App\Http\Controllers\Admin\DevelopmentSPPD\SppdController;
+use App\Http\Controllers\Admin\Master\GolPegawaiController;
+use App\Http\Controllers\Admin\Master\InstalasiController;
+use App\Http\Controllers\Admin\Master\JabatanController;
+use App\Http\Controllers\Admin\Master\KelompokPegawaiController;
+use App\Http\Controllers\Admin\Master\KonfigurasiSPPDController;
+use App\Http\Controllers\Admin\Master\PangkatController;
 use App\Http\Controllers\Admin\Master\PegawaiController;
+use App\Http\Controllers\Admin\Master\PendidikanController;
+use App\Http\Controllers\Admin\Master\PendidikanKualifikasiController;
+use App\Http\Controllers\Admin\Master\UnitKerjaController;
 use App\Http\Controllers\Admin\Report\BiayaController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -80,5 +89,41 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
 
     Route::controller(PelaksanaSPPDController::class)->group(function () {
         Route::get('/pelaksana-sppd', 'index');
+    });
+
+    Route::controller(GolPegawaiController::class)->group(function () {
+        Route::get('/golongan-pegawai', 'index');
+    });
+    
+    Route::controller(InstalasiController::class)->group(function () {
+        Route::get('/instalasi', 'index');
+    });
+    
+    Route::controller(JabatanController::class)->group(function () {
+        Route::get('/jabatan', 'index');
+    });
+    
+    Route::controller(KelompokPegawaiController::class)->group(function () {
+        Route::get('/kelompok-pegawai', 'index');
+    });
+    
+    Route::controller(KonfigurasiSPPDController::class)->group(function () {
+        Route::get('/konfigurasi-sppd', 'index');
+    });
+    
+    Route::controller(PangkatController::class)->group(function () {
+        Route::get('/pangkat', 'index');
+    });
+    
+    Route::controller(PendidikanController::class)->group(function () {
+        Route::get('/pendidikan', 'index');
+    });
+
+    Route::controller(PendidikanKualifikasiController::class)->group(function () {
+        Route::get('/pendidikan-kualifikasi', 'index');
+    });
+    
+    Route::controller(UnitKerjaController::class)->group(function () {
+        Route::get('/unit-kerja', 'index');
     });
 });

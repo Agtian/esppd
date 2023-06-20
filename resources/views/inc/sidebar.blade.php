@@ -21,7 +21,7 @@
                 data-accordion="false">
                
                 <li class="nav-item mt-3">
-                    <a href="{{ url('dashboard/dashboard-v1') }}" class="nav-link {{ request()->is('dashboard/dashboard-v1') ? 'active' : '' }}">
+                    <a href="{{ url('dashboard/dashboard-v1') }}" class="nav-link {{ request()->is('dashboard/dashboard-v1') ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Dashboard
@@ -41,14 +41,14 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ url('dashboard/admin/sppd/create') }}"
-                                class="nav-link {{ request()->is('dashboard/admin/sppd/create') ? 'active' : '' }}">
+                                class="nav-link {{ request()->segment(4) == 'create' ? 'active bg-primary' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Form SPPD</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('dashboard/admin/sppd') }}"
-                                class="nav-link {{ request()->is('dashboard/admin/sppd') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('dashboard/admin/sppd') ? 'active bg-primary' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>SPPD Aktif</p>
                             </a>
@@ -75,22 +75,22 @@
                 </li>
 
                 <li class="nav-header mt-3">SETTINGS</li>
-                <li class="nav-item {{ request()->segment(3) == 'pegawai' ? 'menu-open' : '' }}">
-                    <a href="{{ url('dashboard/admin/pegawai') }}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ url('dashboard/admin/pegawai') }}" class="nav-link {{ request()->segment(3) == 'pegawai' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Master Pegawai
                         </p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->segment(3) == 'admin' ? 'menu-open' : '' }}">
-                    <a href="{{ url('dashboard/admin/user') }}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ url('dashboard/admin/user') }}" class="nav-link {{ request()->segment(3) == 'user' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
                         <p class="text">Master Users</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/golongan-pegawai') }}" class="nav-link {{ request()->segment(3) == 'golongan-pegawai' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-star"></i>
                         <p>
                             Master Gol Pegawai
@@ -98,7 +98,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/instalasi') }}" class="nav-link {{ request()->segment(3) == 'instalasi' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-thumbtack"></i>
                         <p>
                             Master Instalasi
@@ -106,7 +106,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/jabatan') }}" class="nav-link {{ request()->segment(3) == 'jabatan' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-user-secret"></i>
                         <p>
                             Master Jabatan
@@ -114,7 +114,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/kelompok-pegawai') }}" class="nav-link {{ request()->segment(3) == 'kelompok-pegawai' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-scroll"></i>
                         <p>
                             Master Kel. Pegawai
@@ -122,15 +122,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/konfigurasi-sppd') }}" class="nav-link {{ request()->segment(3) == 'konfigurasi-sppd' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-check"></i>
                         <p>
-                            Master Kel. TTD
+                            Master Konfigurasi SPPD
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/pangkat') }}" class="nav-link {{ request()->segment(3) == 'pangkat' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>
                             Master Pangkat
@@ -138,7 +138,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/pendidikan') }}" class="nav-link {{ request()->segment(3) == 'pendidikan' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-id-badge"></i>
                         <p>
                             Master Pendidikan
@@ -146,7 +146,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/pendidikan-kualifikasi') }}" class="nav-link {{ request()->segment(3) == 'pendidikan-kualifikasi' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-id-card"></i>
                         <p>
                             Master Pend. Kualifikasi
@@ -154,7 +154,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
+                    <a href="{{ url('dashboard/admin/unit-kerja') }}" class="nav-link {{ request()->segment(3) == 'unit-kerja' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-bullhorn"></i>
                         <p>
                             Master Unit Kerja
