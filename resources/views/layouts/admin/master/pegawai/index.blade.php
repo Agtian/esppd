@@ -69,7 +69,7 @@
                         <tbody>
                             @forelse ($pegawais as $item)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $pegawais->firstItem()+$loop->index }}</td>
                                     <td width="150">{{ $item->gelardepan. ' ' .$item->nama_pegawai. ' ' .$item->gelarbelakang_nama }}</td>
                                     <td>{{ $item->nomorindukpegawai }}</td>
                                     <td>{{ $item->jeniskelamin }}</td>
