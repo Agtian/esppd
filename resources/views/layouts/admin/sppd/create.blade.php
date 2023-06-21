@@ -206,7 +206,7 @@
                             results: $.map(data, function (item) {
                                 return {
                                     text: item.nama_pegawai,
-                                    id: item.id
+                                    id: item.pegawai_id
                                 }
                             })
                         };
