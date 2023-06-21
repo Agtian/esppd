@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive" style="height: 600px;">
+                <div class="table-responsive">
                     <table class="table table-striped table-bordered m-0">
                         <thead>
                             <tr align="center">
@@ -74,7 +74,7 @@
                                     <td>{{ $item->nomorindukpegawai }}</td>
                                     <td>{{ $item->jeniskelamin }}</td>
                                     <td>{{ $item->alamat_pegawai }}</td>
-                                    <td>{{ $item->tempatlahirpegawai. ' ' .$item->tgl_lahirpegawai }}</td>
+                                    <td>{{ $item->tempatlahir_pegawai. ' ' .$item->tgl_lahirpegawai }}</td>
                                     <td>{{ $item->agama }}</td>
                                     <td>{{ $item->golongandarah }}</td>
                                     <td>{{ $item->alamatemail }}</td>
@@ -83,7 +83,7 @@
                                     <td>{{ $item->photopegawai }}</td>
                                     <td>{{ $item->pendidikan_nama }}</td>
                                     <td>{{ $item->pangkat_nama. ' ' .$item->golonganpegawai_nama }}</td>
-                                    <td>{{ $item->nama_jabatan }}</td>
+                                    <td>{{ $item->jabatan_nama }}</td>
                                     <td>{{ $item->namaunitkerja }}</td>
                                     <td></td>
                                 </tr>
@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div class="card-footer clearfix">
-                {{-- {{ $resultAktifSPPD->links() }} --}}
+                {{ $pegawais->links() }}
             </div>
         </div>
             
