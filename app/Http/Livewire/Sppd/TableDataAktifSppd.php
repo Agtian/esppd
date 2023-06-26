@@ -7,6 +7,7 @@ use App\Models\Pangkats;
 use App\Models\Pegawais;
 use App\Models\PelaksanaPerjalananDinas;
 use App\Models\PerjalananDinas;
+use App\Models\PGSQL\Pegawai_v;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -19,10 +20,11 @@ class TableDataAktifSppd extends Component
 
     public $showDetail = false;
 
-    public $pegawaiPelaksana = [];
+    public $pegawaiPelaksana = [], $searchPegawaiPelaksana, $searchPegawaiArr;
     
     public $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $lokasi_ditetapkan, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
 
+    public $detNamaPegawai, $detGelarBelakangPegawai, $detJabatan, $detPangkat, $detGolongan, $detNIP;
     public $detailResultAktifSPPD;
 
     public function rules()
@@ -54,11 +56,19 @@ class TableDataAktifSppd extends Component
     {
         $this->resultTotalBiaya = (($this->uang_harian == '') ? 0 : $this->uang_harian) + (($this->biaya_transport == '') ? 0 : $this->biaya_transport) + (($this->biaya_penginapan == '') ? 0 : $this->biaya_penginapan) + (($this->uang_representasi == '') ? 0 : $this->uang_representasi) + (($this->biaya_pesawat == '') ? 0 : $this->biaya_pesawat) + (($this->biaya_lainnya == '') ? 0 : $this->biaya_lainnya);
 
-        
         $this->jumlahPelaksanaPerjal = PelaksanaPerjalananDinas::where('perjalanandinas_id', $this->perjalanandinas_id)->count();
 
-        $resultAktifSPPD = PerjalananDinas::paginate(10);
-        return view('livewire.sppd.table-data-aktif-sppd', compact('resultAktifSPPD'));
+        $resultAktifSPPD    = PerjalananDinas::paginate(10);
+        $search             = '%'.$this->searchPegawaiPelaksana.'%';
+        $resultPegawais     = (new Pegawai_v())->getDataPegawais($search);
+        return view('livewire.sppd.table-data-aktif-sppd', compact('resultAktifSPPD', 'resultPegawais'));
+    }
+
+    public function openSearchPegawaiPelaksana()
+    {
+        $searchPegawaiArr = Pegawai_v::where('nama_pegawai','LIKE',"%{$this->searchPegawaiPelaksana}%")->get();
+        $this->searchPegawaiArr = $searchPegawaiArr;
+        // dd($searchPegawaiArr);
     }
 
     public function openDetail(int $perjalanandinas_id)

@@ -24,11 +24,14 @@
     </section>
 
     <section class="content">
+
         <div class="row">
             <div class="col-12">
 
                 @if (session('message'))
                     <h5 class="alert alert-success mb-2">{{ session('message') }}</h5>
+                @elseif (session('warning'))
+                    <h5 class="alert alert-warning mb-2">Perhatian</h5><p><br> {{ session('warning') }}</p>
                 @endif
 
                 <div class="card card-dark">
@@ -48,7 +51,7 @@
                         @csrf
 
                         <div class="card-body">
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Nama Pegawai</label>
                                 <div class="col-sm-9">
                                     <div class="select2-purple">
@@ -60,7 +63,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-group row">
                                 <label for="dasar" class="col-sm-3 col-form-label">Dasar</label>
                                 <div class="col-sm-9">
@@ -187,11 +190,13 @@
                 </div>
             </div>
         </div>
+        
     </section>
 @endsection
 
+
 @push('script')
-    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -206,7 +211,8 @@
                             results: $.map(data, function (item) {
                                 return {
                                     text: item.nama_pegawai,
-                                    id: item.pegawai_id
+                                    id: item.pegawai_id,
+                                    selected: 'false'
                                 }
                             })
                         };
@@ -215,5 +221,5 @@
                 }
             })
         });
-    </script>
+    </script> --}}
 @endpush
