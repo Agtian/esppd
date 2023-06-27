@@ -7,7 +7,13 @@ use App\Models\Pangkats;
 use App\Models\Pegawais;
 use App\Models\PelaksanaPerjalananDinas;
 use App\Models\PerjalananDinas;
+use App\Models\PGSQL\GelarBelakang_m;
+use App\Models\PGSQL\GolonganPegawai_m;
+use App\Models\PGSQL\Jabatan_m;
+use App\Models\PGSQL\Pangkat_m;
+use App\Models\PGSQL\Pegawai_m;
 use App\Models\PGSQL\Pegawai_v;
+use App\Models\PGSQL\UnitKerja_m;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -15,16 +21,22 @@ use Illuminate\Support\Facades\DB;
 class TableDataAktifSppd extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     protected $listeners = ['refreshComponent' => '$refresh'];
 
-    public $showDetail = false;
+    public $showDetail = false, $showSelectEditPangkat = false, $showDetailEditPelaksanaPerjal = false;
 
-    public $pegawaiPelaksana = [], $searchPegawaiPelaksana, $searchPegawaiArr;
+    public $pegawaiPelaksana = [], $resultPangkats = [], $resultGelarBelakangs = [], $resultJabatans = [], $resultGolonganPegawais = [], $resultUnitKerjas = [];
+    
+    public $searchPegawaiPelaksana, $searchPegawaiArr;
     
     public $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $lokasi_ditetapkan, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
 
     public $detNamaPegawai, $detGelarBelakangPegawai, $detJabatan, $detPangkat, $detGolongan, $detNIP;
+
+    public $pangkat_id, $golonganpegawai_id, $unitkerja_id, $jabatan_id, $gelarbelakang_id;
+
     public $detailResultAktifSPPD;
 
     public function rules()
@@ -45,11 +57,22 @@ class TableDataAktifSppd extends Component
 
     public function resetInput()
     {
-        $this->addpegawai_id = NULL;
+        $this->pegawai_id = NULL;
         $this->gelardepan = NULL;
         $this->nama_pegawai = NULL;
         $this->gelarbelakang_nama = NULL;
         $this->nomorindukpegawai = NULL;
+        $this->pangkat_id = NULL;
+        $this->jabatan_id = NULL;
+        $this->golonganpegawai_id = NULL;
+        $this->unitkerja_id = NULL;
+        $this->searchPegawaiPelaksana = NULL;
+    }
+
+    public function resetShow()
+    {
+        $this->showDetailEditPelaksanaPerjal == false;
+        $this->showSelectEditPangkat == false;
     }
 
     public function render()
@@ -61,14 +84,35 @@ class TableDataAktifSppd extends Component
         $resultAktifSPPD    = PerjalananDinas::paginate(10);
         $search             = '%'.$this->searchPegawaiPelaksana.'%';
         $resultPegawais     = (new Pegawai_v())->getDataPegawais($search);
+        
         return view('livewire.sppd.table-data-aktif-sppd', compact('resultAktifSPPD', 'resultPegawais'));
     }
 
-    public function openSearchPegawaiPelaksana()
+    public function openEditPangkat(int $pegawai_id)
     {
-        $searchPegawaiArr = Pegawai_v::where('nama_pegawai','LIKE',"%{$this->searchPegawaiPelaksana}%")->get();
-        $this->searchPegawaiArr = $searchPegawaiArr;
-        // dd($searchPegawaiArr);
+        $this->showSelectEditPangkat =! $this->showSelectEditPangkat;
+        $this->resultPangkats = Pangkat_m::all();
+    }
+
+    public function openDetailEditPelaksanaPerjal(int $pegawai_id)
+    {
+        $this->showDetailEditPelaksanaPerjal =! $this->showDetailEditPelaksanaPerjal;
+        $this->resultJabatans = Jabatan_m::all();
+        $this->resultPangkats = Pangkat_m::all();
+        $this->resultGolonganPegawais = GolonganPegawai_m::all();
+        $this->resultGelarBelakangs = GelarBelakang_m::all();
+        $this->resultUnitKerjas = UnitKerja_m::all();
+        
+        $detPegawai = Pegawai_m::findOrFail($pegawai_id);
+        $this->pegawai_id = $detPegawai->pegawai_id;
+        $this->gelardepan = $detPegawai->gelardepan;
+        $this->nama_pegawai = $detPegawai->nama_pegawai;
+        $this->gelarbelakang_id = $detPegawai->gelarbelakang_id;
+        $this->nomorindukpegawai = $detPegawai->nomorindukpegawai;
+        $this->jabatan_id = $detPegawai->jabatan_id;
+        $this->pangkat_id = $detPegawai->pangkat_id;
+        $this->golonganpegawai_id = $detPegawai->golonganpegawai_id;
+        $this->unitkerja_id = $detPegawai->unitkerja_id;
     }
 
     public function openDetail(int $perjalanandinas_id)
@@ -107,19 +151,42 @@ class TableDataAktifSppd extends Component
         $this->resetInput();
     }
 
-    public function editPelaksanaPerjal(int $pelaksanaPerjal_id)
+    public function updateBiodataPegawai()
     {
-        $pelaksanaPerjal = PelaksanaPerjalananDinas::findOrFail($pelaksanaPerjal_id);
-        $this->pegawaiPelaksana = Pegawais::all();
-        $this->pelaksanaPerjalananDinas_id = $pelaksanaPerjal->id;
-        $this->perjalanandinas_id = $pelaksanaPerjal->perjalanandinas_id;
-        $this->pegawai_id = $pelaksanaPerjal->pegawai_id;
-        $this->gelardepan = $pelaksanaPerjal->gelardepan;
-        $this->nama_pegawai = $pelaksanaPerjal->nama_pegawai;
-        $this->gelarbelakang_nama = $pelaksanaPerjal->gelarbelakang_nama;
-        $this->nomorindukpegawai = $pelaksanaPerjal->nomorindukpegawai;
+        $validatedAdd = $this->validate([
+            'gelardepan'            => '',
+            'nama_pegawai'          => 'required',
+            'gelarbelakang_id'      => '',
+            'nomorindukpegawai'     => 'required',
+            'jabatan_id'            => 'required',
+            'pangkat_id'            => 'required',
+            'golonganpegawai_id'    => 'required',
+            'unitkerja_id'          => 'required',
+        ]);
 
-        $this->emit(event:'refreshComponent');
+        Pegawai_m::findOrFail($this->pegawai_id)->update([
+            'gelardepan'            => $validatedAdd['gelardepan'],
+            'nama_pegawai'          => $validatedAdd['nama_pegawai'],
+            'gelarbelakang_id'      => $validatedAdd['gelarbelakang_id'],
+            'nomorindukpegawai'     => $validatedAdd['nomorindukpegawai'],
+            'jabatan_id'            => $validatedAdd['jabatan_id'],
+            'pangkat_id'            => $validatedAdd['pangkat_id'],
+            'golonganpegawai_id'    => $validatedAdd['golonganpegawai_id'],
+            'unitkerja_id'          => $validatedAdd['unitkerja_id'],
+        ]);
+        
+        session()->flash('message-sub', 'Biodata pegawai berhasil diperbarui');
+    }
+
+    public function updatePangkatPegawai(int $pegawai_id)
+    {
+        Pegawai_m::findOrFail($pegawai_id)->update([
+            'pangkat_id'    => $this->pangkat_id,
+        ]);
+
+        session()->flash('message', 'Pangkat pegawai berhasil diperbarui');
+        $this->dispatchBrowserEvent('close-modal');
+        $this->resetInput();
     }
 
     public function updatePelaksanaPerjal()
@@ -147,35 +214,37 @@ class TableDataAktifSppd extends Component
     public function openAddPelaksanaModal()
     {
         $this->resetInput();
+        $this->resetShow();
         $this->pegawaiPelaksana = Pegawais::all();
     }
 
-    public function storePelaksanaPerjal()
+    public function storePelaksanaPerjal(int $pegawai_id)
     {
-        $validatedAdd = $this->validate([
-            'addpegawai_id'            => 'required',
-        ]);
+        $detPegawais    = Pegawai_m::findOrFail($pegawai_id);
 
-        $detPegawais    = Pegawais::findOrFail($validatedAdd['addpegawai_id']);
-        $detPangkat     = Pangkats::findOrFail($detPegawais->pangkat_id);
-        $detGol         = Golonganpegawais::findOrFail($detPangkat->golonganpegawai_id);
-        PelaksanaPerjalananDinas::create([
-            'perjalanandinas_id'    => $this->perjalanandinas_id,
-            'pegawai_id'            => $validatedAdd['addpegawai_id'],
-            'gelardepan'            => $detPegawais->gelardepan,
-            'nama_pegawai'          => $detPegawais->nama_pegawai,
-            'gelarbelakang_nama'    => $detPegawais->gelarbelakang_nama,
-            'nomorindukpegawai'     => $detPegawais->nomorindukpegawai,
-            'pangkat'               => $detPangkat->pangkat_nama,
-            'jabatan'               => $detPegawais->nama_jabatan,
-            'golongan'              => $detGol->golonganpegawai_nama,
-            'unit_kerja'            => $detPegawais->namaunitkerja,
-            'tgl_sppd'              => $this->tgl_sppd,
-        ]);
+        if ($detPegawais->pangkat_id == null || $detPegawais->golonganpegawai_id == null || $detPegawais->jabatan_id == null || $detPegawais->unitkerja_id == null) {
+            return session()->flash('message-sub-warning', 'Gagal, biodata pegawai belum lengkap!');
+        } else {
+            $detPangkat     = Pangkat_m::findOrFail($detPegawais->pangkat_id);
+            $detGol         = GolonganPegawai_m::findOrFail($detPegawais->golonganpegawai_id);
+            PelaksanaPerjalananDinas::create([
+                'perjalanandinas_id'    => $this->perjalanandinas_id,
+                'pegawai_id'            => $pegawai_id,
+                'gelardepan'            => $detPegawais->gelardepan,
+                'nama_pegawai'          => $detPegawais->nama_pegawai,
+                'gelarbelakang_nama'    => $detPegawais->gelarbelakang_nama,
+                'nomorindukpegawai'     => $detPegawais->nomorindukpegawai,
+                'pangkat'               => $detPangkat->pangkat_nama,
+                'jabatan'               => $detPegawais->nama_jabatan,
+                'golongan'              => $detGol->golonganpegawai_nama,
+                'unit_kerja'            => $detPegawais->namaunitkerja,
+                'tgl_sppd'              => $this->tgl_sppd,
+            ]);
 
-        session()->flash('message', 'Pelaksana perjalanan dinas berhasil disimpan');
-        $this->dispatchBrowserEvent('close-modal');
-        $this->resetInput();
+            session()->flash('message', 'Pelaksana perjalanan dinas berhasil disimpan');
+            $this->dispatchBrowserEvent('close-modal');
+            $this->resetInput();
+        }
     }
 
     public function updateSPPD()
@@ -225,5 +294,7 @@ class TableDataAktifSppd extends Component
         session()->flash('message', 'Pelaksana perjalanan dinas berhasil dihapus');
         $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
+
+        $this->emit(event:'refreshComponent');
     }
 }

@@ -5,15 +5,15 @@ namespace App\Models\PGSQL;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pangkat_m extends Model
+class GelarBelakang_m extends Model
 {
     use HasFactory;
-    
+
     protected $connection = 'pgsql';
 
-    protected $table = 'public.pangkat_m';
+    protected $table = 'public.gelarbelakang_m';
 
-    protected $primaryKey = 'pangkat_id';
+    protected $primaryKey = 'gelarbelakang_id';
 
     protected $guarded = [];
 }

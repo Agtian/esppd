@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive" style="height: 600px;">
+            <div class="table-responsive">
                 <table class="table table-striped table-bordered m-0">
                     <thead>
                         <tr align="center">
@@ -105,7 +105,6 @@
 
     
     @include('livewire.sppd.modals.form-tambah-pelaksana-perjal')
-    @include('livewire.sppd.modals.form-edit-pelaksana-perjal')
     @include('livewire.sppd.modals.form-delete-pelaksana-perjal')
     
     @if ($showDetail)
@@ -154,8 +153,6 @@
                                                 <td>{{ $item->nomorindukpegawai }}</td>
                                                 <td>
                                                     <button type="button" wire:click="$emit('refreshComponent')" class="btn btn-sm btn-outline-primary">Reload</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-dark" wire:click="editPelaksanaPerjal({{ $item->id }})" data-toggle="modal"
-                                                        data-target="#editPelaksanaPerjalModal">Edit</button>
                                                     <button type="button" class="btn btn-sm btn-outline-danger" wire:click="deletePelaksanaPerjal({{ $item->id }})" data-toggle="modal"
                                                         data-target="#deletePelaksanaPerjalModal">Hapus</button>
                                                 </td>
@@ -407,35 +404,9 @@
 </div>
 
 @push('script')
-    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('.livesearch_pegawai').select2({
-                placeholder: 'Pilih Pegawai',
-                ajax: {
-                    url: '/dashboard/admin/sppd/autocomplete-get-pegawai',
-                    dataType: 'json',
-                    delay: 250,
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.nama_pegawai,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            })
-        });
-    </script>
     <script>
         window.addEventListener('close-modal', event => {
             $('#tambahPelaksanaPerjalModal').modal('hide');
-            $('#editPelaksanaPerjalModal').modal('hide');
             $('#deletePelaksanaPerjalModal').modal('hide');
         });
     </script>
