@@ -45,4 +45,9 @@ class BantuAku {
 	    }
 	}
 
+	public static function formatTanggal($date)
+	{
+		return date('d-m-Y', strtotime($date));
+	}
+
 }

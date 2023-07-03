@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\DevelopmentSPPD;
 
 use App\Http\Controllers\Controller;
+use App\Models\KonfigurasiSppd;
 use App\Models\PelaksanaPerjalananDinas;
 use App\Models\PerjalananDinas;
 use Illuminate\Http\Request;
@@ -14,9 +15,10 @@ class PrintOutController extends Controller
     {
         $detail            = PerjalananDinas::find($perjalanandinas_id);
         $resultPelaksana   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
+        $konf_sppd         = KonfigurasiSppd::findOrFail(1);
 
         // use TCPDF
-        $html = view('layouts.admin.sppd.printout.surat-tugas-i', compact('detail', 'resultPelaksana'));
+        $html = view('layouts.admin.sppd.printout.surat-tugas-i', compact('detail', 'resultPelaksana', 'konf_sppd'));
         
         PDF::SetTitle('e SPPD | Surat Tugas');
         PDF::AddPage('P', [215,330]);

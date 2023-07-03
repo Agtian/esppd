@@ -38,9 +38,7 @@
     <table>
         @foreach ($detail->pelaksanaPerjals as $item)
             <tr>
-                <td width="60" rowspan="4">
-                    @if ($loop->iteration == 1) Kepada @endif
-                </td>
+                <td width="60" rowspan="4">@if ($loop->iteration == 1)Kepada @endif</td>
                 <td width="5" rowspan="4">@if ($loop->iteration == 1): @endif</td>
                 <td width="15" rowspan="4">{{ $loop->iteration }}.</td>
                 <td width="105"> Nama</td>
@@ -89,26 +87,32 @@
         <tr>
             <td width="70"></td>
             <td width="50">Hari</td>
-            <td width="380">: </td>
+            <td width="380">: {{ $detail->hari }}</td>
         </tr>
         <tr>
             <td width="70"></td>
             <td width="50">Tanggal</td>
-            <td width="380">: </td>
+            <td width="380">:
+                @if ($detail->tgl_mulai == $detail->tgl_selesai)
+                    {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }}
+                @else
+                    {{ date('d-m-Y', strtotime($detail->tgl_mulai)).' s.d '.date('d-m-Y', strtotime($detail->tgl_selesai)) }}
+                @endif
+            </td>
         </tr>
         <tr>
             <td width="70"></td>
             <td width="50">Jam</td>
-            <td width="380">: </td>
+            <td width="380">: {{ date('H:i', strtotime($detail->jam_acara)).' - Selesai' }}</td>
         </tr>
         <tr>
             <td width="70"></td>
             <td width="50">Tempat</td>
-            <td width="380">: </td>
+            <td width="380">: {{ $detail->lokasi_ditetapkan }}</td>
         </tr>
     </table>
     
-    <br><br><br>
+    <br>
     <table>
         <tr>
             <td width="320"></td>
@@ -137,15 +141,15 @@
     <table>
         <tr>
             <td></td>
-            <td align="center"><b><u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u></b></td>
+            <td align="center"><b><u>{{ $konf_sppd->nama_direktur }} </u></b></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><b>Pembina TK I</b></td>
+            <td align="center"><b>{{ $konf_sppd->pangkat_direktur }}</b></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><b>NIP. 19701111 2005 01 1 003</b></td>
+            <td align="center"><b>NIP. {{ $konf_sppd->nip_direktur }}</b></td>
         </tr>
     </table>
 </div>
