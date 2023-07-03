@@ -69,7 +69,42 @@
         <tr>
             <td width="60">Untuk</td>
             <td width="5">:</td>
-            <td width="460">{{ $detail->maksud_perjalanan }}</td>
+            <td width="460">&nbsp;1.&nbsp; {{ $detail->maksud_perjalanan }}.</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td width="460">&nbsp;2.&nbsp; Tidak menerima gratifikasi dalam bentuk apapun sesuai ketentuan.</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td width="460">&nbsp;3.&nbsp; Melaporkan Hasil Kegiatan Kepada Direktur.</td>
+        </tr> 
+    </table>
+    <br><br>
+    <table>
+        <tr>
+            <td width="70" colspan="2"></td>
+            <td width="380">Kegiatan dimaksud akan dilaksanakan pada :</td>
+        </tr>
+        <tr>
+            <td width="70"></td>
+            <td width="50">Hari</td>
+            <td width="380">: </td>
+        </tr>
+        <tr>
+            <td width="70"></td>
+            <td width="50">Tanggal</td>
+            <td width="380">: </td>
+        </tr>
+        <tr>
+            <td width="70"></td>
+            <td width="50">Jam</td>
+            <td width="380">: </td>
+        </tr>
+        <tr>
+            <td width="70"></td>
+            <td width="50">Tempat</td>
+            <td width="380">: </td>
         </tr>
     </table>
     
@@ -77,11 +112,13 @@
     <table>
         <tr>
             <td width="320"></td>
-            <td>Ditetapkan di Jepara</td>
+            <td width="70">Ditetapkan di</td>
+            <td>: Jepara</td>
         </tr>
         <tr>
             <td width="320"></td>
-            <td>Pada tanggal {{ date('d F Y', strtotime($item->tgl_sppd)) }}</td>
+            <td width="70">Pada tanggal </td>
+            <td>: {{ date('d F Y', strtotime($item->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
