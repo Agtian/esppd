@@ -32,7 +32,7 @@ class TableDataAktifSppd extends Component
     
     public $searchPegawaiPelaksana, $searchPegawaiArr;
     
-    public $pelaksanaperjalanandinas_id, $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $lokasi_ditetapkan, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
+    public $pelaksanaperjalanandinas_id, $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $undangan_dari, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
 
     public $detNamaPegawai, $detGelarBelakangPegawai, $detJabatan, $detPangkat, $detGolongan, $detNIP;
 
@@ -44,7 +44,7 @@ class TableDataAktifSppd extends Component
     {
         return [
             'dasar'             => 'required|string',
-            'lokasi_ditetapkan' => 'required|string',
+            'undangan_dari'     => 'required|string',
             'jumlah_hari'       => 'required|integer',
             'hari'              => 'required',
             'tgl_mulai'         => 'required',
@@ -143,7 +143,7 @@ class TableDataAktifSppd extends Component
         // $this->no_perjal = $perjalananDinas->no_perjal;
         // $this->no_sppd = $perjalananDinas->no_sppd;
         // $this->dasar = $perjalananDinas->dasar;
-        // $this->lokasi_ditetapkan = $perjalananDinas->lokasi_ditetapkan;
+        // $this->undangan_dari = $perjalananDinas->undangan_dari;
         // $this->tgl_ditetapkan = $perjalananDinas->tgl_ditetapkan;
         // $this->jumlah_hari = $perjalananDinas->jumlah_hari;
         // $this->hari = $perjalananDinas->hari;
@@ -283,7 +283,7 @@ class TableDataAktifSppd extends Component
 
         PerjalananDinas::findOrFail($this->perjalanandinas_id)->update([
             'dasar'                 => $this->dasar,
-            'lokasi_ditetapkan'     => $this->lokasi_ditetapkan,
+            'undangan_dari'         => $this->undangan_dari,
             'jumlah_hari'           => $this->jumlah_hari,
             'hari'                  => $this->hari,
             'tgl_mulai'             => $this->tgl_mulai,

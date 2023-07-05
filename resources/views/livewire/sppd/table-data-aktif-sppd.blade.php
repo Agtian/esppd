@@ -204,10 +204,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Lokasi Ditetapkan</label>
+                                        <label class="col-sm-3 col-form-label">Undangan Dari</label>
                                         <div class="col-sm-9">
-                                            <textarea wire:model.defer="lokasi_ditetapkan" cols="20" rows="3" class="form-control @error('lokasi_ditetapkan') is-invalid @enderror">{{ old('dasar') }}</textarea>
-                                            @error('lokasi_ditetapkan')
+                                            <textarea wire:model.defer="undangan_dari" cols="20" rows="3" class="form-control @error('undangan_dari') is-invalid @enderror">{{ old('dasar') }}</textarea>
+                                            @error('undangan_dari')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

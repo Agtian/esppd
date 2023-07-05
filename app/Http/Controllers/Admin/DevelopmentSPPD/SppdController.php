@@ -42,7 +42,7 @@ class SppdController extends Controller
         $validatedData = $request->validate([
             'pegawai_id'                => 'required',
             'dasar'                     => 'required',
-            'lokasi_ditetapkan'         => 'required',
+            'undangan_dari'         => 'required',
             'jumlah_hari'               => 'required',
             'hari'                      => 'required',
             'tgl_mulai'                 => 'required',
@@ -71,7 +71,7 @@ class SppdController extends Controller
             'no_perjal'                 => $valNoPerjal,
             'no_sppd'                   => $no_sppd,
             'dasar'                     => $validatedData['dasar'],
-            'lokasi_ditetapkan'         => $validatedData['lokasi_ditetapkan'],
+            'undangan_dari'             => $validatedData['undangan_dari'],
             'tgl_ditetapkan'            => $validatedData['tgl_sppd'],
             'jumlah_hari'               => $validatedData['jumlah_hari'],
             'hari'                      => $validatedData['hari'],

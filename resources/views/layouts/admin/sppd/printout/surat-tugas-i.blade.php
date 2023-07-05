@@ -108,7 +108,7 @@
         <tr>
             <td width="70"></td>
             <td width="50">Tempat</td>
-            <td width="380">: {{ $detail->lokasi_ditetapkan }}</td>
+            <td width="380">: {{ $detail->tempat_tujuan }}</td>
         </tr>
         <tr><td colspan="3"></td></tr>
         <tr>

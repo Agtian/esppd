@@ -192,10 +192,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Lokasi Ditetapkan</label>
+                                                <label class="col-sm-3 col-form-label">Surat Dari</label>
                                                 <div class="col-sm-9">
-                                                    <textarea wire:model.defer="lokasi_ditetapkan" cols="20" rows="3" class="form-control @error('lokasi_ditetapkan') is-invalid @enderror" readonly>{{ old('dasar') }}</textarea>
-                                                    @error('lokasi_ditetapkan')
+                                                    <textarea wire:model.defer="undangan_dari" cols="20" rows="3" class="form-control @error('undangan_dari') is-invalid @enderror" readonly>{{ old('dasar') }}</textarea>
+                                                    @error('undangan_dari')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
