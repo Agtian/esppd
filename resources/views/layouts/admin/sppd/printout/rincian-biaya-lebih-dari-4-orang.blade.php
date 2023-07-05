@@ -22,11 +22,11 @@
     <table>
         <tr>
             <td width="130">Lampiran SPPD Nomor</td>
-            <td>: ...</td>
+            <td>: {{ $detail->no_sppd }}</td>
         </tr>
         <tr>
             <td width="130">Tanggal</td>
-            <td>: ...</td>
+            <td>: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
@@ -40,32 +40,32 @@
         <tr>
             <td align="center">1.</td>
             <td>Uang Harian*</td>
-            <td></td>
+            <td align="right">Rp. {{ $detail->uang_harian }}</td>
             <td rowspan="5" align="center">Terlampir</td>
         </tr>
         <tr>
             <td align="center">2.</td>
             <td>Biaya Transport*</td>
-            <td></td>
+            <td align="right">Rp. {{ $detail->biaya_transport }}</td>
         </tr>
         <tr>
             <td align="center">3.</td>
             <td>Biaya Penginapan*</td>
-            <td></td>
+            <td align="right">Rp. {{ $detail->biaya_penginapan }}</td>
         </tr>
         <tr>
             <td align="center">4.</td>
             <td>Uang Representasi*</td>
-            <td></td>
+            <td align="right">Rp. {{ $detail->uang_representasi }}</td>
         </tr>
         <tr>
             <td align="center">5.</td>
             <td>Lain-lain*</td>
-            <td></td>
+            <td align="right">Rp. {{ $detail->biaya_lainnya }}</td>
         </tr>
         <tr>
             <td colspan="2" align="center">Terbilang</td>
-            <td colspan="2"></td>
+            <td colspan="2">...</td>
         </tr>
     </table>
     <table>
@@ -76,7 +76,7 @@
     <table>
         <tr>
             <td width="330"></td>
-            <td>Jepara, {{ date('d M Y') }}</td>
+            <td>Jepara, {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
@@ -87,9 +87,9 @@
             <td>Telah Menerima Uang Sejumlah</td>
         </tr>
         <tr>
-            <td>Rp ..........</td>
+            <td>Rp. {{ $detail->total_biaya }}</td>
             <td width="145"></td>
-            <td>Rp ..........</td>
+            <td>Rp. {{ $detail->total_biaya }}</td>
         </tr>
     </table>
     <br><br>
@@ -103,9 +103,9 @@
         <tr><td colspan="3"></td></tr>
         <tr><td colspan="3"></td></tr>
         <tr>
-            <td>(.....................................)</td>
+            <td align="center"><u>{{ $konf_sppd->nama_bendahara }}</u> <br>NIP. {{ $konf_sppd->nip_bendahara }}</td>
             <td width="145"></td>
-            <td>(Terlampir)</td>
+            <td><b>(Terlampir)</b></td>
         </tr>
     </table>
     <br>
@@ -123,24 +123,24 @@
         <tr>
             <td>Ditetapkan sejumlah</td>
             <td width="140"></td>
-            <td>: Rp .......................</td>
+            <td>: Rp. {{ $detail->total_biaya }}</td>
         </tr>
         <tr>
             <td>Yang Telah Dibayarkan Semula</td>
             <td width="140"></td>
-            <td>: Rp .......................</td>
+            <td>: Rp. 0</td>
         </tr>
         <tr>
             <td>Sisa Kurang/Lebih</td>
             <td width="140"></td>
-            <td>: Rp .......................</td>
+            <td>: Rp. 0</td>
         </tr>
     </table>
     <br><br>
     <table>
         <tr>
             <td width="250"></td>
-            <td align="center">Pengguna Anggaran / <br>Kuasa Pengguna Anggaran <br>atau <br>An.PA/KPA PPTK</td>
+            <td align="center">An.PA/KPA PPTK</td>
         </tr>
         <tr>
             <td colspan="2"></td>
@@ -150,7 +150,7 @@
         </tr>
         <tr>
             <td width="250"></td>
-            <td align="center">(......................................................................) <br>NIP. </td>
+            <td align="center"><u>{{ $konf_sppd->nama_pptk }}</u> <br>NIP. {{ $konf_sppd->nip_pptk }}</td>
         </tr>
     </table>
     <br><br>

@@ -51,7 +51,7 @@
         </tr>
         <tr>
             <td width="170">Bidang/UPT/Balai/Cabang Dinas</td>
-            <td>: ...</td>
+            <td>: {{ $detail->undangan_dari }}</td>
         </tr>
     </table>
     <br><br>
@@ -68,18 +68,23 @@
             <td align="center">Tanda Tangan</td>
             <td align="center">Keterangan</td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        @forelse ($resultPelaksana as $item)
+            <tr>
+                <td align="center">{{ $loop->iteration }}</td>
+                <td>{{ $item->nama_pegawai.', '.$item->gelarbelakang_nama.' | '.$item->nomorindukpegawai }}</td>
+                <td align="center">{{ $item->uang_harian }}</td>
+                <td align="center">{{ $item->biaya_transport }}</td>
+                <td align="center">{{ $item->biaya_penginapan }}</td>
+                <td align="center">{{ $item->uang_representasi }}</td>
+                <td align="center">{{ $item->biaya_lainnya }}</td>
+                <td align="center">{{ $item->total_biaya }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        @empty
+            <tr><td colspan="10" align="center">Data pelaksana tidak tersedia !</td></tr>
+        @endforelse
+        
         <tr>
             <td></td>
             <td align="center">Jumlah</td>
@@ -98,17 +103,17 @@
     <br><br>
     <table>
         <tr>
-            <td align="center">Bendahara Pengeluaran/ <br>Bendahara Pengeluaran Pembantu</td>
+            <td align="center">Bendahara Pengeluaran</td>
             <td width="300"></td>
-            <td align="center">Pengguna Anggaran / <br>Kuasa Pengguna Anggaran <br> atau An.PA/KPA PPTK</td>
+            <td align="center">An.PA/KPA PPTK</td>
         </tr>
         <tr><td colspan="3"></td></tr>
         <tr><td colspan="3"></td></tr>
         <tr><td colspan="3"></td></tr>
         <tr>
-            <td align="center">(.....................................) <br>NIP.</td>
+            <td align="center"><u>{{ $konf_sppd->nama_bendahara }}</u> <br>NIP. {{ $konf_sppd->nip_bendahara }}</td>
             <td width="300"></td>
-            <td align="center">(.....................................) <br>NIP.</td>
+            <td align="center"><u>{{ $konf_sppd->nama_pptk }}</u> <br>NIP. {{ $konf_sppd->nip_pptk }}</td>
         </tr>
     </table>
 </div>

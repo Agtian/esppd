@@ -115,7 +115,7 @@
                 <td>: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
             </tr>
         </table>
-        <br><br>
+        <br><br><br>
         <table>
             <tr>
                 <td></td>

@@ -44,31 +44,31 @@
             <tr>
                 <td align="center">1.</td>
                 <td>Uang Harian</td>
-                <td></td>
+                <td align="center">{{ $pelaksana->uang_harian }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">2.</td>
                 <td>Biaya Transport</td>
-                <td></td>
+                <td align="center">{{ $pelaksana->biaya_transport }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">3.</td>
                 <td>Biaya Penginapan</td>
-                <td></td>
+                <td align="center">{{ $pelaksana->biaya_penginapan }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">4.</td>
                 <td>Uang Representasi</td>
-                <td></td>
+                <td align="center">{{ $pelaksana->uang_representasi }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">5.</td>
                 <td>Lain-lain</td>
-                <td></td>
+                <td align="center">{{ $pelaksana->biaya_lainnya }}</td>
                 <td></td>
             </tr>
             <tr>
@@ -91,9 +91,9 @@
                 <td>Telah Menerima Uang Sejumlah</td>
             </tr>
             <tr>
-                <td>Rp ...........</td>
+                <td>Rp. {{ $pelaksana->total_biaya }}</td>
                 <td width="150"></td>
-                <td>Rp ...........</td>
+                <td>Rp. {{ $pelaksana->total_biaya }}</td>
             </tr>
         </table>
         <br><br>
@@ -126,17 +126,17 @@
             <tr>
                 <td>Ditetapkan sejumlah</td>
                 <td width="200"></td>
-                <td>: Rp...........................</td>
+                <td>: Rp. {{ $pelaksana->total_biaya }}</td>
             </tr>
             <tr>
                 <td>Yang Telah Dibayarkan Semula</td>
                 <td width="200"></td>
-                <td>: Rp...........................</td>
+                <td>: Rp. 0</td>
             </tr>
             <tr>
                 <td>Sisa Kurang/Lebih</td>
                 <td width="200"></td>
-                <td>: Rp...........................</td>
+                <td>: Rp. 0</td>
             </tr>
         </table>
         <br><br>
