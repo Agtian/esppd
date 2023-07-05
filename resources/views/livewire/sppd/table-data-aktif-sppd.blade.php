@@ -105,6 +105,7 @@
 
     
     @include('livewire.sppd.modals.form-tambah-pelaksana-perjal')
+    @include('livewire.sppd.modals.form-update-rincian-biaya')
     @include('livewire.sppd.modals.form-delete-pelaksana-perjal')
     
     @if ($showDetail)
@@ -304,89 +305,49 @@
                                 </div>
                                 <div class="tab-pane fade show active" id="custom-tabs-two-biaya" role="tabpanel" aria-labelledby="biaya-tab">
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Uang Harian</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control @error('uang_harian') is-invalid @enderror" wire:model="uang_harian" value="0">
-                                                    @error('uang_harian')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Biaya Transport</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control @error('biaya_transport') is-invalid @enderror" wire:model="biaya_transport" value="0">
-                                                    @error('biaya_transport')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Biaya Penginapan</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control @error('biaya_penginapan') is-invalid @enderror" wire:model="biaya_penginapan" value="0">
-                                                    @error('biaya_penginapan')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Total Biaya</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" readonly class="form-control @error('resultTotalBiaya') is-invalid @enderror" wire:model="resultTotalBiaya" value="0">
-                                                    @error('resultTotalBiaya')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Uang Representasi</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control @error('uang_representasi') is-invalid @enderror" wire:model="uang_representasi" value="0">
-                                                    @error('uang_representasi')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Biaya Pesawat</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control @error('biaya_pesawat') is-invalid @enderror" wire:model="biaya_pesawat" value="{{ old('biaya_pesawat') }}">
-                                                    @error('biaya_pesawat')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Biaya Lainnya</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control @error('biaya_lainnya') is-invalid @enderror" wire:model="biaya_lainnya" value="0">
-                                                    @error('biaya_lainnya')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="50">No</th>
+                                                        <th>Pelaksana</th>
+                                                        <th>Uang Harian</th>
+                                                        <th>Biaya Transport</th>
+                                                        <th>Biaya Penginapan</th>
+                                                        <th>Uang Representasi</th>
+                                                        <th>Biaya Pesawat</th>
+                                                        <th>Biaya Lainnya</th>
+                                                        <th>Total</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse ($resultPelaksanaPerjal as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $item->nama_pegawai }}</td>
+                                                            <td>{{ $item->uang_harian }}</td>
+                                                            <td>{{ $item->biaya_transport }}</td>
+                                                            <td>{{ $item->biaya_penginapan }}</td>
+                                                            <td>{{ $item->uang_representasi }}</td>
+                                                            <td>{{ $item->biaya_pesawat }}</td>
+                                                            <td>{{ $item->biaya_lainnya }}</td>
+                                                            <td>{{ $item->total_biaya }}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-sm btn-outline-dark" wire:click="modalUpdateRincianBiaya({{ $item->id }})" data-toggle="modal"
+                                                                    data-target="#modal-update-rincian-biaya">Ubah</button>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="9" align="center">Data pelaksana tidak tersedia !</td>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
+                                    
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
                                     Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
@@ -407,6 +368,7 @@
     <script>
         window.addEventListener('close-modal', event => {
             $('#tambahPelaksanaPerjalModal').modal('hide');
+            $('#modal-update-rincian-biaya').modal('hide');
             $('#deletePelaksanaPerjalModal').modal('hide');
         });
     </script>

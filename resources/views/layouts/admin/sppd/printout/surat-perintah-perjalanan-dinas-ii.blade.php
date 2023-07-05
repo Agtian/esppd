@@ -16,18 +16,16 @@
         <tr>
             <td></td>
             <td>
-                    I. &nbsp; Berangkat dari : ... <br>
+                    I. &nbsp; Berangkat dari : RSUD dr. Rehatta <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ke : .. <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada Tanggal : {{ date('d F Y', strtotime($detail->tgl_sppd)) }} 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada Tanggal : {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }} 
                 <div><b align="center">
-                    Direktur RSUD Kelet <br>
-                    Provinsi Jawa Tengah
+                    an. PA/KPA <br>PPTK <br>
                     <br>
                     <br>
                     <br>
-                    <u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u><br>
-                    Pembina TK I <br>
-                    NIP. 19701111 2005 01 1 003
+                    <u>{{ $konf_sppd->nama_pptk }}</u><br>
+                    NIP. {{ $konf_sppd->nip_pptk }}
                 </b></div>
             </td>
         </tr>
@@ -112,19 +110,19 @@
                 VI. Tiba ditempat kedudukan : ... <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pada Tanggal : .. <br><br>
                     <div align="center">
-                        Direktur RSUD Kelet <br>Provinsi Jawa Tengah<br>
+                        an. PA/KPA <br>PPTK<br>
                         <br><br>
-                        <b><u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u></b><br>
-                        NIP. 19701111 2005 01 1 003
+                        <b><u>{{ $konf_sppd->nama_pptk }}</u></b><br>
+                        NIP. {{ $konf_sppd->nip_pptk }}
                     </div>
             </td>
             <td class="justify">Telah diperiksa dengan keterangan bahwa perjalanan tersebut atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.
                 <br>
                 <div align="center">
-                    Direktur RSUD Kelet <br>Provinsi Jawa Tengah<br>
+                    an. PA/KPA <br>PPTK<br>
                     <br><br>
-                    <b><u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u></b><br>
-                    NIP. 19701111 2005 01 1 003
+                    <b><u>{{ $konf_sppd->nama_pptk }}</u></b><br>
+                    NIP. {{ $konf_sppd->nip_pptk }}
                 </div>
             </td>
         </tr>

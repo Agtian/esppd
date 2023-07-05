@@ -24,6 +24,14 @@ return new class extends Migration
             $table->string('golongan', 50);
             $table->string('unit_kerja', 50);
             $table->date('tgl_sppd');
+            $table->integer('uang_harian');
+            $table->integer('biaya_transport');
+            $table->integer('biaya_penginapan');
+            $table->integer('uang_representasi');
+            $table->integer('biaya_pesawat');
+            $table->integer('biaya_lainnya');
+            $table->integer('total_biaya');
+            
             $table->foreign('perjalanandinas_id')->references('id')->on('perjalanandinas')->onDelete('cascade');
             $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade');
             $table->timestamps();

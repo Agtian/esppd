@@ -23,8 +23,8 @@
     <table border="0.3" cellpadding="4" width="100%">
         <tr>
             <td width="30" align="center">1.</td>
-            <td width="330">Pengguna Anggaran/ Kuasa Pengguna Anggaran</td>
-            <td></td>
+            <td width="300">Pengguna Anggaran/ Kuasa Pengguna Anggaran</td>
+            <td width="210"></td>
         </tr>
         <tr>
             <td align="center">2.</td>
@@ -42,22 +42,25 @@
         <tr>
             <td width="30" align="center">4.</td>
             <td>Maksud Mengadakan Perjalanan</td>
-            <td></td>
+            <td>{{ $detail->maksud_perjalanan }}</td>
         </tr>
         <tr>
             <td width="30" align="center">5.</td>
             <td>Alat Angkut yang Dipergunakan</td>
-            <td></td>
+            <td>Dinas</td>
         </tr>
         <tr>
             <td width="30" align="center">6.</td>
             <td>a. Tempat Berangkat <br>b. Tempat Tujuan</td>
-            <td>a. ...<br>b. ...</td>
+            <td>a. RSUD dr. Rehatta<br>b. {{ $detail->tempat_tujuan }}</td>
         </tr>
         <tr>
             <td width="30" align="center">7.</td>
             <td>a. Lamanya Pejalanan Dinas <br>b. Tanggal Berangkat <br>c. Tanggal Harus Kembali/Tiba Di Tempat Baru *)</td>
-            <td>a. ...<br>b. ... <br>c. ...</td>
+            <td>a. {{ $detail->jumlah_hari }} Hari
+                <br>b. {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }}
+                <br>c. {{ date('d-m-Y', strtotime($detail->tgl_selesai)) }}
+            </td>
         </tr>
         <tr>
             <td width="30" align="center">8.</td>
@@ -67,7 +70,7 @@
         <tr>
             <td width="30" align="center">9.</td>
             <td>Pembebanan Anggaran <br>a. SKPD <br>a. Akun</td>
-            <td>&nbsp; <br>a. ...<br>b. (sesuai DPA kegiatan)</td>
+            <td>&nbsp; <br>a. RSUD dr. Rehatta<br>b. 1.02.0.00.0.00.15.X.XX.01.1.10.5.01.5.1.2.99.99.9999</td>
         </tr>
         <tr>
             <td width="30" align="center">10.</td>
@@ -86,41 +89,45 @@
     <table>
         <tr>
             <td width="330"></td>
-            <td>Dikeluarkan di Jepara</td>
+            <td width="80">Dikeluarkan di</td>
+            <td width="200">: Jepara</td>
         </tr>
         <tr>
             <td width="330"></td>
-            <td>Pada tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+            <td width="80">Pada tanggal </td>
+            <td width="200">: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
         <tr>
             <td width="330"></td>
-            <td>Ditetapkan di Jepara</td>
+            <td width="80">Ditetapkan di</td>
+            <td width="200">: Jepara</td>
         </tr>
         <tr>
             <td width="330"></td>
-            <td>tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+            <td width="80">Pada tanggal </td>
+            <td width="200">: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
     <table>
         <tr>
             <td></td>
-            <td align="center"><b>DIREKTUR RSUD KELET</b></td>
+            <td align="center"><b>an.PA/KPA</b></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><b>PROVINSI JAWA TENGAH</b></td>
+            <td align="center"><b>PPTK</b></td>
         </tr>
     </table>
-    <br><br><br><br><br>
+    <br><br><br><br>
     <table>
         <tr>
             <td></td>
-            <td align="center"><b><u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u></b></td>
+            <td align="center"><b><u>{{ $konf_sppd->nama_pptk }}</u></b></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><b>NIP. 19701111 2005 01 1 003</b></td>
+            <td align="center">NIP. {{ $konf_sppd->nip_pptk }}</td>
         </tr>
     </table>
 </div>

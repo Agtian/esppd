@@ -18,12 +18,12 @@
         <tr>
             <td width="350"></td>
             <td width="50">Tanggal</td>
-            <td width="300">: ...</td>
+            <td width="300">: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
         <tr>
             <td width="350"></td>
             <td width="50">Nomor</td>
-            <td width="300">: ...</td>
+            <td width="300">: {{ $detail->no_sppd }}</td>
         </tr>
     </table>
     <br><br>
@@ -33,41 +33,49 @@
             <td width="330" align="center">Nama/NIP/Pangkat/Jabatan</td>
             <td width="170" align="center">Keterangan</td>
         </tr>
-        @forelse ($resultPelaksana as $item)
+        @forelse ($resultPelaksana as $pelaksana)
             <tr>
-                <td align="center">1.</td>
-                <td width="330">Nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $item->nama_pegawai. ', ' .$item->gelarbelakang_nama }}</td>
+                <td align="center">{{ $loop->iteration }}.</td>
+                <td width="330">Nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $pelaksana->nama_pegawai. ', ' .$pelaksana->gelarbelakang_nama }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center"></td>
-                <td width="330">NIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $item->nomorindukpegawai }}</td>
+                <td width="330">NIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $pelaksana->nomorindukpegawai }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center"></td>
-                <td width="330">Pangkat/Gol : {{ $item->pangkat.' / '.$item->golongan }}</td>
+                <td width="330">Pangkat/Gol : {{ $pelaksana->pangkat.' / '.$pelaksana->golongan }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center"></td>
-                <td width="330">Jabatan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $item->jabatan }}</td>
+                <td width="330">Jabatan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $pelaksana->jabatan }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
                 <td></td>
             </tr>
         @empty
-            
+            <tr>
+                <td colspan="3" style="background-color: red" align="center">DATA PELAKSANA TIDAK TERSEDIA !</td>
+            </tr>
         @endforelse
-        
-        <tr><td colspan="3"></td></tr>
     </table>
+    <br><br>
     <table>
         <tr>
             <td width="330"></td>
-            <td>Ditetapkan di Jepara</td>
+            <td width="70">Ditetapkan di</td>
+            <td width="200">: Jepara</td>
         </tr>
         <tr>
             <td width="330"></td>
-            <td>Pada tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+            <td wdith="70">Pada tanggal</td>
+            <td width="200">: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
@@ -81,19 +89,19 @@
             <td align="center"><b>PROVINSI JAWA TENGAH</b></td>
         </tr>
     </table>
-    <br><br><br><br><br>
+    <br><br><br><br>
     <table>
         <tr>
             <td></td>
-            <td align="center"><b><u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u></b></td>
+            <td align="center"><b><u>{{ $konf_sppd->nama_direktur }}</u></b></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><b>Pembina TK I</b></td>
+            <td align="center"><b>{{ $konf_sppd->pangkat_direktur }}</b></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><b>NIP. 19701111 2005 01 1 003</b></td>
+            <td align="center"><b>NIP. {{ $konf_sppd->nip_direktur }}</b></td>
         </tr>
     </table>
 </div>

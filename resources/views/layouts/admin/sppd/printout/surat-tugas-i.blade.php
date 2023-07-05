@@ -110,6 +110,10 @@
             <td width="50">Tempat</td>
             <td width="380">: {{ $detail->lokasi_ditetapkan }}</td>
         </tr>
+        <tr><td colspan="3"></td></tr>
+        <tr>
+            <td colspan="3" width="540" class="justify">Demikian Surat Tugas ini dibuat kepada yang bersangkutan untuk dilaksanakan dengan penuh rasa tanggung jawab.</td>
+        </tr>
     </table>
     
     <br>
@@ -122,7 +126,7 @@
         <tr>
             <td width="320"></td>
             <td width="70">Pada tanggal </td>
-            <td>: {{ date('d F Y', strtotime($item->tgl_sppd)) }}</td>
+            <td>: {{ date('d-m-Y', strtotime($item->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>

@@ -39,22 +39,61 @@
         <tr>
             <td width="60">Untuk</td>
             <td width="10">:</td>
-            <td width="330">
+            <td width="460">
                 <ol>
-                    <li>...</li>
+                    <li>{{ $detail->maksud_perjalanan }}.</li>
+                    <li>Tidak menerima gratifikasi dalam bentuk apapun sesuai ketentuan.</li>
+                    <li>Melaporkan Hasil Kegiatan Kepada Direktur.</li>
                 </ol> 
             </td>
+        </tr>
+        <tr><td colspan="3"></td></tr>
+        <tr>
+            <td colspan="2"></td>
+            <td width="460">Kegiatan dimaksud akan dilaksanakan pada :</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td width="70">Hari</td>
+            <td>: {{ $detail->hari }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td width="70">Tanggal</td>
+            <td>: 
+                @if ($detail->tgl_mulai == $detail->tgl_akhir)
+                    {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }}
+                @else
+                {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} s.d {{ date('d-M-Y', strtotime($detail->tgl_akhir)) }}
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td width="70">Jam</td>
+            <td>: {{ date('H:i', strtotime($detail->jam_acara)) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td width="70">Tempat</td>
+            <td>: {{ $detail->tempat_tujuan }}</td>
+        </tr>
+        <tr><td colspan="3"></td></tr>
+        <tr>
+            <td colspan="3" width="540" class="justify">Demikian Surat Tugas ini dibuat kepada yang bersangkutan untuk dilaksanakan dengan penuh rasa tanggung jawab.</td>
         </tr>
     </table>
     <br><br>
     <table>
         <tr>
             <td width="350"></td>
-            <td>Ditetapkan di Jepara</td>
+            <td width="70">Ditetapkan di</td>
+            <td width="200">: Jepara</td>
         </tr>
         <tr>
             <td width="350"></td>
-            <td>Pada tanggal {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+            <td width="70">Pada tanggal</td>
+            <td width="200">: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>
@@ -72,15 +111,15 @@
     <table>
         <tr>
             <td></td>
-            <td align="center"><b><u>dr. Agung Pribadi, M,Kes. M.Si. Med. Sp.B</u></b></td>
+            <td align="center"><b><u>{{ $konf_sppd->nama_direktur }}</u></b></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><b>Pembina TK I</b></td>
+            <td align="center"><b>{{ $konf_sppd->pangkat_direktur }}</b></td>
         </tr>
         <tr>
             <td></td>
-            <td align="center"><b>NIP. 19701111 2005 01 1 003</b></td>
+            <td align="center"><b>NIP. {{ $konf_sppd->nip_direktur }}</b></td>
         </tr>
     </table>
 </div>
