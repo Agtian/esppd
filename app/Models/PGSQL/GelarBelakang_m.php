@@ -16,4 +16,9 @@ class GelarBelakang_m extends Model
     protected $primaryKey = 'gelarbelakang_id';
 
     protected $guarded = [];
+
+    public function pegawais()
+    {
+        return $this->hasMany(Pegawai_m::class, 'gelarbelakang_id', 'gelarbelakang_id');
+    }
 }

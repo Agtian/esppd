@@ -154,8 +154,7 @@
                                                 <td>{{ $item->nomorindukpegawai }}</td>
                                                 <td>
                                                     <button type="button" wire:click="$emit('refreshComponent')" class="btn btn-sm btn-outline-primary">Reload</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-danger" wire:click="deletePelaksanaPerjal({{ $item->id }})" data-toggle="modal"
-                                                        data-target="#deletePelaksanaPerjalModal">Hapus</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" wire:click="hapusBiayaDanPelaksanaPerjal()">Hapus</button>
                                                 </td>
                                             </tr>
                                         @empty
@@ -334,8 +333,12 @@
                                                             <td>{{ $item->biaya_lainnya }}</td>
                                                             <td>{{ $item->total_biaya }}</td>
                                                             <td>
-                                                                <button type="button" class="btn btn-sm btn-outline-dark" wire:click="modalUpdateRincianBiaya({{ $item->id }})" data-toggle="modal"
+                                                                @if ($item->status_update == 0)
+                                                                    <button type="button" class="btn btn-sm btn-outline-dark" wire:click="modalUpdateRincianBiaya({{ $item->id }})" data-toggle="modal"
                                                                     data-target="#modal-update-rincian-biaya">Ubah</button>
+                                                                @else
+                                                                    <button class="btn btn-sm btn-outline-danger" disabled>Done</button>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @empty

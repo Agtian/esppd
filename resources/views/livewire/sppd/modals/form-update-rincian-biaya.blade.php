@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Rincian Biaya</h4>
+                <h4 class="modal-title">Rincian Biaya - {{ $nama_pegawai }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeModal">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -94,8 +94,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    
+                <div class="modal-footer justify-content-between">
+                    <button type="button" wire:click="closeModalRincianBiaya" class="btn btn-secondary"
+                        data-dismiss="modal">Kembali</button>
+                    @if ($status_update == 0)
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    @endif
                 </div>
             </form>
         </div>

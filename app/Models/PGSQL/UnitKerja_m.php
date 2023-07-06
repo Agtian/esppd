@@ -12,4 +12,9 @@ class UnitKerja_m extends Model
     protected $table = 'public.unitkerja_m';
     protected $primaryKey = 'unitkerja_id';
     protected $guarded = [];
+
+    public function pegawais()
+    {
+        return $this->hasMany(Pegawai_m::class, 'unitkerja_id', 'unitkerja_id');
+    }
 }

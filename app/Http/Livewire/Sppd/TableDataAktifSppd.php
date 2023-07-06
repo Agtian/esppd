@@ -32,7 +32,7 @@ class TableDataAktifSppd extends Component
     
     public $searchPegawaiPelaksana, $searchPegawaiArr;
     
-    public $pelaksanaperjalanandinas_id, $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $undangan_dari, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
+    public $pelaksanaperjalanandinas_id, $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $undangan_dari, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $total_biaya, $status_update, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
 
     public $detNamaPegawai, $detGelarBelakangPegawai, $detJabatan, $detPangkat, $detGolongan, $detNIP;
 
@@ -68,6 +68,17 @@ class TableDataAktifSppd extends Component
         $this->golonganpegawai_id = NULL;
         $this->unitkerja_id = NULL;
         $this->searchPegawaiPelaksana = NULL;
+    }
+
+    public function resetModalUpdateRincianBiaya()
+    {
+        $this->uang_harian = 0;
+        $this->biaya_transport = 0;
+        $this->biaya_penginapan = 0;
+        $this->uang_representasi = 0;
+        $this->biaya_pesawat = 0;
+        $this->biaya_lainnya = 0;
+        $this->total_biaya = 0;
     }
 
     public function resetShow()
@@ -122,11 +133,14 @@ class TableDataAktifSppd extends Component
         
         $this->pelaksanaperjalanandinas_id  = $rincianBiaya->id;
         $this->perjalanandinas_id           = $rincianBiaya->perjalanandinas_id;
+        $this->nama_pegawai                 = $rincianBiaya->gelardepan.' '.$rincianBiaya->nama_pegawai.', '.$rincianBiaya->gelarbelakang_nama;
+        $this->uang_harian                  = $rincianBiaya->uang_harian;
         $this->biaya_transport              = $rincianBiaya->biaya_transport;
         $this->biaya_penginapan             = $rincianBiaya->biaya_penginapan;
         $this->uang_representasi            = $rincianBiaya->uang_representasi;
         $this->biaya_pesawat                = $rincianBiaya->biaya_pesawat;
         $this->biaya_lainnya                = $rincianBiaya->biaya_lainnya;
+        $this->status_update                = $rincianBiaya->status_update;
         $this->status_sppd                  = $rincianBiaya->status_sppd;
     }
 
@@ -138,7 +152,7 @@ class TableDataAktifSppd extends Component
         $this->detailResultAktifSPPD = PerjalananDinas::find($perjalanandinas_id);
         $this->resultPelaksanaPerjal = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
 
-        // $this->perjalanandinas_id = $perjalananDinas->id;
+        $this->perjalanandinas_id = $perjalanandinas_id;
         // $this->user_id = $perjalananDinas->user_id;
         // $this->no_perjal = $perjalananDinas->no_perjal;
         // $this->no_sppd = $perjalananDinas->no_sppd;
@@ -149,7 +163,7 @@ class TableDataAktifSppd extends Component
         // $this->hari = $perjalananDinas->hari;
         // $this->tgl_mulai = $perjalananDinas->tgl_mulai;
         // $this->tgl_selesai = $perjalananDinas->tgl_selesai;
-        // $this->tgl_sppd = $perjalananDinas->tgl_sppd;
+        $this->tgl_sppd = $perjalananDinas->tgl_sppd;
         // $this->maksud_perjalanan = $perjalananDinas->maksud_perjalanan;
         // $this->tempat_tujuan = $perjalananDinas->tempat_tujuan;
         // $this->jam_acara = $perjalananDinas->jam_acara;
@@ -167,9 +181,49 @@ class TableDataAktifSppd extends Component
         $this->resetInput();
     }
 
-    public function updateRincianBiaya(int $pelaksanaperjalanandinas_id)
+    public function closeModalRincianBiaya()
     {
+        $this->resetModalUpdateRincianBiaya();
+    }
 
+    public function updateRincianBiaya()
+    {   
+        $validatedUpdate = $this->validate([
+            'uang_harian'            => 'required|integer',
+            'biaya_transport'        => 'integer',
+            'biaya_penginapan'       => 'integer',
+            'uang_representasi'      => 'integer',
+            'biaya_pesawat'          => 'integer',
+            'biaya_lainnya'          => 'integer',
+            'total_biaya'            => 'integer',
+            'resultTotalBiaya'       => 'integer',
+        ]);
+
+        PelaksanaPerjalananDinas::findOrFail($this->pelaksanaperjalanandinas_id)->update([
+            'uang_harian'            => $validatedUpdate['uang_harian'],
+            'biaya_transport'        => $validatedUpdate['biaya_transport'],
+            'biaya_penginapan'       => $validatedUpdate['biaya_penginapan'],
+            'uang_representasi'      => $validatedUpdate['uang_representasi'],
+            'biaya_pesawat'          => $validatedUpdate['biaya_pesawat'],
+            'biaya_lainnya'          => $validatedUpdate['biaya_lainnya'],
+            'total_biaya'            => $validatedUpdate['resultTotalBiaya'],
+            'status_update'          => 1,
+        ]);
+
+        $getDataPerjal = PerjalananDinas::findOrFail($this->perjalanandinas_id);
+        PerjalananDinas::findOrFail($this->perjalanandinas_id)->update([
+            'uang_harian'            => $getDataPerjal->uang_harian + $validatedUpdate['uang_harian'],
+            'biaya_transport'        => $getDataPerjal->biaya_transport + $validatedUpdate['biaya_transport'],
+            'biaya_penginapan'       => $getDataPerjal->biaya_penginapan + $validatedUpdate['biaya_penginapan'],
+            'uang_representasi'      => $getDataPerjal->uang_representasi + $validatedUpdate['uang_representasi'],
+            'biaya_pesawat'          => $getDataPerjal->biaya_pesawat + $validatedUpdate['biaya_pesawat'],
+            'biaya_lainnya'          => $getDataPerjal->biaya_lainnya + $validatedUpdate['biaya_lainnya'],
+            'total_biaya'            => $getDataPerjal->total_biaya + $validatedUpdate['resultTotalBiaya'],
+        ]);
+
+        session()->flash('message', "Rincian biaya $this->nama_pegawai berhasil diperbarui");
+        $this->dispatchBrowserEvent('close-modal');
+        $this->resetModalUpdateRincianBiaya();
     }
 
     public function updateBiodataPegawai()
@@ -253,12 +307,12 @@ class TableDataAktifSppd extends Component
                 'pegawai_id'            => $pegawai_id,
                 'gelardepan'            => $detPegawais->gelardepan,
                 'nama_pegawai'          => $detPegawais->nama_pegawai,
-                'gelarbelakang_nama'    => $detPegawais->gelarbelakang_nama,
+                'gelarbelakang_nama'    => $detPegawais->gelarbelakangs->gelarbelakang_nama,
                 'nomorindukpegawai'     => $detPegawais->nomorindukpegawai,
                 'pangkat'               => $detPangkat->pangkat_nama,
-                'jabatan'               => $detPegawais->nama_jabatan,
+                'jabatan'               => $detPegawais->jabatans->jabatan_nama,
                 'golongan'              => $detGol->golonganpegawai_nama,
-                'unit_kerja'            => $detPegawais->namaunitkerja,
+                'unit_kerja'            => $detPegawais->unitkerjas->namaunitkerja,
                 'tgl_sppd'              => $this->tgl_sppd,
             ]);
 
@@ -304,18 +358,30 @@ class TableDataAktifSppd extends Component
         $this->resetInput();
     }
 
-    public function deletePelaksanaPerjal($perjalanandinas_id)
+    public function deletePelaksanaPerjal($pelaksanaperjalanandinas_id)
     {
-        $this->perjalanandinas_id = $perjalanandinas_id;
+        $this->pelaksanaperjalanandinas_id = $pelaksanaperjalanandinas_id;
     }
 
-    public function destroyPelaksanaPerjal()
-    {
-        PelaksanaPerjalananDinas::findOrFail($this->perjalanandinas_id)->delete();
+    public function hapusBiayaDanPelaksanaPerjal()
+    {   
+        $getDataPelaksanaPerjal = PelaksanaPerjalananDinas::findOrFail($this->pelaksanaperjalanandinas_id);
+        $getDataPerjal          = PerjalananDinas::findOrFail($getDataPelaksanaPerjal->perjalanandinas_id);
+
+        PerjalananDinas::findOrFail($this->perjalanandinas_id)->update([
+            'uang_harian'            => $getDataPerjal->uang_harian - $getDataPelaksanaPerjal->uang_harian,
+            'biaya_transport'        => $getDataPerjal->biaya_transport - $getDataPelaksanaPerjal->biaya_transport,
+            'biaya_penginapan'       => $getDataPerjal->biaya_penginapan - $getDataPelaksanaPerjal->biaya_penginapan,
+            'uang_representasi'      => $getDataPerjal->uang_representasi - $getDataPelaksanaPerjal->uang_representasi,
+            'biaya_pesawat'          => $getDataPerjal->biaya_pesawat - $getDataPelaksanaPerjal->biaya_pesawat,
+            'biaya_lainnya'          => $getDataPerjal->biaya_lainnya - $getDataPelaksanaPerjal->biaya_lainnya,
+            'total_biaya'            => $getDataPerjal->total_biaya - $getDataPelaksanaPerjal->total_biaya,
+        ]);
+
+        PelaksanaPerjalananDinas::findOrFail($this->pelaksanaperjalanandinas_id)->delete();
         session()->flash('message', 'Pelaksana perjalanan dinas berhasil dihapus');
         $this->dispatchBrowserEvent('close-modal');
-        $this->resetInput();
-
+        $this->resetModalUpdateRincianBiaya();
         $this->emit(event:'refreshComponent');
     }
 }

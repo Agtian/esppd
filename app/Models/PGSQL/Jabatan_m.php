@@ -13,4 +13,9 @@ class Jabatan_m extends Model
     protected $table = 'public.jabatan_m';
     protected $primaryKey = 'jabatan_id';
     protected $guarded = [];
+
+    public function pegawais()
+    {
+        return $this->hasMany(Pegawai_m::class, 'jabatan_id', 'jabatan_id');
+    }
 }
