@@ -18,7 +18,7 @@ class TablePelaksanaSppd extends Component
 
     public $pegawaiPelaksana = [];
     
-    public $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $undangan_dari, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
+    public $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $undangan_dari, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $biaya_tol = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
 
     public $detailResultAktifSPPD;
 
@@ -59,6 +59,7 @@ class TablePelaksanaSppd extends Component
         $this->uang_representasi = $perjalananDinas->uang_representasi;
         $this->biaya_pesawat = $perjalananDinas->biaya_pesawat;
         $this->biaya_lainnya = $perjalananDinas->biaya_lainnya;
+        $this->biaya_tol = $perjalananDinas->biaya_tol;
         $this->status_sppd = $perjalananDinas->status_sppd;
     }
 

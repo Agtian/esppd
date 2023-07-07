@@ -47,6 +47,8 @@ Route::controller(PrintOutController::class)->group(function () {
     Route::get('/printout/surat-tugas-ii/{perjalanandinas_id}', 'suratTugasLebihDari4Orang');
     Route::get('/printout/sppd-iii/{perjalanandinas_id}', 'suratSPPDLebihDari4Orang');
     Route::get('/printout/rincian-biaya-ii/{perjalanandinas_id}', 'rincianBiayaLebihDari4Orang');
+    
+    Route::get('/printout/daftar-pengeluaran-riil/{perjalanandinas_id}', 'daftarPengeluaranRiil');
 });
 
 Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(function () {

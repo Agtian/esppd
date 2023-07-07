@@ -11,7 +11,7 @@ use PDF;
 
 class PrintOutController extends Controller
 {
-    public function suratTugasKurangDari4Orang($perjalanandinas_id)
+    public function suratTugasKurangDari4Orang(int $perjalanandinas_id)
     {
         $detail            = PerjalananDinas::find($perjalanandinas_id);
         $resultPelaksana   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
@@ -24,10 +24,10 @@ class PrintOutController extends Controller
         PDF::AddPage('P', [215,330]);
         PDF::writeHTML($html, true, false, true, false, '');
 
-        PDF::Output('Surat Tugas.pdf');
+        PDF::Output('SPPD - Surat Tugas.pdf');
     }
 
-    public function suratSPPD($perjalanandinas_id)
+    public function suratSPPD(int $perjalanandinas_id)
     {
         $detail            = PerjalananDinas::find($perjalanandinas_id);
         $resultPelaksana   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
@@ -49,7 +49,7 @@ class PrintOutController extends Controller
         PDF::Output('SPPD.pdf');
     }
 
-    public function rincianBiayaI($perjalanandinas_id)
+    public function rincianBiayaI(int $perjalanandinas_id)
     {
         $detail            = PerjalananDinas::find($perjalanandinas_id);
         $resultPelaksana   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
@@ -62,10 +62,10 @@ class PrintOutController extends Controller
         PDF::AddPage('P', [215,330]);
         PDF::writeHTML($html, true, false, true, false, '');
 
-        PDF::Output('Rincian Biaya.pdf');
+        PDF::Output('SPPD - Rincian Biaya.pdf');
     }
 
-    public function suratTugasLebihDari4Orang($perjalanandinas_id)
+    public function suratTugasLebihDari4Orang(int $perjalanandinas_id)
     {
         $detail            = PerjalananDinas::find($perjalanandinas_id);
         $resultPelaksana   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
@@ -83,10 +83,10 @@ class PrintOutController extends Controller
         PDF::AddPage('P', [215,330]);
         PDF::writeHTML($htmlB, true, false, true, false, '');
 
-        PDF::Output('Surat Tugas.pdf');
+        PDF::Output('SPPD - Surat Tugas.pdf');
     }
 
-    public function suratSPPDLebihDari4Orang($perjalanandinas_id)
+    public function suratSPPDLebihDari4Orang(int $perjalanandinas_id)
     {
         $detail            = PerjalananDinas::find($perjalanandinas_id);
         $resultPelaksana   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
@@ -112,7 +112,7 @@ class PrintOutController extends Controller
         PDF::Output('SPPD.pdf');
     }
 
-    public function rincianBiayaLebihDari4Orang($perjalanandinas_id)
+    public function rincianBiayaLebihDari4Orang(int $perjalanandinas_id)
     {
         $detail            = PerjalananDinas::find($perjalanandinas_id);
         $resultPelaksana   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
@@ -131,5 +131,21 @@ class PrintOutController extends Controller
         PDF::writeHTML($htmlB, true, false, true, false, '');
 
         PDF::Output('SPPD.pdf');
+    }
+
+    public  function daftarPengeluaranRiil($perjalanandinas_id)
+    {
+        $detail            = PerjalananDinas::find($perjalanandinas_id);
+        $resultPelaksana   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
+        $konf_sppd         = KonfigurasiSppd::findOrFail(1);
+
+        // use TCPDF
+        $htmlA = view('layouts.admin.sppd.printout.daftar-pengeluaran-riil', compact('detail', 'resultPelaksana', 'konf_sppd'));
+        
+        PDF::SetTitle('e SPPD | Daftar Pengeluaran Rill');
+        PDF::AddPage('P', [215,330]);
+        PDF::writeHTML($htmlA, true, false, true, false, '');
+
+        PDF::Output('SPPD - Daftar Pengeluaran Riil.pdf');
     }
 }

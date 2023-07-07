@@ -68,11 +68,13 @@
                                                 <a class="dropdown-item" href="{{ url('printout/surat-tugas-i/'.$item->id) }}" target="_blank">Surat Tugas</a>
                                                 <a class="dropdown-item" href="{{ url('printout/sppd/'.$item->id) }}" target="_blank">SPPD</a>
                                                 <a class="dropdown-item" href="{{ url('printout/rincian-biaya-i/'.$item->id) }}" target="_blank">Rincian Biaya</a>
+                                                <a class="dropdown-item" href="{{ url('printout/daftar-pengeluaran-riil/'.$item->id) }}" target="_blank">Daftar Pengeluaran Riil</a>
                                             @else
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ url('printout/surat-tugas-ii/'.$item->id) }}" target="_blank">Surat Tugas</a>
                                                 <a class="dropdown-item" href="{{ url('printout/sppd-iii/'.$item->id) }}" target="_blank">SPPD</a>
                                                 <a class="dropdown-item" href="{{ url('printout/rincian-biaya-ii/'.$item->id) }}" target="_blank">Rincian Biaya</a>
+                                                <a class="dropdown-item" href="{{ url('printout/daftar-pengeluaran-riil/'.$item->id) }}" target="_blank">Daftar Pengeluaran Riil</a>
                                             @endif
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="">SELESAI</a>
@@ -315,6 +317,7 @@
                                                         <th>Biaya Penginapan</th>
                                                         <th>Uang Representasi</th>
                                                         <th>Biaya Pesawat</th>
+                                                        <th>Biaya Tol</th>
                                                         <th>Biaya Lainnya</th>
                                                         <th>Total</th>
                                                         <th></th>
@@ -330,6 +333,7 @@
                                                             <td>{{ $item->biaya_penginapan }}</td>
                                                             <td>{{ $item->uang_representasi }}</td>
                                                             <td>{{ $item->biaya_pesawat }}</td>
+                                                            <td>{{ $item->biaya_tol }}</td>
                                                             <td>{{ $item->biaya_lainnya }}</td>
                                                             <td>{{ $item->total_biaya }}</td>
                                                             <td>

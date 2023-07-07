@@ -81,6 +81,17 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Biaya Tol</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control @error('biaya_tol') is-invalid @enderror" wire:model="biaya_tol" value="{{ old('biaya_tol') }}">
+                                    @error('biaya_tol')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Biaya Lainnya</label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control @error('biaya_lainnya') is-invalid @enderror" wire:model="biaya_lainnya" value="0">

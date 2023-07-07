@@ -32,7 +32,7 @@ class TableDataAktifSppd extends Component
     
     public $searchPegawaiPelaksana, $searchPegawaiArr;
     
-    public $pelaksanaperjalanandinas_id, $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $undangan_dari, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $total_biaya, $status_update, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
+    public $pelaksanaperjalanandinas_id, $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $undangan_dari, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $biaya_tol = 0, $total_biaya, $status_update, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
 
     public $detNamaPegawai, $detGelarBelakangPegawai, $detJabatan, $detPangkat, $detGolongan, $detNIP;
 
@@ -78,6 +78,7 @@ class TableDataAktifSppd extends Component
         $this->uang_representasi = 0;
         $this->biaya_pesawat = 0;
         $this->biaya_lainnya = 0;
+        $this->biaya_tol = 0;
         $this->total_biaya = 0;
     }
 
@@ -89,7 +90,7 @@ class TableDataAktifSppd extends Component
 
     public function render()
     {
-        $this->resultTotalBiaya = (($this->uang_harian == '') ? 0 : $this->uang_harian) + (($this->biaya_transport == '') ? 0 : $this->biaya_transport) + (($this->biaya_penginapan == '') ? 0 : $this->biaya_penginapan) + (($this->uang_representasi == '') ? 0 : $this->uang_representasi) + (($this->biaya_pesawat == '') ? 0 : $this->biaya_pesawat) + (($this->biaya_lainnya == '') ? 0 : $this->biaya_lainnya);
+        $this->resultTotalBiaya = (($this->uang_harian == '') ? 0 : $this->uang_harian) + (($this->biaya_transport == '') ? 0 : $this->biaya_transport) + (($this->biaya_penginapan == '') ? 0 : $this->biaya_penginapan) + (($this->uang_representasi == '') ? 0 : $this->uang_representasi) + (($this->biaya_pesawat == '') ? 0 : $this->biaya_pesawat) + (($this->biaya_tol == '') ? 0 : $this->biaya_tol) + (($this->biaya_lainnya == '') ? 0 : $this->biaya_lainnya);
 
         $this->jumlahPelaksanaPerjal = PelaksanaPerjalananDinas::where('perjalanandinas_id', $this->perjalanandinas_id)->count();
 
@@ -141,6 +142,7 @@ class TableDataAktifSppd extends Component
         $this->biaya_pesawat                = $rincianBiaya->biaya_pesawat;
         $this->biaya_lainnya                = $rincianBiaya->biaya_lainnya;
         $this->status_update                = $rincianBiaya->status_update;
+        $this->biaya_tol                    = $rincianBiaya->biaya_tol;
         $this->status_sppd                  = $rincianBiaya->status_sppd;
     }
 
@@ -196,6 +198,7 @@ class TableDataAktifSppd extends Component
             'biaya_pesawat'          => 'integer',
             'biaya_lainnya'          => 'integer',
             'total_biaya'            => 'integer',
+            'biaya_tol'              => 'integer',
             'resultTotalBiaya'       => 'integer',
         ]);
 
@@ -206,6 +209,7 @@ class TableDataAktifSppd extends Component
             'uang_representasi'      => $validatedUpdate['uang_representasi'],
             'biaya_pesawat'          => $validatedUpdate['biaya_pesawat'],
             'biaya_lainnya'          => $validatedUpdate['biaya_lainnya'],
+            'biaya_tol'              => $validatedUpdate['biaya_tol'],
             'total_biaya'            => $validatedUpdate['resultTotalBiaya'],
             'status_update'          => 1,
         ]);
@@ -218,6 +222,7 @@ class TableDataAktifSppd extends Component
             'uang_representasi'      => $getDataPerjal->uang_representasi + $validatedUpdate['uang_representasi'],
             'biaya_pesawat'          => $getDataPerjal->biaya_pesawat + $validatedUpdate['biaya_pesawat'],
             'biaya_lainnya'          => $getDataPerjal->biaya_lainnya + $validatedUpdate['biaya_lainnya'],
+            'biaya_tol'              => $getDataPerjal->biaya_tol + $validatedUpdate['biaya_tol'],
             'total_biaya'            => $getDataPerjal->total_biaya + $validatedUpdate['resultTotalBiaya'],
         ]);
 
