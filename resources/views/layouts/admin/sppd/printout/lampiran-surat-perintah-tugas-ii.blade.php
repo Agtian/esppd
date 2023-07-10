@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <td align="center"></td>
-                <td width="330">NIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $pelaksana->nomorindukpegawai }}</td>
+                <td width="330">{{ ($pelaksana->golongan == 'Badan Layanan Umum') ? 'NRP' : 'NIP' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $pelaksana->nomorindukpegawai }}</td>
                 <td></td>
             </tr>
             <tr>
@@ -82,7 +82,7 @@
     <table>
         <tr>
             <td></td>
-            <td align="center"><b>DIREKTUR RSUD KELET</b></td>
+            <td align="center"><b>DIREKTUR RSUD dr. Rehatta</b></td>
         </tr>
         <tr>
             <td></td>

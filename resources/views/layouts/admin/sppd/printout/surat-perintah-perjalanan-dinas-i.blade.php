@@ -67,7 +67,7 @@
             <tr>
                 <td width="30" align="right">7.</td>
                 <td width="200">a. Lamanya Perjalanan Dinas <br>b. Tanggal Berangkat <br>c. Tanggal Harus Kembali</td>
-                <td width="295">a. {{ $detail->jumlah_hari }} hari <br>b. {{ date('d F Y', strtotime($detail->tgl_mulai)) }} <br>c. {{ date('d F Y', strtotime($detail->tgl_selesai)) }}</td>
+                <td width="295">a. {{ $detail->jumlah_hari }} hari <br>b. {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} <br>c. {{ date('d-m-Y', strtotime($detail->tgl_selesai)) }}</td>
             </tr>
             <tr>
                 <td width="30" align="right">8.</td>
@@ -102,7 +102,7 @@
             <tr>
                 <td width="300"></td>
                 <td>Pada tanggal </td>
-                <td>: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+                <td>: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
             </tr>
             <tr>
                 <td width="300"></td>
@@ -112,7 +112,7 @@
             <tr>
                 <td width="300"></td>
                 <td>Pada tanggal</td>
-                <td>: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+                <td>: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
             </tr>
         </table>
         <br><br><br>

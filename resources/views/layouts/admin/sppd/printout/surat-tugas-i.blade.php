@@ -46,7 +46,7 @@
                 <td width="430">{{ $item->nama_pegawai. ', ' .$item->gelarbelakang_nama }}</td>
             </tr>
             <tr>
-                <td width="105"> NIP</td>
+                <td width="105"> {{ ($item->golongan == 'Badan Layanan Umum') ? 'NRP' : 'NIP' }}</td>
                 <td width="10">: </td>
                 <td width="430">{{ $item->nomorindukpegawai }}</td>
             </tr>
@@ -134,7 +134,7 @@
     <table>
         <tr>
             <td></td>
-            <td align="center"><b>DIREKTUR RSUD KELET</b></td>
+            <td align="center"><b>DIREKTUR RSUD dr. Rehatta</b></td>
         </tr>
         <tr>
             <td></td>

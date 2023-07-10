@@ -95,7 +95,7 @@
         <tr>
             <td width="330"></td>
             <td width="80">Pada tanggal </td>
-            <td width="200">: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+            <td width="200">: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
         <tr>
             <td width="330"></td>
@@ -105,7 +105,7 @@
         <tr>
             <td width="330"></td>
             <td width="80">Pada tanggal </td>
-            <td width="200">: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+            <td width="200">: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <br><br>

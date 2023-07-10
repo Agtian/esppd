@@ -42,8 +42,7 @@
         </tr>
         <tr>
             <td width="170">Tanggal Pelaksanaan Kegiatan</td>
-            <td>: 
-                @if($detail->tgl_mulai == $detail->tgl_selesai) {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} @else {{ date('d-m-Y', strtotime($detail->tgl_mulai)).' s.d '.date('d-m-Y', strtotime($detail->tgl_selesai)) }} @endif</td>
+            <td>: {{ date('d-m-Y', strtotime($detail->tgl_mulai)).' s.d '.date('d-m-Y', strtotime($detail->tgl_selesai)) }}</td>
         </tr>
         <tr>
             <td width="170">Tempat Pelaksanaan Kegiatan</td>

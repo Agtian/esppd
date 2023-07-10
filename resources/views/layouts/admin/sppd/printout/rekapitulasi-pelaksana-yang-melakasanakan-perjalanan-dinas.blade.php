@@ -24,7 +24,7 @@
         <tr>
             <td width="700"></td>
             <td width="60">Tanggal</td>
-            <td>: {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+            <td>: {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
         </tr>
     </table>
     <table>
@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <td width="170">Tanggal Pelaksanaan Kegiatan</td>
-            <td>: {{ date('d F Y', strtotime($detail->tgl_mulai)) }} s.d {{ date('d F Y', strtotime($detail->tgl_selesai)) }}</td>
+            <td>: {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} s.d {{ date('d-m-Y', strtotime($detail->tgl_selesai)) }}</td>
         </tr>
         <tr>
             <td width="170">Tempat Pelaksanaan Kegiatan</td>
@@ -100,13 +100,13 @@
     <table>
         <tr>
             <td width="600"></td>
-            <td>Pengguna Anggaran/Kuasa Penggua Anggaran <br>atau an.PA/KPA PPTK</td>
+            <td>PA/KPA <br>PPTK</td>
         </tr>
         <tr><td colspan="2"></td></tr>
         <tr><td colspan="2"></td></tr>
         <tr>
             <td width="600"></td>
-            <td>(.....................................................) <br>NIP.</td>
+            <td><u>{{ $konf_sppd->nama_pptk }}</u> <br>NIP. {{ $konf_sppd->nip_pptk }}</td>
         </tr>
     </table>
 </div>

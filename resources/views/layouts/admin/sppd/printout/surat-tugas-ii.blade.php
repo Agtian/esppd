@@ -64,7 +64,7 @@
                 @if ($detail->tgl_mulai == $detail->tgl_akhir)
                     {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }}
                 @else
-                {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} s.d {{ date('d-M-Y', strtotime($detail->tgl_akhir)) }}
+                {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} s.d {{ date('d-m-Y', strtotime($detail->tgl_akhir)) }}
                 @endif
             </td>
         </tr>
@@ -100,7 +100,7 @@
     <table>
         <tr>
             <td></td>
-            <td align="center"><b>DIREKTUR RSUD KELET</b></td>
+            <td align="center"><b>DIREKTUR RSUD dr Rehatta</b></td>
         </tr>
         <tr>
             <td></td>

@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td width="20"></td>
-                <td width="70">NIP</td>
+                <td width="70">{{ ($pelaksana->golongan == 'Badan Layanan Umum') ? 'NRP' : 'NIP' }}</td>
                 <td width="300">: {{ $pelaksana->nomorindukpegawai }}</td>
             </tr>
             <tr>
@@ -39,7 +39,7 @@
             </tr>
             <tr><td colspan="3"></td></tr>
             <tr>
-                <td colspan="3" width="530" class="justify">Berdasarkan Surat Perintah Perjalanan Dinas (SPPD) Nomor {{ $detail->no_sppd }} Tanggal @if($detail->tgl_mulai == $detail->tgl_selesai)  {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} @else {{ date('d-m-Y', strtotime($detail->tgl_mulai)).' s.d '.date('d-m-Y', strtotime($detail->tgl_selesai)) }} @endif dengan ini kami menyatakan dengan sesungguhnya  bahwa:</td>
+                <td colspan="3" width="530" class="justify">Berdasarkan Surat Perintah Perjalanan Dinas (SPPD) Nomor {{ $detail->no_sppd }} Tanggal{{ date('d-m-Y', strtotime($detail->tgl_sppd)) }} dengan ini kami menyatakan dengan sesungguhnya  bahwa:</td>
             </tr>
             <tr><td colspan="3"></td></tr>
             <tr>
@@ -87,6 +87,12 @@
                             <td>Rp. {{ $pelaksana->biaya_pesawat }}</td>
                             <td></td>
                         </tr>
+                        <tr>
+                            <td align="center">5</td>
+                            <td>Biaya Lain-lain</td>
+                            <td>Rp. {{ $pelaksana->biaya_lainnya }}</td>
+                            <td></td>
+                        </tr>
                     </table>
                 </td>
             </tr>
@@ -106,7 +112,7 @@
         <table>
             <tr>
                 <td width="350"></td>
-                <td width="200"> Jepara, {{ date('d F Y') }}</td>
+                <td width="200"> Jepara, {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
             </tr>
         </table>
         <table>
@@ -124,9 +130,9 @@
                 <td align="center" width="300"><u>{{ $pelaksana->gelardepan.' '.$pelaksana->nama_pegawai.' '.$pelaksana->gelarbelakang_nama }}</u></td>
             </tr>
             <tr>
-                <td align="center" width="200">{{ $konf_sppd->nip_pptk }}</td>
+                <td align="center" width="200">NIP. {{ $konf_sppd->nip_pptk }}</td>
                 <td width="50"></td>
-                <td align="center" width="300">{{ $pelaksana->nomorindukpegawai }}</td>
+                <td align="center" width="300">{{ ($pelaksana->golongan == 'Badan Layanan Umum') ? 'NRP' : 'NIP' }}. {{ $pelaksana->nomorindukpegawai }}</td>
             </tr>
         </table>
         <br><br><br><br><br><br><br><br><br><br><br>

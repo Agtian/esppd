@@ -18,7 +18,7 @@
             <td>
                     I. &nbsp; Berangkat dari : RSUD dr. Rehatta <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ke : .. <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada Tanggal : {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }} 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada Tanggal : 
                 <div><b align="center">
                     an. PA/KPA <br>PPTK <br>
                     <br>

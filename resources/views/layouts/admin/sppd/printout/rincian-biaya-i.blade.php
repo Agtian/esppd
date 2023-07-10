@@ -24,13 +24,7 @@
             </tr>
             <tr>
                 <td width="130">Tanggal</td>
-                <td>: 
-                    @if ($detail->tgl_mulai == $detail->tgl_selesai)
-                        {{ date('d F Y', strtotime($detail->tgl_mulai)) }}
-                    @else
-                        {{ date('d F Y', strtotime($detail->tgl_mulai)).' s.d '.date('d F Y', strtotime($detail->tgl_selesai)) }}
-                    @endif
-                </td>
+                <td>: {{ date('d-m-Y', strtotime($detail->tgl_mulai)).' s.d '.date('d-m-Y', strtotime($detail->tgl_selesai)) }}</td>
             </tr>
         </table>
         <br><br>
@@ -66,6 +60,12 @@
                 <td></td>
             </tr>
             <tr>
+                <td align="center">4.</td>
+                <td>Biaya Tol</td>
+                <td align="center">{{ $pelaksana->biaya_tol }}</td>
+                <td></td>
+            </tr>
+            <tr>
                 <td align="center">5.</td>
                 <td>Lain-lain</td>
                 <td align="center">{{ $pelaksana->biaya_lainnya }}</td>
@@ -80,7 +80,7 @@
         <table>
             <tr>
                 <td width="380"></td>
-                <td>Jepara, {{ date('d F Y', strtotime($detail->tgl_sppd)) }}</td>
+                <td>Jepara, {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
             </tr>
         </table>
         <br><br>
@@ -116,7 +116,7 @@
             <tr>
                 <td align="center">{{ $konf_sppd->nama_bendahara }} <br>NIP. {{ $konf_sppd->nip_bendahara }}</td>
                 <td width="70"></td>
-                <td width="300" align="center">{{ $pelaksana->nama_pegawai.', '.$pelaksana->gelarbelakang_nama }} <br>NIP. {{ $pelaksana->nomorindukpegawai }}</td>
+                <td width="300" align="center">{{ $pelaksana->nama_pegawai.', '.$pelaksana->gelarbelakang_nama }} <br>{{ ($pelaksana->golongan == 'Badan Layanan Umum') ? 'NRP' : 'NIP' }}. {{ $pelaksana->nomorindukpegawai }}</td>
             </tr>
         </table>
         <hr>
