@@ -125,27 +125,20 @@ class TableDataAktifSppd extends Component
         $this->resultPelaksanaPerjal = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)->get();
 
         $this->perjalanandinas_id = $perjalanandinas_id;
-        // $this->user_id = $perjalananDinas->user_id;
-        // $this->no_perjal = $perjalananDinas->no_perjal;
-        // $this->no_sppd = $perjalananDinas->no_sppd;
-        // $this->dasar = $perjalananDinas->dasar;
-        // $this->undangan_dari = $perjalananDinas->undangan_dari;
-        // $this->tgl_ditetapkan = $perjalananDinas->tgl_ditetapkan;
-        // $this->jumlah_hari = $perjalananDinas->jumlah_hari;
-        // $this->hari = $perjalananDinas->hari;
-        // $this->tgl_mulai = $perjalananDinas->tgl_mulai;
-        // $this->tgl_selesai = $perjalananDinas->tgl_selesai;
+        $this->user_id = $perjalananDinas->user_id;
+        $this->no_perjal = $perjalananDinas->no_perjal;
+        $this->no_sppd = $perjalananDinas->no_sppd;
+        $this->dasar = $perjalananDinas->dasar;
+        $this->undangan_dari = $perjalananDinas->undangan_dari;
+        $this->tgl_ditetapkan = $perjalananDinas->tgl_ditetapkan;
+        $this->jumlah_hari = $perjalananDinas->jumlah_hari;
+        $this->hari = $perjalananDinas->hari;
+        $this->tgl_mulai = $perjalananDinas->tgl_mulai;
+        $this->tgl_selesai = $perjalananDinas->tgl_selesai;
         $this->tgl_sppd = $perjalananDinas->tgl_sppd;
-        // $this->maksud_perjalanan = $perjalananDinas->maksud_perjalanan;
-        // $this->tempat_tujuan = $perjalananDinas->tempat_tujuan;
-        // $this->jam_acara = $perjalananDinas->jam_acara;
-        // $this->uang_harian = $perjalananDinas->uang_harian;
-        // $this->biaya_transport = $perjalananDinas->biaya_transport;
-        // $this->biaya_penginapan = $perjalananDinas->biaya_penginapan;
-        // $this->uang_representasi = $perjalananDinas->uang_representasi;
-        // $this->biaya_pesawat = $perjalananDinas->biaya_pesawat;
-        // $this->biaya_lainnya = $perjalananDinas->biaya_lainnya;
-        // $this->status_sppd = $perjalananDinas->status_sppd;
+        $this->maksud_perjalanan = $perjalananDinas->maksud_perjalanan;
+        $this->tempat_tujuan = $perjalananDinas->tempat_tujuan;
+        $this->jam_acara = $perjalananDinas->jam_acara;
     }
 
     public function closeModal()
