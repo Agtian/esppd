@@ -42,36 +42,45 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ url('dashboard/admin/biaya-sppd-filter') }}" method="post" class="form-horizonal">
-                    @csrf
-                    
-                    <div class="form-group row">
-                        <label for="tanggal_mulai" class="col-form-label">Tanggal mulai</label>
-                        <div class="col-sm-3">
-                            <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai">
-                            @error('tanggal_mulai')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <label class="col-form-label">s.d</label>
-                        <div class="col-sm-3">
-                            <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai">
-                            @error('tanggal_selesai')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-outline-primary btn-block">Tampilkan</button>
-                        </div>
-                        <div class="col-sm-2">
-                            <a href="{{ url('printout/laporan-pengeluaran-sppd/'.$tgl_awal) }}" target="_blank" class="btn btn-outline-info btn-block">CETAK</a>
-                        </div>
+                <div class="row">
+                    <div class="col-10">
+                        <form action="{{ url('dashboard/admin/biaya-sppd-filter') }}" method="post" class="form-horizonal">
+                            @csrf
+                            <div class="form-group row">
+                                <label for="tanggal_mulai" class="col-form-label">Tanggal mulai</label>
+                                <div class="col-sm-4">
+                                    <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai">
+                                    @error('tanggal_mulai')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <label class="col-form-label">s.d</label>
+                                <div class="col-sm-4">
+                                    <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai">
+                                    @error('tanggal_selesai')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-outline-primary btn-block">Tampilkan</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                
+                    <div class="col-2">
+                        <form action="{{ url('dashboard/admin/printout/laporan-pengeluaran-sppd') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="tgl_awal" value="{{ $tgl_awal }}">
+                            <input type="hidden" name="tgl_selesai" value="{{ $tgl_selesai }}">
+                            <button type="submit" class="btn btn-info btn-block">CETAK</button>
+                        </form>
+                    </div>
+                </div>
                 <hr>
             </div>
             <h5 class="p-2">Data periode : {{ date('d/m/Y', strtotime($tgl_awal)).' s.d '.date('d/m/Y', strtotime($tgl_selesai)) }}</h5>

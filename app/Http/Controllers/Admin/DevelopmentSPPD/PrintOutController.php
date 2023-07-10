@@ -148,17 +148,4 @@ class PrintOutController extends Controller
 
         PDF::Output('SPPD - Daftar Pengeluaran Riil.pdf');
     }
-
-    public function laporanPengeluaranSPPD($request)
-    {
-
-        dd($request);
-        $html = view('layouts.admin.sppd.printout.laporan-pengeluaran-sppd', compact(''));
-
-        PDF::SetTitle('e SPPD | Laporan Pengeluaran SPPD');
-        PDF::AddPage('P', [215,330]);
-        PDF::writeHTML($html, true, false, true, false, '');
-
-        PDF::Output('SPPD - Laporan Pengeluaran SPPD.pdf');
-    }
 }

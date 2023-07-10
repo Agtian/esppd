@@ -7,6 +7,7 @@ use App\Models\KonfigurasiSppd;
 use App\Models\PelaksanaPerjalananDinas;
 use App\Models\PerjalananDinas;
 use Illuminate\Http\Request;
+use PDF;
 
 class BiayaController extends Controller
 {
@@ -36,5 +37,19 @@ class BiayaController extends Controller
         $tgl_selesai          = $validatedData['tanggal_selesai'];
 
         return view('layouts.admin.report.biaya-sppd.filter-data', compact('resultDataBiayaSPPD', 'tgl_awal', 'tgl_selesai'));
+    }
+
+    public function laporanPengeluaranSPPD(Request $request)
+    {
+        $resultPengeluaranSPPD  = PerjalananDinas::whereBetween('tgl_sppd', [$request->tgl_awal, $request->tgl_selesai])->get();
+        $tgl_awal               = $request->tgl_awal;
+        $tgl_selesai            = $request->tgl_selesai;
+        $html = view('layouts.admin.sppd.printout.laporan-pengeluaran-sppd', compact('resultPengeluaranSPPD', 'tgl_awal', 'tgl_selesai'));
+
+        PDF::SetTitle('e SPPD | Laporan Pengeluaran SPPD');
+        PDF::AddPage('L', [215,330]);
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output('SPPD - Laporan Pengeluaran SPPD.pdf');
     }
 }

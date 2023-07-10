@@ -49,8 +49,6 @@ Route::controller(PrintOutController::class)->group(function () {
     Route::get('/printout/rincian-biaya-ii/{perjalanandinas_id}', 'rincianBiayaLebihDari4Orang');
     
     Route::get('/printout/daftar-pengeluaran-riil/{perjalanandinas_id}', 'daftarPengeluaranRiil');
-    
-    Route::get('/printout/laporan-pengeluaran-sppd/{$tgl_awal}', 'laporanPengeluaranSPPD');
 });
 
 Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(function () {
@@ -88,6 +86,8 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
         Route::get('/biaya-sppd', 'index');
         Route::get('/biaya-sppd/{id}/edit', 'edit');
         Route::post('/biaya-sppd-filter', 'filterData');
+
+        Route::post('/printout/laporan-pengeluaran-sppd', 'laporanPengeluaranSPPD');
     });
 
     Route::controller(PelaksanaSPPDController::class)->group(function () {
