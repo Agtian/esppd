@@ -107,7 +107,6 @@
 
     
     @include('livewire.sppd.modals.form-tambah-pelaksana-perjal')
-    @include('livewire.sppd.modals.form-update-rincian-biaya')
     @include('livewire.sppd.modals.form-delete-pelaksana-perjal')
     
     @if ($showDetail)
@@ -156,7 +155,7 @@
                                                 <td>{{ $item->nomorindukpegawai }}</td>
                                                 <td>
                                                     <button type="button" wire:click="$emit('refreshComponent')" class="btn btn-sm btn-outline-primary">Reload</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-danger" wire:click="hapusBiayaDanPelaksanaPerjal()">Hapus</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" wire:click="hapusBiayaDanPelaksanaPerjal({{ $item->id }})">Hapus</button>
                                                 </td>
                                             </tr>
                                         @empty
@@ -307,51 +306,7 @@
                                 <div class="tab-pane fade show active" id="custom-tabs-two-biaya" role="tabpanel" aria-labelledby="biaya-tab">
                                     <div class="row">
                                         <div class="table-responsive">
-                                            <table class="table table-hover text-nowrap">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="50">No</th>
-                                                        <th>Pelaksana</th>
-                                                        <th>Uang Harian</th>
-                                                        <th>Biaya Transport</th>
-                                                        <th>Biaya Penginapan</th>
-                                                        <th>Uang Representasi</th>
-                                                        <th>Biaya Pesawat</th>
-                                                        <th>Biaya Tol</th>
-                                                        <th>Biaya Lainnya</th>
-                                                        <th>Total</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($resultPelaksanaPerjal as $item)
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $item->nama_pegawai }}</td>
-                                                            <td>{{ $item->uang_harian }}</td>
-                                                            <td>{{ $item->biaya_transport }}</td>
-                                                            <td>{{ $item->biaya_penginapan }}</td>
-                                                            <td>{{ $item->uang_representasi }}</td>
-                                                            <td>{{ $item->biaya_pesawat }}</td>
-                                                            <td>{{ $item->biaya_tol }}</td>
-                                                            <td>{{ $item->biaya_lainnya }}</td>
-                                                            <td>{{ $item->total_biaya }}</td>
-                                                            <td>
-                                                                @if ($item->status_update == 0)
-                                                                    <button type="button" class="btn btn-sm btn-outline-dark" wire:click="modalUpdateRincianBiaya({{ $item->id }})" data-toggle="modal"
-                                                                    data-target="#modal-update-rincian-biaya">Ubah</button>
-                                                                @else
-                                                                    <button class="btn btn-sm btn-outline-danger" disabled>Done</button>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    @empty
-                                                        <tr>
-                                                            <td colspan="9" align="center">Data pelaksana tidak tersedia !</td>
-                                                        </tr>
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
+                                            @livewire('sppd.table-rincian-biaya-perjal', ['perjalanandinas_id' => $perjalanandinas_id])
                                         </div>
                                     </div>
                                     
