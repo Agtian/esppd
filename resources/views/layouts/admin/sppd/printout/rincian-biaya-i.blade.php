@@ -38,7 +38,7 @@
             <tr>
                 <td align="center">1.</td>
                 <td>Uang Harian</td>
-                <td align="center">{{ number_format($item->pelaksana, 2, '.',',') }}</td>
+                <td align="center">{{ number_format($pelaksana->uang_harian, 2, '.',',') }}</td>
                 <td></td>
             </tr>
             <tr>
