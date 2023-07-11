@@ -44,10 +44,15 @@ class BiayaController extends Controller
         $resultPengeluaranSPPD  = PerjalananDinas::whereBetween('tgl_sppd', [$request->tgl_awal, $request->tgl_selesai])->get();
         $tgl_awal               = $request->tgl_awal;
         $tgl_selesai            = $request->tgl_selesai;
-        $html = view('layouts.admin.sppd.printout.laporan-pengeluaran-sppd', compact('resultPengeluaranSPPD', 'tgl_awal', 'tgl_selesai'));
+
+        $html = view('layouts.admin.sppd.printout.laporan-pengeluaran-sppd', [
+            'resultPengeluaranSPPD' => $resultPengeluaranSPPD,
+            'tgl_awal'              => $tgl_awal,
+            'tgl_selesai'           => $tgl_selesai,
+        ]);
 
         PDF::SetTitle('e SPPD | Laporan Pengeluaran SPPD');
-        PDF::AddPage('L', [215,330]);
+        PDF::AddPage('L', [520,674]);
         PDF::writeHTML($html, true, false, true, false, '');
 
         PDF::Output('SPPD - Laporan Pengeluaran SPPD.pdf');

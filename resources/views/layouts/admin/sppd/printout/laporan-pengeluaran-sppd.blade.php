@@ -24,35 +24,163 @@
     </table>
     <br><br>
     <table border="0.2" cellpadding="2" width="100%">
-        <tr>
-            <td width="30" align="center">NO</td>
-            <td width="80" align="center">TGL SPPD</td>
-            <td width="140" align="center">TGL ACARA</td>
-            <td width="180" align="center">NAMA | NIP/NRP</td>
-            <td width="200" align="center">PERIHAL</td>
-            <td width="200" align="center">TUJUAN</td>
-            <td width="50" align="center">JAM</td>
+        <tr style="background-color: #D1E6F6">
+            <td width="30" align="center"><b>NO</b></td>
+            <td width="90" align="center"><b>TANGGAL / <br>NO SPPD</b></td>
+            <td width="140" align="center"><b>TANGGAL ACARA</b></td>
+            <td width="210" align="center"><b>DASAR</b></td>
+            <td width="210" align="center"><b>PERIHAL</b></td>
+            <td width="210" align="center"><b>TUJUAN</b></td>
+            <td width="50" align="center"><b>JAM</b></td>
+            <td width="180" align="center"><b>NAMA</b></td>
+            <td width="90" align="center"><b>UANG HARIAN</b></td>
+            <td width="90" align="center"><b>BIAYA TRANSPORT</b></td>
+            <td width="90" align="center"><b>BIAYA PENGINAPAN</b></td>
+            <td width="90" align="center"><b>UANG REPRESENTASI</b></td>
+            <td width="90" align="center"><b>BIAYA PESAWAT</b></td>
+            <td width="90" align="center"><b>BIAYA TOL</b></td>
+            <td width="90" align="center"><b>BIAYA LAINNYA</b></td>
+            <td width="90" align="center"><b>TOTAL</b></td>
         </tr>
-        @forelse ($resultPengeluaranSPPD as $item)
+        <tbody>
+            @forelse ($resultPengeluaranSPPD as $item)
             <tr>
                 <td align="center">{{ $loop->iteration }}</td>
-                <td align="center">{{ date('d-m-Y', strtotime($item->tgl_sppd)) }}</td>
+                <td align="center">{{ date('d-m-Y', strtotime($item->tgl_sppd)) }} <br>{{ $item->no_sppd }}</td>
                 <td align="center">{{ date('d-m-Y', strtotime($item->tgl_mulai)).' s.d '.date('d-m-Y', strtotime($item->tgl_selesai)) }}</td>
+                <td class="justify">{{ $item->dasar }}</td>
+                <td class="justify">{{ $item->maksud_perjalanan }}</td>
+                <td class="justify">{{ $item->tempat_tujuan }}</td>
+                <td align="center">{{ date('H:i', strtotime($item->jam_acara)) }}</td>
                 <td>
                     @forelse ($item->pelaksanaPerjals as $pelaksana)
                         {{ $pelaksana->nama_pegawai.', '.$pelaksana->gelarbelakang_nama }}<br>
-                    
                     @empty
                         -
                     @endforelse
                 </td>
-                <td class="justify">{{ $item->maksud_perjalanan }}</td>
-                <td class="justify">{{ $item->tempat_tujuan }}</td>
-                <td align="center">{{ date('H:i', strtotime($item->jam_acara)) }}</td>
+                <td><table>
+                        @forelse ($item->pelaksanaPerjals as $pelaksana)
+                            @php
+                                $uang_harians[] = $pelaksana->uang_harian;
+                            @endphp
+                            <tr>
+                                <td align="center">{{ $pelaksana->uang_harian }}</td>
+                            </tr>
+                        @empty
+                            <tr><td align="center">-</td></tr>
+                        @endforelse
+                    </table>
+                </td>
+                <td><table>
+                        @forelse ($item->pelaksanaPerjals as $pelaksana)
+                            <tr>
+                                @php
+                                    $biaya_transports[] = $pelaksana->biaya_transport;
+                                @endphp
+                                <td align="center">{{ $pelaksana->biaya_transport }}</td>
+                            </tr>
+                        @empty
+                            <tr><td align="center">-</td></tr>
+                        @endforelse
+                    </table>
+                </td>
+                <td><table>
+                        @forelse ($item->pelaksanaPerjals as $pelaksana)
+                            <tr>
+                                @php
+                                    $biaya_penginapans[] = $pelaksana->biaya_penginapan;
+                                @endphp
+                                <td align="center">{{ $pelaksana->biaya_penginapan }}</td>
+                            </tr>
+                        @empty
+                            <tr><td align="center">-</td></tr>
+                        @endforelse
+                    </table>
+                </td>
+                <td><table>
+                        @forelse ($item->pelaksanaPerjals as $pelaksana)
+                            <tr>
+                                @php
+                                    $uang_representasis[] = $pelaksana->uang_representasi;
+                                @endphp
+                                <td align="center">{{ $pelaksana->uang_representasi }}</td>
+                            </tr>
+                        @empty
+                            <tr><td align="center">-</td></tr>
+                        @endforelse
+                    </table>
+                </td>
+                <td><table>
+                        @forelse ($item->pelaksanaPerjals as $pelaksana)
+                            <tr>
+                                @php
+                                    $biaya_pesawats[] = $pelaksana->biaya_pesawat;
+                                @endphp
+                                <td align="center">{{ $pelaksana->biaya_pesawat }}</td>
+                            </tr>
+                        @empty
+                            <tr><td align="center">-</td></tr>
+                        @endforelse
+                    </table>
+                </td>
+                <td><table>
+                        @forelse ($item->pelaksanaPerjals as $pelaksana)
+                            <tr>
+                                @php
+                                    $biaya_tols[] = $pelaksana->biaya_tol;
+                                @endphp
+                                <td align="center">{{ $pelaksana->biaya_tol }}</td>
+                            </tr>
+                        @empty
+                            <tr><td align="center">-</td></tr>
+                        @endforelse
+                    </table>
+                </td>
+                <td><table>
+                        @forelse ($item->pelaksanaPerjals as $pelaksana)
+                            <tr>
+                                @php
+                                    $biaya_lainnyas[] = $pelaksana->biaya_lainnya;
+                                @endphp
+                                <td align="center">{{ $pelaksana->biaya_lainnya }}</td>
+                            </tr>
+                        @empty
+                            <tr><td align="center">-</td></tr>
+                        @endforelse
+                    </table>
+                </td>
+                <td><table>
+                        @forelse ($item->pelaksanaPerjals as $pelaksana)
+                            <tr>
+                                @php
+                                    $total_biayas[] = $pelaksana->total_biaya;
+                                @endphp
+                                <td align="center">{{ $pelaksana->total_biaya }}</td>
+                            </tr>
+                        @empty
+                            <tr><td align="center">-</td></tr>
+                        @endforelse
+                    </table>
+                </td>
             </tr>
         @empty
-            <tr><td colspan="7" align="center">Data tidak tersedia !</td></tr>
+            <tr><td colspan="16" align="center">Data tidak tersedia !</td></tr>
         @endforelse
+        </tbody>
+        <tfoot>
+            <tr style="background-color: #D1E6F6">
+                <td colspan="8" align="center"><b>JUMLAH</b></td>
+                <td align="center">{{ array_sum($uang_harians) }}</td>
+                <td align="center">{{ array_sum($biaya_transports) }}</td>
+                <td align="center">{{ array_sum($biaya_penginapans) }}</td>
+                <td align="center">{{ array_sum($uang_representasis) }}</td>
+                <td align="center">{{ array_sum($biaya_pesawats) }}</td>
+                <td align="center">{{ array_sum($biaya_tols) }}</td>
+                <td align="center">{{ array_sum($biaya_lainnyas) }}</td>
+                <td align="center">{{ array_sum($total_biayas) }}</td>
+            </tr>
+        </tfoot>
     </table>
 </div>
     
