@@ -30,9 +30,9 @@
             <td width="140" align="center"><b>TANGGAL ACARA</b></td>
             <td width="210" align="center"><b>DASAR</b></td>
             <td width="210" align="center"><b>PERIHAL</b></td>
-            <td width="210" align="center"><b>TUJUAN</b></td>
+            <td width="180" align="center"><b>TUJUAN</b></td>
             <td width="50" align="center"><b>JAM</b></td>
-            <td width="180" align="center"><b>NAMA</b></td>
+            <td width="210" align="center"><b>NAMA</b></td>
             <td width="90" align="center"><b>UANG HARIAN</b></td>
             <td width="90" align="center"><b>BIAYA TRANSPORT</b></td>
             <td width="90" align="center"><b>BIAYA PENGINAPAN</b></td>
@@ -65,7 +65,7 @@
                                 $uang_harians[] = $pelaksana->uang_harian;
                             @endphp
                             <tr>
-                                <td align="center">{{ $pelaksana->uang_harian }}</td>
+                                <td align="center">{{ number_format($pelaksana->uang_harian, 2, '.',',') }}</td>
                             </tr>
                         @empty
                             <tr><td align="center">-</td></tr>
@@ -78,7 +78,7 @@
                                 @php
                                     $biaya_transports[] = $pelaksana->biaya_transport;
                                 @endphp
-                                <td align="center">{{ $pelaksana->biaya_transport }}</td>
+                                <td align="center">{{ number_format($pelaksana->biaya_transport, 2, '.',',') }}</td>
                             </tr>
                         @empty
                             <tr><td align="center">-</td></tr>
@@ -91,7 +91,7 @@
                                 @php
                                     $biaya_penginapans[] = $pelaksana->biaya_penginapan;
                                 @endphp
-                                <td align="center">{{ $pelaksana->biaya_penginapan }}</td>
+                                <td align="center">{{ number_format($pelaksana->biaya_penginapan, 2, '.',',') }}</td>
                             </tr>
                         @empty
                             <tr><td align="center">-</td></tr>
@@ -104,7 +104,7 @@
                                 @php
                                     $uang_representasis[] = $pelaksana->uang_representasi;
                                 @endphp
-                                <td align="center">{{ $pelaksana->uang_representasi }}</td>
+                                <td align="center">{{ number_format($pelaksana->uang_representasi, 2, '.',',') }}</td>
                             </tr>
                         @empty
                             <tr><td align="center">-</td></tr>
@@ -117,7 +117,7 @@
                                 @php
                                     $biaya_pesawats[] = $pelaksana->biaya_pesawat;
                                 @endphp
-                                <td align="center">{{ $pelaksana->biaya_pesawat }}</td>
+                                <td align="center">{{ number_format($pelaksana->biaya_pesawat, 2, '.',',') }}</td>
                             </tr>
                         @empty
                             <tr><td align="center">-</td></tr>
@@ -130,7 +130,7 @@
                                 @php
                                     $biaya_tols[] = $pelaksana->biaya_tol;
                                 @endphp
-                                <td align="center">{{ $pelaksana->biaya_tol }}</td>
+                                <td align="center">{{ number_format($pelaksana->biaya_tol, 2, '.',',') }}</td>
                             </tr>
                         @empty
                             <tr><td align="center">-</td></tr>
@@ -143,7 +143,7 @@
                                 @php
                                     $biaya_lainnyas[] = $pelaksana->biaya_lainnya;
                                 @endphp
-                                <td align="center">{{ $pelaksana->biaya_lainnya }}</td>
+                                <td align="center">{{ number_format($pelaksana->biaya_lainnya, 2, '.',',') }}</td>
                             </tr>
                         @empty
                             <tr><td align="center">-</td></tr>
@@ -156,7 +156,7 @@
                                 @php
                                     $total_biayas[] = $pelaksana->total_biaya;
                                 @endphp
-                                <td align="center">{{ $pelaksana->total_biaya }}</td>
+                                <td align="center">{{ number_format($pelaksana->total_biaya, 2, '.',',') }}</td>
                             </tr>
                         @empty
                             <tr><td align="center">-</td></tr>
@@ -171,14 +171,14 @@
         <tfoot>
             <tr style="background-color: #D1E6F6">
                 <td colspan="8" align="center"><b>JUMLAH</b></td>
-                <td align="center">{{ array_sum($uang_harians) }}</td>
-                <td align="center">{{ array_sum($biaya_transports) }}</td>
-                <td align="center">{{ array_sum($biaya_penginapans) }}</td>
-                <td align="center">{{ array_sum($uang_representasis) }}</td>
-                <td align="center">{{ array_sum($biaya_pesawats) }}</td>
-                <td align="center">{{ array_sum($biaya_tols) }}</td>
-                <td align="center">{{ array_sum($biaya_lainnyas) }}</td>
-                <td align="center">{{ array_sum($total_biayas) }}</td>
+                <td align="center">{{ number_format(array_sum($uang_harians), 2, '.',',') }}</td>
+                <td align="center">{{ number_format(array_sum($biaya_transports), 2, '.',',') }}</td>
+                <td align="center">{{ number_format(array_sum($biaya_penginapans), 2, '.',',') }}</td>
+                <td align="center">{{ number_format(array_sum($uang_representasis), 2, '.',',') }}</td>
+                <td align="center">{{ number_format(array_sum($biaya_pesawats), 2, '.',',') }}</td>
+                <td align="center">{{ number_format(array_sum($biaya_tols), 2, '.',',') }}</td>
+                <td align="center">{{ number_format(array_sum($biaya_lainnyas), 2, '.',',') }}</td>
+                <td align="center">{{ number_format(array_sum($total_biayas), 2, '.',',') }}</td>
             </tr>
         </tfoot>
     </table>

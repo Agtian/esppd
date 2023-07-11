@@ -98,11 +98,11 @@ class TableDataAktifSppd extends Component
     public function openDetailEditPelaksanaPerjal(int $pegawai_id)
     {
         $this->showDetailEditPelaksanaPerjal =! $this->showDetailEditPelaksanaPerjal;
-        $this->resultJabatans = Jabatan_m::all();
-        $this->resultPangkats = Pangkat_m::all();
-        $this->resultGolonganPegawais = GolonganPegawai_m::all();
-        $this->resultGelarBelakangs = GelarBelakang_m::all();
-        $this->resultUnitKerjas = UnitKerja_m::all();
+        $this->resultJabatans = Jabatan_m::orderBy('jabatan_nama', 'ASC')->get();
+        $this->resultPangkats = Pangkat_m::orderBy('pangkat_nama', 'ASC')->get();
+        $this->resultGolonganPegawais = GolonganPegawai_m::orderBy('golonganpegawai_nama', 'ASC')->get();
+        $this->resultGelarBelakangs = GelarBelakang_m::orderBy('gelarbelakang_nama', 'ASC')->get();
+        $this->resultUnitKerjas = UnitKerja_m::orderBy('namaunitkerja', 'ASC')->get();
         
         $detPegawai = Pegawai_m::findOrFail($pegawai_id);
         $this->pegawai_id = $detPegawai->pegawai_id;
@@ -227,7 +227,7 @@ class TableDataAktifSppd extends Component
                 'pegawai_id'            => $pegawai_id,
                 'gelardepan'            => $detPegawais->gelardepan,
                 'nama_pegawai'          => $detPegawais->nama_pegawai,
-                'gelarbelakang_nama'    => $detPegawais->gelarbelakangs->gelarbelakang_nama,
+                'gelarbelakang_nama'    => ($detPegawais->gelarbelakangs == NULL) ? '' : $detPegawais->gelarbelakangs->gelarbelakang_nama,
                 'nomorindukpegawai'     => $detPegawais->nomorindukpegawai,
                 'pangkat'               => $detPangkat->pangkat_nama,
                 'jabatan'               => $detPegawais->jabatans->jabatan_nama,
@@ -275,7 +275,7 @@ class TableDataAktifSppd extends Component
             'biaya_lainnya'         => $this->biaya_lainnya,
         ]);
 
-        session()->flash('message', "Rincian SPPD : $this->no_sppd berhasil diperbarui");
+        session()->flash('message', "Rincian kegiatan SPPD : $this->no_sppd berhasil diperbarui");
         $this->resetInput();
     }
 

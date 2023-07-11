@@ -38,29 +38,26 @@
         </tr>
         <tr>
             <td width="170">Nama Kegiatan</td>
-            <td>: ...</td>
+            <td width="700">: {{ $detail->maksud_perjalanan }}</td>
         </tr>
         <tr>
             <td width="170">Tanggal Pelaksanaan Kegiatan</td>
-            <td>: {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} s.d {{ date('d-m-Y', strtotime($detail->tgl_selesai)) }}</td>
+            <td width="700">: {{ date('d-m-Y', strtotime($detail->tgl_mulai)) }} s.d {{ date('d-m-Y', strtotime($detail->tgl_selesai)) }}</td>
         </tr>
         <tr>
             <td width="170">Tempat Pelaksanaan Kegiatan</td>
-            <td>: {{ $detail->tempat_tujuan }}</td>
+            <td width="700">: {{ $detail->tempat_tujuan }}</td>
         </tr>
         <tr>
             <td width="170">Bidang/UPT/Balai/Cabang Dinas</td>
-            <td>: ...</td>
+            <td width="700">: {{ $detail->undangan_dari }}</td>
         </tr>
     </table>
-    <table>
-        <tr><td> Catatan : Perjalanan Dinas yang dilakukan beberapa orang dengan tujuan, waktu, dan jumlah hari yang sama</td></tr>
-    </table>
     <br><br>
-    <table border="0.3" cellpadding="1" width="100%">
+    <table border="0.3" cellpadding="2" width="100%">
         <tr>
             <td align="center" width="30" rowspan="2">No</td>
-            <td align="center" width="130" rowspan="2">Nama Pelaksana Perjalanan Dinas.NIP</td>
+            <td align="center" width="130" rowspan="2">Nama Pelaksana Perjalanan Dinas & NIP</td>
             <td align="center" rowspan="2">Pangkat/ Golongan</td>
             <td align="center" rowspan="2">Jabatan</td>
             <td align="center" rowspan="2">Tempat Kedudukan Asal</td>
@@ -76,20 +73,24 @@
             <td align="center">Keberangkatan Dari Tempat Kedudukan Asal</td>
             <td align="center">Tiba Kembali Kedudukan Asal</td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        @forelse ($resultPelaksana as $pelaksana)
+            <tr>
+                <td align="center">{{ $loop->iteration }}</td>
+                <td>{{ $pelaksana->gelardepan.' '.$pelaksana->nama_pegawai.' '.$pelaksana->gelarbelakang_nama }}</td>
+                <td>{{ $pelaksana->pangkat.' / '.$pelaksana->golongan }}</td>
+                <td>{{ $pelaksana->jabatan }}</td>
+                <td>RSUD dr. Rehatta</td>
+                <td>Dinas</td>
+                <td>{{ $detail->no_sppd }}</td>
+                <td>{{ date('d-m-Y', strtotime($detail->tgl_sppd)) }}</td>
+                <td>{{ date('d-m-Y', strtotime($detail->tgl_mulai)) }}</td>
+                <td>{{ date('d-m-Y', strtotime($detail->tgl_selesai)) }}</td>
+                <td>{{ $detail->jumlah_hari }} hari</td>
+                <td></td>
+            </tr>
+        @empty
+            <tr><td colspan="10">Data tidak tersedia</td></tr>
+        @endforelse
     </table>
     <table>
         <tr>
@@ -99,14 +100,14 @@
     <br><br>
     <table>
         <tr>
-            <td width="600"></td>
-            <td>PA/KPA <br>PPTK</td>
+            <td width="550"></td>
+            <td align="center">PA/KPA <br>PPTK</td>
         </tr>
         <tr><td colspan="2"></td></tr>
         <tr><td colspan="2"></td></tr>
         <tr>
-            <td width="600"></td>
-            <td><u>{{ $konf_sppd->nama_pptk }}</u> <br>NIP. {{ $konf_sppd->nip_pptk }}</td>
+            <td width="550"></td>
+            <td align="center"><u>{{ $konf_sppd->nama_pptk }}</u> <br>NIP. {{ $konf_sppd->nip_pptk }}</td>
         </tr>
     </table>
 </div>

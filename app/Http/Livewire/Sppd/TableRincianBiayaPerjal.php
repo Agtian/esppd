@@ -10,6 +10,8 @@ class TableRincianBiayaPerjal extends Component
 {
     public $resultTotalBiaya, $perjalanandinas_id, $pelaksanaperjalanandinas_id, $uang_harian, $biaya_transport, $biaya_penginapan, $uang_representasi, $biaya_pesawat, $biaya_lainnya, $biaya_tol, $total_biaya, $nama_pegawai, $status_update, $status_sppd;
 
+    public $pegawai_id, $gelardepan, $gelarbelakang_nama, $nomorindukpegawai, $pangkat_id, $jabatan_id, $golonganpegawai_id, $unitkerja_id, $searchPegawaiPelaksana;
+
     protected $listeners = ['refreshComponent' => '$refresh'];
 
     public function resetModalUpdateRincianBiaya()
@@ -24,9 +26,28 @@ class TableRincianBiayaPerjal extends Component
         $this->total_biaya = 0;
     }
 
+    public function resetInput()
+    {
+        $this->pegawai_id = NULL;
+        $this->gelardepan = NULL;
+        $this->nama_pegawai = NULL;
+        $this->gelarbelakang_nama = NULL;
+        $this->nomorindukpegawai = NULL;
+        $this->pangkat_id = NULL;
+        $this->jabatan_id = NULL;
+        $this->golonganpegawai_id = NULL;
+        $this->unitkerja_id = NULL;
+        $this->searchPegawaiPelaksana = NULL;
+    }
+
     public function closeModalRincianBiaya()
     {
         $this->resetModalUpdateRincianBiaya();
+    }
+
+    public function closeModal()
+    {
+        $this->resetInput();
     }
     
 

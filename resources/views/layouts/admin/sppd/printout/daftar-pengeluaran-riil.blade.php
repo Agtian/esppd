@@ -39,7 +39,7 @@
             </tr>
             <tr><td colspan="3"></td></tr>
             <tr>
-                <td colspan="3" width="530" class="justify">Berdasarkan Surat Perintah Perjalanan Dinas (SPPD) Nomor {{ $detail->no_sppd }} Tanggal{{ date('d-m-Y', strtotime($detail->tgl_sppd)) }} dengan ini kami menyatakan dengan sesungguhnya  bahwa:</td>
+                <td colspan="3" width="530" class="justify">Berdasarkan Surat Perintah Perjalanan Dinas (SPPD) Nomor {{ $detail->no_sppd }} Tanggal {{ date('d-m-Y', strtotime($detail->tgl_sppd)) }} dengan ini kami menyatakan dengan sesungguhnya  bahwa:</td>
             </tr>
             <tr><td colspan="3"></td></tr>
             <tr>
@@ -60,37 +60,37 @@
                         <tr>
                             <td align="center">1</td>
                             <td>Uang Harian</td>
-                            <td>Rp. {{ $pelaksana->uang_harian }}</td>
+                            <td>Rp. {{ number_format($pelaksana->uang_harian, 2, '.',',') }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td align="center">2</td>
                             <td>Uang Transportasi</td>
-                            <td>Rp. {{ $pelaksana->biaya_trasnport }}</td>
+                            <td>Rp. {{ number_format($pelaksana->biaya_transport, 2, '.',',') }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td align="center">3</td>
                             <td>Penginapan / Tarif Hotel</td>
-                            <td>Rp. {{ $pelaksana->biaya_penginapan }}</td>
+                            <td>Rp. {{ number_format($pelaksana->biaya_penginapan, 2, '.',',') }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td align="center">4</td>
                             <td>Biaya Tol</td>
-                            <td>Rp. {{ $pelaksana->biaya_tol }}</td>
+                            <td>Rp. {{ number_format($pelaksana->biaya_tol, 2, '.',',') }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td align="center">5</td>
                             <td>Biaya Pesawat</td>
-                            <td>Rp. {{ $pelaksana->biaya_pesawat }}</td>
+                            <td>Rp. {{ number_format($pelaksana->biaya_pesawat, 2, '.',',') }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td align="center">5</td>
                             <td>Biaya Lain-lain</td>
-                            <td>Rp. {{ $pelaksana->biaya_lainnya }}</td>
+                            <td>Rp. {{ number_format($pelaksana->biaya_lainnya, 2, '.',',') }}</td>
                             <td></td>
                         </tr>
                     </table>

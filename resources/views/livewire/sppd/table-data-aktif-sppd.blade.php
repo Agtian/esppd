@@ -30,7 +30,7 @@
                             <th>MAKSUD PERJALANAN</th>
                             <th>TEMPAT TUJUAN</th>
                             <th>JAM</th>
-                            <th>TANGGAL</th>
+                            <th width="100">TANGGAL</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -54,7 +54,7 @@
                                 <td>{{ $item->maksud_perjalanan }}</td>
                                 <td>{{ $item->tempat_tujuan }}</td>
                                 <td align="center">{{ $item->jam_acara }}</td>
-                                <td>{{ date('d M Y', strtotime($item->tgl_mulai)).' s.d '.date('d M Y', strtotime($item->tgl_selesai)) }}</td>
+                                <td>{{ date('d-m-Y', strtotime($item->tgl_mulai)) }} <br>s.d <br> {{ date('d-m-Y', strtotime($item->tgl_selesai)) }} <br>({{ $item->jumlah_hari }} hari)</td>
                                 <td width="100" align="center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-dark">OPTION</button>
@@ -160,7 +160,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="4" align="center" class="bg-danger">Data pelaksana tidak tersedia, silahkan input pelaksana perjalanan dinas!</td>
+                                                <td colspan="4" align="center" class="bg-danger">Data pelaksana tidak tersedia, silahkan tambah pelaksana perjalanan dinas !</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

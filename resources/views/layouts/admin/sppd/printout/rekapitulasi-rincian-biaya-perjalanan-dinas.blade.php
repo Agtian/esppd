@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <td width="170">Nama Kegiatan</td>
-            <td>: {{ $detail->dasar }}</td>
+            <td width="650">: {{ $detail->dasar }}</td>
         </tr>
         <tr>
             <td width="170">Tanggal Pelaksanaan Kegiatan</td>
@@ -46,7 +46,7 @@
         </tr>
         <tr>
             <td width="170">Tempat Pelaksanaan Kegiatan</td>
-            <td>: {{ $detail->tempat_tujuan }}</td>
+            <td width="650">: {{ $detail->tempat_tujuan }}</td>
         </tr>
         <tr>
             <td width="170">Bidang/UPT/Balai/Cabang Dinas</td>
@@ -55,7 +55,7 @@
     </table>
     <br><br>
     <table border="0.3" cellpadding="1" width="100%">
-        <tr>
+        <tr style="background-color: #D1E6F6">
             <td width="30" align="center">No.</td>
             <td width="150" align="center">Nama Penerima Biaya Perjalanan Dinas/NIP</td>
             <td align="center">Uang Harian</td>
@@ -70,13 +70,13 @@
         @forelse ($resultPelaksana as $item)
             <tr>
                 <td align="center">{{ $loop->iteration }}</td>
-                <td>{{ $item->nama_pegawai.', '.$item->gelarbelakang_nama.' | '.$item->nomorindukpegawai }}</td>
-                <td align="center">{{ $item->uang_harian }}</td>
-                <td align="center">{{ $item->biaya_transport }}</td>
-                <td align="center">{{ $item->biaya_penginapan }}</td>
-                <td align="center">{{ $item->uang_representasi }}</td>
-                <td align="center">{{ $item->biaya_lainnya }}</td>
-                <td align="center">{{ $item->total_biaya }}</td>
+                <td>{{ $item->nama_pegawai.', '.$item->gelarbelakang_nama.' / '.$item->nomorindukpegawai }}</td>
+                <td align="right">{{ number_format($item->uang_harian, 2, '.',',') }} @php $uang_harians[] = $item->uang_harian @endphp</td>
+                <td align="right">{{ number_format($item->biaya_transport, 2, '.',',') }} @php $biaya_transports[] = $item->biaya_transport @endphp</td>
+                <td align="right">{{ number_format($item->biaya_penginapan, 2, '.',',') }} @php $biaya_penginapans[] = $item->biaya_penginapan @endphp</td>
+                <td align="right">{{ number_format($item->uang_representasi, 2, '.',',') }} @php $uang_representasis[] = $item->uang_representasi @endphp</td>
+                <td align="right">{{ number_format($item->biaya_lainnya, 2, '.',',') }} @php $biaya_lainnyas[] = $item->biaya_lainnya @endphp</td>
+                <td align="right">{{ number_format($item->total_biaya, 2, '.',',') }} @php $total_biayas[] = $item->total_biaya @endphp</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -84,14 +84,14 @@
             <tr><td colspan="10" align="center">Data pelaksana tidak tersedia !</td></tr>
         @endforelse
         
-        <tr>
-            <td></td>
-            <td align="center">Jumlah</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+        <tr style="background-color: #D1E6F6">
+            <td colspan="2" align="center">Jumlah</td>
+            <td align="right">{{ number_format(array_sum($uang_harians), 2, '.',',') }}</td>
+            <td align="right">{{ number_format(array_sum($biaya_transports), 2, '.',',') }}</td>
+            <td align="right">{{ number_format(array_sum($biaya_penginapans), 2, '.',',') }}</td>
+            <td align="right">{{ number_format(array_sum($uang_representasis), 2, '.',',') }}</td>
+            <td align="right">{{ number_format(array_sum($biaya_lainnyas), 2, '.',',') }}</td>
+            <td align="right">{{ number_format(array_sum($total_biayas), 2, '.',',') }}</td>
             <td></td>
             <td></td>
         </tr>
@@ -99,14 +99,12 @@
     <table>
         <tr><td> Catatan : Formulir ini  digunakan untuk perjalanan dinas lebih dari 4 orang</td></tr>
     </table>
-    <br><br>
     <table>
         <tr>
             <td align="center">Bendahara Pengeluaran</td>
             <td width="300"></td>
             <td align="center">An.PA/KPA PPTK</td>
         </tr>
-        <tr><td colspan="3"></td></tr>
         <tr><td colspan="3"></td></tr>
         <tr><td colspan="3"></td></tr>
         <tr>

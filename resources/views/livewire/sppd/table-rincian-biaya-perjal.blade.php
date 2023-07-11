@@ -31,14 +31,14 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->nama_pegawai }}</td>
-                    <td>{{ $item->uang_harian }}</td>
-                    <td>{{ $item->biaya_transport }}</td>
-                    <td>{{ $item->biaya_penginapan }}</td>
-                    <td>{{ $item->uang_representasi }}</td>
-                    <td>{{ $item->biaya_pesawat }}</td>
-                    <td>{{ $item->biaya_tol }}</td>
-                    <td>{{ $item->biaya_lainnya }}</td>
-                    <td>{{ $item->total_biaya }}</td>
+                    <td>{{ number_format($item->uang_harian, 2, '.',',') }}</td>
+                    <td>{{ number_format($item->biaya_transport, 2, '.',',') }}</td>
+                    <td>{{ number_format($item->biaya_penginapan, 2, '.',',') }}</td>
+                    <td>{{ number_format($item->uang_representasi, 2, '.',',') }}</td>
+                    <td>{{ number_format($item->biaya_pesawat, 2, '.',',') }}</td>
+                    <td>{{ number_format($item->biaya_tol, 2, '.',',') }}</td>
+                    <td>{{ number_format($item->biaya_lainnya, 2, '.',',') }}</td>
+                    <td>{{ number_format($item->total_biaya, 2, '.',',') }}</td>
                     <td>
                         @if ($item->status_update == 0)
                             <button type="button" class="btn btn-sm btn-outline-dark" wire:click="modalUpdateRincianBiaya({{ $item->id }})" data-toggle="modal"
@@ -50,7 +50,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" align="center">Data pelaksana tidak tersedia !</td>
+                    <td colspan="11" align="center" class="bg-danger">Data pelaksana tidak tersedia !</td>
                 </tr>
             @endforelse
         </tbody>

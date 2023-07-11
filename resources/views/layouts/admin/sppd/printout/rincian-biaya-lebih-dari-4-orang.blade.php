@@ -40,28 +40,28 @@
         <tr>
             <td align="center">1.</td>
             <td>Uang Harian*</td>
-            <td align="right">Rp. {{ $detail->uang_harian }}</td>
+            <td align="right">Rp. {{ number_format($detail->uang_harian, 2, '.',',') }}</td>
             <td rowspan="5" align="center">Terlampir</td>
         </tr>
         <tr>
             <td align="center">2.</td>
             <td>Biaya Transport*</td>
-            <td align="right">Rp. {{ $detail->biaya_transport }}</td>
+            <td align="right">Rp. {{ number_format($detail->biaya_transport, 2, '.',',') }}</td>
         </tr>
         <tr>
             <td align="center">3.</td>
             <td>Biaya Penginapan*</td>
-            <td align="right">Rp. {{ $detail->biaya_penginapan }}</td>
+            <td align="right">Rp. {{ number_format($detail->biaya_penginapan, 2, '.',',') }}</td>
         </tr>
         <tr>
             <td align="center">4.</td>
             <td>Uang Representasi*</td>
-            <td align="right">Rp. {{ $detail->uang_representasi }}</td>
+            <td align="right">Rp. {{ number_format($detail->uang_representasi, 2, '.',',') }}</td>
         </tr>
         <tr>
             <td align="center">5.</td>
             <td>Lain-lain*</td>
-            <td align="right">Rp. {{ $detail->biaya_lainnya }}</td>
+            <td align="right">Rp. {{ number_format($detail->biaya_lainnya, 2, '.',',') }}</td>
         </tr>
         <tr>
             <td colspan="2" align="center">Terbilang</td>
@@ -87,9 +87,9 @@
             <td>Telah Menerima Uang Sejumlah</td>
         </tr>
         <tr>
-            <td>Rp. {{ $detail->total_biaya }}</td>
+            <td>Rp. {{ number_format($detail->total_biaya, 2, '.',',') }}</td>
             <td width="145"></td>
-            <td>Rp. {{ $detail->total_biaya }}</td>
+            <td>Rp. {{ number_format($detail->total_biaya, 2, '.',',') }}</td>
         </tr>
     </table>
     <br><br>
@@ -123,7 +123,7 @@
         <tr>
             <td>Ditetapkan sejumlah</td>
             <td width="140"></td>
-            <td>: Rp. {{ $detail->total_biaya }}</td>
+            <td>: Rp. {{ number_format($detail->total_biaya, 2, '.',',') }}</td>
         </tr>
         <tr>
             <td>Yang Telah Dibayarkan Semula</td>

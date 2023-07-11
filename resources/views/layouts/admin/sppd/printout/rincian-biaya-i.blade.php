@@ -38,37 +38,37 @@
             <tr>
                 <td align="center">1.</td>
                 <td>Uang Harian</td>
-                <td align="center">{{ $pelaksana->uang_harian }}</td>
+                <td align="center">{{ number_format($item->pelaksana, 2, '.',',') }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">2.</td>
                 <td>Biaya Transport</td>
-                <td align="center">{{ $pelaksana->biaya_transport }}</td>
+                <td align="center">{{ number_format($pelaksana->biaya_transport, 2, '.',',') }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">3.</td>
                 <td>Biaya Penginapan</td>
-                <td align="center">{{ $pelaksana->biaya_penginapan }}</td>
+                <td align="center">{{ number_format($pelaksana->biaya_penginapan, 2, '.',',') }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">4.</td>
                 <td>Uang Representasi</td>
-                <td align="center">{{ $pelaksana->uang_representasi }}</td>
+                <td align="center">{{ number_format($pelaksana->uang_representasi, 2, '.',',') }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">4.</td>
                 <td>Biaya Tol</td>
-                <td align="center">{{ $pelaksana->biaya_tol }}</td>
+                <td align="center">{{ number_format($pelaksana->biaya_tol, 2, '.',',') }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td align="center">5.</td>
                 <td>Lain-lain</td>
-                <td align="center">{{ $pelaksana->biaya_lainnya }}</td>
+                <td align="center">{{ number_format($pelaksana->biaya_lainnya, 2, '.',',') }}</td>
                 <td></td>
             </tr>
             <tr>
@@ -91,9 +91,9 @@
                 <td>Telah Menerima Uang Sejumlah</td>
             </tr>
             <tr>
-                <td>Rp. {{ $pelaksana->total_biaya }}</td>
+                <td>Rp. {{ number_format($pelaksana->total_biaya, 2, '.',',') }}</td>
                 <td width="150"></td>
-                <td>Rp. {{ $pelaksana->total_biaya }}</td>
+                <td>Rp. {{ number_format($pelaksana->total_biaya, 2, '.',',') }}</td>
             </tr>
         </table>
         <br><br>
@@ -114,9 +114,9 @@
                 <td></td>
             </tr>
             <tr>
-                <td align="center">{{ $konf_sppd->nama_bendahara }} <br>NIP. {{ $konf_sppd->nip_bendahara }}</td>
+                <td align="center"><u>{{ $konf_sppd->nama_bendahara }}</u> <br>NIP. {{ $konf_sppd->nip_bendahara }}</td>
                 <td width="70"></td>
-                <td width="300" align="center">{{ $pelaksana->nama_pegawai.', '.$pelaksana->gelarbelakang_nama }} <br>{{ ($pelaksana->golongan == 'Badan Layanan Umum') ? 'NRP' : 'NIP' }}. {{ $pelaksana->nomorindukpegawai }}</td>
+                <td width="300" align="center"><u>{{ $pelaksana->nama_pegawai.', '.$pelaksana->gelarbelakang_nama }}</u> <br>{{ ($pelaksana->golongan == 'Badan Layanan Umum') ? 'NRP' : 'NIP' }}. {{ $pelaksana->nomorindukpegawai }}</td>
             </tr>
         </table>
         <hr>
@@ -126,7 +126,7 @@
             <tr>
                 <td>Ditetapkan sejumlah</td>
                 <td width="200"></td>
-                <td>: Rp. {{ $pelaksana->total_biaya }}</td>
+                <td>Rp. {{ number_format($pelaksana->total_biaya, 2, '.',',') }}</td>
             </tr>
             <tr>
                 <td>Yang Telah Dibayarkan Semula</td>
