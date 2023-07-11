@@ -82,7 +82,7 @@ class TableDataAktifSppd extends Component
 
         $this->jumlahPelaksanaPerjal = PelaksanaPerjalananDinas::where('perjalanandinas_id', $this->perjalanandinas_id)->count();
 
-        $resultAktifSPPD    = PerjalananDinas::paginate(10);
+        $resultAktifSPPD    = PerjalananDinas::where('status_sppd', 0)->paginate(10);
         $search             = '%'.$this->searchPegawaiPelaksana.'%';
         $resultPegawais     = (new Pegawai_v())->getDataPegawais($search);
         
@@ -297,5 +297,15 @@ class TableDataAktifSppd extends Component
         PelaksanaPerjalananDinas::findOrFail($pelaksanaperjalanandinas_id)->delete();
         $this->emit(event:'refreshComponent');
         session()->flash('message', 'Pelaksana perjalanan dinas berhasil dihapus');
+    }
+
+    public function sppdValidasi(int $perjalanandinas_id)
+    {
+        PerjalananDinas::findOrFail($perjalanandinas_id)->update([
+            'status_sppd'   => 1,
+        ]);
+
+        session()->flash('message', "SPPD berhasil diselesaikan dan telah ditutup !");
+        $this->resetInput();
     }
 }

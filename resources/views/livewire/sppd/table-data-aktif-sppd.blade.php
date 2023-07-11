@@ -77,14 +77,14 @@
                                                 <a class="dropdown-item" href="{{ url('printout/daftar-pengeluaran-riil/'.$item->id) }}" target="_blank">Daftar Pengeluaran Riil</a>
                                             @endif
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="">SELESAI</a>
+                                            <button class="dropdown-item" wire:click="sppdValidasi({{ $item->id }})">SELESAI</button>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9">Data Not Found</td>
+                                <td colspan="9" align="center" class="bg-danger">Data Not Found</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -98,7 +98,7 @@
     
     @if (session('message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Sukses!</strong> <br> {{ session('message') }}.
+            <strong>Sukses!</strong> <br> {{ session('message') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
