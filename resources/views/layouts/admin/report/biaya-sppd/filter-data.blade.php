@@ -71,15 +71,18 @@
                             </div>
                         </form>
                     </div>
-                
-                    <div class="col-2">
-                        <form action="{{ url('dashboard/admin/printout/laporan-pengeluaran-sppd') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="tgl_awal" value="{{ $tgl_awal }}">
-                            <input type="hidden" name="tgl_selesai" value="{{ $tgl_selesai }}">
-                            <button type="submit" class="btn btn-info btn-block">CETAK</button>
-                        </form>
-                    </div>
+                    
+                    @if ($resultDataBiayaSPPD->count() != 0)
+                        <div class="col-2">
+                            <form action="{{ url('dashboard/admin/printout/laporan-pengeluaran-sppd') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="tgl_awal" value="{{ $tgl_awal }}">
+                                <input type="hidden" name="tgl_selesai" value="{{ $tgl_selesai }}">
+                                <button type="submit" class="btn btn-info btn-block">CETAK</button>
+                            </form>
+                        </div>
+                    @endif
+                    
                 </div>
                 <hr>
             </div>
@@ -112,10 +115,9 @@
                                         @endforelse
                                     </td>
                                     <td>{{ $item->tempat_tujuan }}</td>
-                                    <td>{{ $item->total_biaya }}</td>
+                                    <td>{{ number_format($item->total_biaya, 2, '.',',') }}</td>
                                     <td align="center">
                                         <a href="{{ url('dashboard/admin/biaya-sppd/'.$item->id.'/edit') }}" class="btn btn-sm btn-outline-primary btn-block">DETAIL</a>
-                                        <a href="" class="btn btn-sm btn-outline-primary btn-block" target="_blank">CETAK</a>
                                     </td>
                                 </tr>
                             @empty

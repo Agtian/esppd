@@ -58,7 +58,7 @@
 
                 <li class="nav-header mt-3">REPORT</li>
                 <li class="nav-item">
-                    <a href="{{ url('dashboard/admin/biaya-sppd') }}" class="nav-link {{ request()->is('dashboard/admin/biaya-sppd') ? 'active bg-primary' : '' }}">
+                    <a href="{{ url('dashboard/admin/biaya-sppd') }}" class="nav-link {{ request()->is('dashboard/admin/biaya-sppd') || request()->is('dashboard/admin/biaya-sppd-filter') ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Biaya SPPD

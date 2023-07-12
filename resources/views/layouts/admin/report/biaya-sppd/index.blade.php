@@ -102,7 +102,6 @@
                                     <td>{{ $item->total_biaya }}</td>
                                     <td align="center">
                                         <a href="{{ url('dashboard/admin/biaya-sppd/'.$item->id.'/edit') }}" class="btn btn-sm btn-outline-primary btn-block">DETAIL</a>
-                                        <a href="" class="btn btn-sm btn-outline-primary btn-block" target="_blank">CETAK</a>
                                     </td>
                                 </tr>
                             @empty

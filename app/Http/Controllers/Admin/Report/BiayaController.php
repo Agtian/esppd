@@ -13,16 +13,17 @@ class BiayaController extends Controller
 {
     public function index()
     {
-        $perjalananDinas = PerjalananDinas::paginate(15);
+        $perjalananDinas = PerjalananDinas::where('status_sppd', 1)->paginate(15);
         return view('layouts.admin.report.biaya-sppd.index', compact('perjalananDinas'));
     }
 
     public function edit(int $id)
     {
-        $detail         = PerjalananDinas::findOrFail($id);
-        $pelaksanaArr   = PelaksanaPerjalananDinas::where('perjalanandinas_id', $id)->get();
-        $confSppd       = KonfigurasiSppd::find(1);
-        return view('layouts.admin.report.biaya-sppd.edit', compact('detail', 'confSppd', 'pelaksanaArr'));
+        $detail                 = PerjalananDinas::findOrFail($id);
+        $pelaksanaArr           = PelaksanaPerjalananDinas::where('perjalanandinas_id', $id)->get();
+        $confSppd               = KonfigurasiSppd::find(1);
+        $perjalanandinas_id     = $id;        
+        return view('layouts.admin.report.biaya-sppd.edit', compact('detail', 'confSppd', 'pelaksanaArr', 'perjalanandinas_id'));
     }
 
     public function filterData(Request $request)
@@ -32,7 +33,7 @@ class BiayaController extends Controller
             'tanggal_selesai'   => 'required'
         ]);
 
-        $resultDataBiayaSPPD  = PerjalananDinas::whereBetween('tgl_sppd', [$validatedData['tanggal_mulai'], $validatedData['tanggal_selesai']])->paginate(15);
+        $resultDataBiayaSPPD  = PerjalananDinas::where('status_sppd', 1)->whereBetween('tgl_sppd', [$validatedData['tanggal_mulai'], $validatedData['tanggal_selesai']])->paginate(15);
         $tgl_awal             = $validatedData['tanggal_mulai'];
         $tgl_selesai          = $validatedData['tanggal_selesai'];
 
@@ -41,7 +42,7 @@ class BiayaController extends Controller
 
     public function laporanPengeluaranSPPD(Request $request)
     {
-        $resultPengeluaranSPPD  = PerjalananDinas::whereBetween('tgl_sppd', [$request->tgl_awal, $request->tgl_selesai])->get();
+        $resultPengeluaranSPPD  = PerjalananDinas::where('status_sppd', 1)->whereBetween('tgl_sppd', [$request->tgl_awal, $request->tgl_selesai])->get();
         $tgl_awal               = $request->tgl_awal;
         $tgl_selesai            = $request->tgl_selesai;
 

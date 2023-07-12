@@ -105,8 +105,16 @@
             <div class="row no-print">
                 <div class="col-12">
                     <a onclick="window.print();" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                    <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit Payment</button>
-                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-download"></i> Generate PDF</button>
+
+                    @if ($pelaksanaArr->count() >= 4)
+                        <a href="{{ url('/printout/surat-tugas-ii/'.$perjalanandinas_id) }}" target="_blank" class="btn btn-primary float-right"><i class="fas fa-download"></i> Surat Perintah Tugas</a>
+                        <a href="{{ url('/printout/rincian-biaya-ii/'.$perjalanandinas_id) }}" target="_blank" class="btn btn-primary float-right mr-1"><i class="fas fa-download"></i> Rincian Biaya</a>
+                        <a href="{{ url('/printout/daftar-pengeluaran-riil/'.$perjalanandinas_id) }}" target="_blank" class="btn btn-primary float-right mr-1"><i class="fas fa-download"></i> Daftar Pengeluaran Rill</a>
+                    @else
+                        <a href="{{ url('/printout/surat-tugas-i/'.$perjalanandinas_id) }}" target="_blank" class="btn btn-primary float-right"><i class="fas fa-download"></i> Surat Perintah Tugas</a>
+                        <a href="{{ url('/printout/rincian-biaya-i/'.$perjalanandinas_id) }}" target="_blank" class="btn btn-primary float-right mr-1"><i class="fas fa-download"></i> Rincian Biaya</a>
+                        <a href="{{ url('/printout/daftar-pengeluaran-riil/'.$perjalanandinas_id) }}" target="_blank" class="btn btn-primary float-right mr-1"><i class="fas fa-download"></i> Daftar Pengeluaran Rill</a>
+                    @endif
                 </div>
             </div>
         </div>
