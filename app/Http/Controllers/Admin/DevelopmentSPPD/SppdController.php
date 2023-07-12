@@ -40,9 +40,8 @@ class SppdController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'pegawai_id'                => 'required',
             'dasar'                     => 'required',
-            'undangan_dari'         => 'required',
+            'undangan_dari'             => 'required',
             'jumlah_hari'               => 'required',
             'hari'                      => 'required',
             'tgl_mulai'                 => 'required',
