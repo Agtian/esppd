@@ -20,6 +20,8 @@ class TablePelaksanaSppd extends Component
     
     public $perjalanandinas_id, $pegawai_id, $user_id, $no_perjal, $no_sppd, $dasar, $undangan_dari, $tgl_ditetapkan, $jumlah_hari, $hari, $tgl_mulai, $tgl_selesai, $tgl_sppd, $maksud_perjalanan, $tempat_tujuan, $jam_acara, $uang_harian = 0, $biaya_transport = 0, $biaya_penginapan = 0, $uang_representasi = 0, $biaya_pesawat = 0, $biaya_lainnya = 0, $biaya_tol = 0, $status_sppd, $gelardepan, $nama_pegawai, $gelarbelakang_nama, $nomorindukpegawai, $pelaksanaPerjalananDinas_id, $resultTotalBiaya, $jumlahPelaksanaPerjal, $addpegawai_id;
 
+    public $nama_pegawai_search, $surat_dari_search, $tgl_awal, $tgl_akhir;
+
     public $detailResultAktifSPPD;
 
     public function render()
@@ -66,5 +68,10 @@ class TablePelaksanaSppd extends Component
     public function closeModal()
     {
         $this->resetInput();
+    }
+
+    public function searchPelaksanaSPPD()
+    {
+        
     }
 }

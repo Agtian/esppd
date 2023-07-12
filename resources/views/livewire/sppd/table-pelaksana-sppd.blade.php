@@ -7,6 +7,69 @@
 
     <div>
         <div class="card card-dark">
+            <div class="card-header  border-transparent">
+                <h3 class="card-title">Filter Data</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nama</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror" wire:model="nama_pegawai" placeholder="Nama Pegawai">
+                                @error('nama_pegawai')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Surat Dari</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('surat_dari') is-invalid @enderror" wire:model="surat_dari" placeholder="Surat Undangan Dari">
+                                @error('surat_dari')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tanggal SPPD</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control @error('tgl_awal') is-invalid @enderror" wire:model="tgl_awal" placeholder="Tanggal Awal">
+                                @error('tgl_awal')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <label class="col-sm-1 col-form-label"><center>s.d</center></label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control @error('tgl_akhir') is-invalid @enderror" wire:model="tgl_akhir" placeholder="Tanggal Akhir">
+                                @error('tgl_akhir')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-dark">
             <div class="card-header border-transparent">
                 <h3 class="card-title">Tabel Data Pelaksana SPPD</h3>
 

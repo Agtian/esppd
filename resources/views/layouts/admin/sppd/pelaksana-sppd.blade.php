@@ -27,7 +27,6 @@
                 </button>
             </div>
         @endif
-
         
         <livewire:sppd.table-pelaksana-sppd>
             
