@@ -1,170 +1,163 @@
+@push('style')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+@endpush
+
 <div>
-    @push('style')
-        <!-- Select2 -->
-        <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    @endpush
+    <div class="card card-dark">
+        <div class="card-header  border-transparent">
+            <h3 class="card-title">Filter Data</h3>
 
-    <div>
-        <div class="card card-dark">
-            <div class="card-header  border-transparent">
-                <h3 class="card-title">Filter Data</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Nama</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror" wire:model="nama_pegawai" placeholder="Nama Pegawai">
-                                @error('nama_pegawai')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Surat Dari</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control @error('surat_dari') is-invalid @enderror" wire:model="surat_dari" placeholder="Surat Undangan Dari">
-                                @error('surat_dari')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tanggal SPPD</label>
-                            <div class="col-sm-4">
-                                <input type="date" class="form-control @error('tgl_awal') is-invalid @enderror" wire:model="tgl_awal" placeholder="Tanggal Awal">
-                                @error('tgl_awal')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <label class="col-sm-1 col-form-label"><center>s.d</center></label>
-                            <div class="col-sm-4">
-                                <input type="date" class="form-control @error('tgl_akhir') is-invalid @enderror" wire:model="tgl_akhir" placeholder="Tanggal Akhir">
-                                @error('tgl_akhir')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-dark">
-            <div class="card-header border-transparent">
-                <h3 class="card-title">Tabel Data Pelaksana SPPD</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body p-0">
-                <div class="table-responsive" style="height: 600px;">
-                    <table class="table table-striped table-bordered m-0">
-                        <thead>
-                            <tr align="center">
-                                <th>TANGGAL SPPD</th>
-                                <th>NO SPPD</th>
-                                <th>NAMA</th>
-                                <th>DASAR</th>
-                                <th>MAKSUD PERJALANAN</th>
-                                <th>TEMPAT TUJUAN</th>
-                                <th>JAM</th>
-                                <th>TANGGAL</th>
-                                <th>AKSI</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($resultAktifSPPD as $item)
-                                <tr>
-                                    <td width="150">{{ $item->tgl_sppd }}</td>
-                                    <td>{{ $item->no_sppd }}</td>
-                                    <td>
-                                        <ul class="nav nav-pills flex-column">
-                                            @forelse ($item->pelaksanaPerjals as $listPelaksana)
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#"><i class="far fa-circle text-primary"></i> {{ $listPelaksana->nama_pegawai.' '.$listPelaksana->gelarbelakang_nama }}</a>
-                                                </li>
-                                            @empty
-                                                <button class="btn btn-md btn-outline-danger">Pelaksana SPPD tidak tersedia !</button>
-                                            @endforelse
-                                        </ul>
-                                    </td>
-                                    <td>{{ $item->dasar }}</td>
-                                    <td>{{ $item->maksud_perjalanan }}</td>
-                                    <td>{{ $item->tempat_tujuan }}</td>
-                                    <td align="center">{{ $item->jam_acara }}</td>
-                                    <td>{{ date('d M Y', strtotime($item->tgl_mulai)).' s.d '.date('d M Y', strtotime($item->tgl_selesai)) }}</td>
-                                    <td width="100" align="center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-dark">OPTION</button>
-                                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-hover dropdown-icon" data-toggle="dropdown">
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <div class="dropdown-menu" role="menu">
-                                                <button class="dropdown-item" wire:click="openDetail({{ $item->id }})">Detail</button>
-                                                @if ($item->pelaksanaPerjals->count() <= 4)
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="{{ url('printout/surat-tugas-i/'.$item->id) }}" target="_blank">Surat Tugas</a>
-                                                    <a class="dropdown-item" href="{{ url('printout/sppd/'.$item->id) }}" target="_blank">SPPD</a>
-                                                    <a class="dropdown-item" href="{{ url('printout/rincian-biaya-i/'.$item->id) }}" target="_blank">Rincian Biaya</a>
-                                                @else
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="{{ url('printout/surat-tugas-ii/'.$item->id) }}" target="_blank">Surat Tugas</a>
-                                                    <a class="dropdown-item" href="{{ url('printout/sppd-iii/'.$item->id) }}" target="_blank">SPPD</a>
-                                                    <a class="dropdown-item" href="{{ url('printout/rincian-biaya-ii/'.$item->id) }}" target="_blank">Rincian Biaya</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="9">Data Not Found</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card-footer clearfix">
-                {{ $resultAktifSPPD->links() }}
-            </div>
-        </div>
-        
-        @if (session('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Sukses!</strong> <br> {{ session('message') }}.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
-        @endif
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <form wire:submit.prevent="searchPelaksanaSPPD()">
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Nama</label>
+                            <div class="col-9">
+                                <div wire:ignore.self>
+                                    <select class="form-control" id="select_pegawais" style="width: 100%;">
+                                        {{-- @foreach ($pegawais as $pegawai)
+                                            <option value="{{ $pegawai->pegawai_id }}">{{ $pegawai->nama_pegawai }}</option>
+                                        @endforeach --}}
+                                    </select>
+                                </div>
+                                <input type="hidden" value="{{ $pegawai_id_search }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Surat Dari</label>
+                            <div class="col-9">
+                                <input type="text" class="form-control" wire:model.defer="surat_dari_search" placeholder="Surat Undangan Dari">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Tanggal SPPD</label>
+                            <div class="col-4">
+                                <input type="date" class="form-control" wire:model.defer="tgl_awal" placeholder="Tanggal Awal">
+                            </div>
+                            <label class="col-1 col-form-label"><center>s.d</center></label>
+                            <div class="col-4">
+                                <input type="date" class="form-control" wire:model.defer="tgl_akhir" placeholder="Tanggal Akhir">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3"></label>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-outline-primary">Tampilkan</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="card card-dark">
+        <div class="card-header border-transparent">
+            <h3 class="card-title">Tabel Data Pelaksana SPPD</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive" style="height: 600px;">
+                <table class="table table-striped table-bordered m-0">
+                    <thead>
+                        <tr align="center">
+                            <th>TANGGAL SPPD</th>
+                            <th>NO SPPD</th>
+                            <th>NAMA</th>
+                            <th>DASAR</th>
+                            <th>MAKSUD PERJALANAN</th>
+                            <th>TEMPAT TUJUAN</th>
+                            <th>JAM</th>
+                            <th>TANGGAL</th>
+                            <th>AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($resultAktifSPPD as $item)
+                            <tr>
+                                <td width="150">{{ $item->tgl_sppd }}</td>
+                                <td>{{ $item->no_sppd }}</td>
+                                <td>
+                                    <ul class="nav nav-pills flex-column">
+                                        @forelse ($item->pelaksanaPerjals as $listPelaksana)
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#"><i class="far fa-circle text-primary"></i> {{ $listPelaksana->nama_pegawai.' '.$listPelaksana->gelarbelakang_nama }}</a>
+                                            </li>
+                                        @empty
+                                            <button class="btn btn-md btn-outline-danger">Pelaksana SPPD tidak tersedia !</button>
+                                        @endforelse
+                                    </ul>
+                                </td>
+                                <td>{{ $item->dasar }}</td>
+                                <td>{{ $item->maksud_perjalanan }}</td>
+                                <td>{{ $item->tempat_tujuan }}</td>
+                                <td align="center">{{ $item->jam_acara }}</td>
+                                <td>{{ date('d M Y', strtotime($item->tgl_mulai)).' s.d '.date('d M Y', strtotime($item->tgl_selesai)) }}</td>
+                                <td width="100" align="center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-dark">OPTION</button>
+                                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-hover dropdown-icon" data-toggle="dropdown">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu">
+                                            <button class="dropdown-item" wire:click="openDetail({{ $item->id }})">Detail</button>
+                                            @if ($item->pelaksanaPerjals->count() <= 4)
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="{{ url('printout/surat-tugas-i/'.$item->id) }}" target="_blank">Surat Tugas</a>
+                                                <a class="dropdown-item" href="{{ url('printout/sppd/'.$item->id) }}" target="_blank">SPPD</a>
+                                                <a class="dropdown-item" href="{{ url('printout/rincian-biaya-i/'.$item->id) }}" target="_blank">Rincian Biaya</a>
+                                            @else
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="{{ url('printout/surat-tugas-ii/'.$item->id) }}" target="_blank">Surat Tugas</a>
+                                                <a class="dropdown-item" href="{{ url('printout/sppd-iii/'.$item->id) }}" target="_blank">SPPD</a>
+                                                <a class="dropdown-item" href="{{ url('printout/rincian-biaya-ii/'.$item->id) }}" target="_blank">Rincian Biaya</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="9">Data Not Found</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer clearfix">
+            {{ $resultAktifSPPD->links() }}
+        </div>
+    </div>
+    
+    @if (session('message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Sukses!</strong> <br> {{ session('message') }}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
     @if ($showDetail)
         <div class="card card-dark">
@@ -458,3 +451,56 @@
         </div>
     @endif
 </div>
+
+@push('script')
+    <!-- Select2 -->
+    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#select_pegawais').select2({
+                theme: 'bootstrap4',
+                // closeOnSelect : true,
+            });
+            
+            $('#select_pegawais').on('change', function (e) {
+                var data = $('#select_pegawais').select2("val");
+                @this.set('pegawai_id_search', data);
+
+                window.livewire.on('data-change-event', ()=>{
+                $('#select_pegawais').select2({
+                    theme: 'bootstrap4',
+                    // closeOnSelect: true
+                });
+            });
+            });
+        });
+
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $(document).ready(function(){
+            $( "#select_pegawais" ).select2({
+                theme: 'bootstrap4',
+                // closeOnSelect: true,
+                ajax: { 
+                url: "{{url('dashboard/admin/get-pegawais')}}",
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                    _token: CSRF_TOKEN,
+                    search: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                    results: response
+                    };
+                },
+                cache: true
+                }
+
+            });
+        });
+    </script>
+@endpush

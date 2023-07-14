@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\PerjalananDinas;
 use Illuminate\Http\Request;
 use App\Helpers\BantuAku;
+use App\Models\DaftarOPD;
+use App\Models\Kementerian;
 use App\Models\PelaksanaPerjalananDinas;
 use App\Models\PGSQL\GolonganPegawai_m;
 use App\Models\PGSQL\Pangkat_m;
 use App\Models\PGSQL\Pegawai_v;
+use App\Models\Provinsi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +25,11 @@ class SppdController extends Controller
 
     public function create()
     {
-        return view('layouts.admin.sppd.create');
+        return view('layouts.admin.sppd.create', with([
+            'resultOPD'         => DaftarOPD::all(),
+            'resultKementerian' => Kementerian::all(),
+            'resultProvinsi'    => Provinsi::all(),
+        ]));
     }
 
     public function getPegawai(Request $request)

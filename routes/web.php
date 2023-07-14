@@ -92,6 +92,7 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
 
     Route::controller(PelaksanaSPPDController::class)->group(function () {
         Route::get('/pelaksana-sppd', 'index');
+        Route::post('/get-pegawais', 'getPegawais')->name('getPegawais');
     });
 
     Route::controller(GolPegawaiController::class)->group(function () {

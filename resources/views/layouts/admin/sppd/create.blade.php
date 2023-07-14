@@ -75,17 +75,27 @@
                                     @enderror
                                 </div>
                             </div>
+                            <hr>
                             <div class="form-group row">
                                 <label for="undangan_dari" class="col-sm-3 col-form-label">Undangan Dari</label>
-                                <div class="col-sm-9">
-                                    <textarea name="undangan_dari" id="undangan_dari" cols="20" rows="3" class="form-control @error('undangan_dari') is-invalid @enderror">{{ old('dasar') }}</textarea>
+                                <div class="col-sm-7">
+                                    <select class="form-control @error('undangan_dari') is-invalid @enderror" id="select_daftar_opd" style="width: 100%;">
+                                        <option selected="selected" class="">-- Pilih OPD --</option>
+                                        @foreach ($resultOPD as $item)
+                                            <option value="{{ $item->id }}">{{ $item->provinsis->nama_provinsi.' - '.$item->kabupatens->nama_kabupaten.' - '.$item->nama_opd }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('undangan_dari')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-dark btn-block" data-toggle="modal" data-target="#modal-add-opd">Tambah OPD</button>
+                                </div>
                             </div>
+                            <hr>
                             <div class="form-group row">
                                 <label for="jumlah_hari" class="col-sm-3 col-form-label">Jumlah Hari</label>
                                 <div class="col-sm-9">
@@ -190,36 +200,119 @@
                 </div>
             </div>
         </div>
-        
     </section>
+
+    <div class="modal fade" id="modal-add-opd">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Daftar OPD</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Kementerian</label>
+                            <div class="col-sm-9">
+                                <select name="kementerian_id" class="form-control">
+                                    <option value="">-- Pilih Kementerian --</option>
+                                    @foreach ($resultKementerian as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_kementerian }}</option>
+                                    @endforeach
+                                </select>
+                                @error('kementerian_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Provinsi</label>
+                            <div class="col-sm-9">
+                                <select name="provinsi_id" class="form-control">
+                                    <option value="">-- Pilih Provinsi --</option>
+                                    @foreach ($resultProvinsi as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_provinsi }}</option>
+                                    @endforeach
+                                </select>
+                                @error('provinsi_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Kabupaten</label>
+                            <div class="col-sm-9">
+                                <select name="kabupaten_id" class="form-control">
+                                    <option value="">-- Pilih Kabupaten --</option>
+                                </select>
+                                @error('kabupaten_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nama OPD / Kantor</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('nama_opd') is-invalid @enderror" name="jam_acara" value="{{ old('nama_opd') }}">
+                                @error('nama_opd')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
 @push('script')
-    {{-- <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script type="text/javascript">
-        $(function () {
-            $('.livesearch_pegawai').select2({
-                placeholder: 'Pilih Pegawai',
-                ajax: {
-                    url: '/dashboard/admin/sppd/autocomplete-get-pegawai',
-                    dataType: 'json',
-                    delay: 250,
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.nama_pegawai,
-                                    id: item.pegawai_id,
-                                    selected: 'false'
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            })
+
+        $(document).ready(function() {
+            $('#select_daftar_opd').select2({
+                theme: 'bootstrap4',
+                closeOnSelect : true,
+            });
         });
-    </script> --}}
+        // $(function () {
+        //     $('.livesearch_pegawai').select2({
+        //         placeholder: 'Pilih Pegawai',
+        //         ajax: {
+        //             url: '/dashboard/admin/sppd/autocomplete-get-pegawai',
+        //             dataType: 'json',
+        //             delay: 250,
+        //             processResults: function (data) {
+        //                 return {
+        //                     results: $.map(data, function (item) {
+        //                         return {
+        //                             text: item.nama_pegawai,
+        //                             id: item.pegawai_id,
+        //                             selected: 'false'
+        //                         }
+        //                     })
+        //                 };
+        //             },
+        //             cache: true
+        //         }
+        //     })
+        // });
+    </script>
 @endpush
