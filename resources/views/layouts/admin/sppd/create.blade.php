@@ -77,15 +77,15 @@
                             </div>
                             <hr>
                             <div class="form-group row">
-                                <label for="undangan_dari" class="col-sm-3 col-form-label">Undangan Dari</label>
+                                <label for="undangan_dari" class="col-sm-3 col-form-label">Tujuan OPD / Undangan Dari</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control @error('undangan_dari') is-invalid @enderror" id="select_daftar_opd" style="width: 100%;">
+                                    <select class="form-control @error('daftar_opd_id') is-invalid @enderror" name="daftar_opd_id" id="select_daftar_opd" style="width: 100%;">
                                         <option selected="selected" class="">-- Pilih OPD --</option>
                                         @foreach ($resultOPD as $item)
                                             <option value="{{ $item->id }}">{{ $item->provinsis->nama_provinsi.' - '.$item->kabupatens->nama_kabupaten.' - '.$item->nama_opd }}</option>
                                         @endforeach
                                     </select>
-                                    @error('undangan_dari')
+                                    @error('daftar_opd_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -211,8 +211,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="">
+                <form action="{{ url('dashboard/admin/sppd/add-opd') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kementerian</label>
                             <div class="col-sm-9">
@@ -232,7 +233,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Provinsi</label>
                             <div class="col-sm-9">
-                                <select name="provinsi_id" class="form-control">
+                                <select name="provinsi_id" id="provinsi_id" class="form-control @error('provinsi_id') is-invalid @enderror">
                                     <option value="">-- Pilih Provinsi --</option>
                                     @foreach ($resultProvinsi as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama_provinsi }}</option>
@@ -248,8 +249,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kabupaten</label>
                             <div class="col-sm-9">
-                                <select name="kabupaten_id" class="form-control">
-                                    <option value="">-- Pilih Kabupaten --</option>
+                                <select name="kabupaten_id" id="kabupaten_id" class="form-control @error('kabupaten_id') is-invalid @enderror">
+                                    <option value=""> -- Pilih Kabupaten -- </option>
                                 </select>
                                 @error('kabupaten_id')
                                     <span class="invalid-feedback" role="alert">
@@ -261,7 +262,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Nama OPD / Kantor</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('nama_opd') is-invalid @enderror" name="jam_acara" value="{{ old('nama_opd') }}">
+                                <input type="text" class="form-control @error('nama_opd') is-invalid @enderror" name="nama_opd" value="{{ old('nama_opd') }}">
                                 @error('nama_opd')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -269,12 +270,40 @@
                                 @enderror
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Status OPD</label>
+                            <div class="col-sm-9">
+                                <select name="status_opd" class="form-control @error('status_opd') is-invalid @enderror">
+                                    <option value=""> -- Pilih Status OPD -- </option>
+                                    <option value="1">Kementerian</option>
+                                    <option value="2">Provinsi</option>
+                                    <option value="3">Kabupaten</option>
+                                    <option value="4">Organisasi / Lembaga</option>
+                                </select>
+                                @error('status_opd')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Alamat</label>
+                            <div class="col-sm-9">
+                                <textarea name="alamat_opd" class="form-control @error('alamat_opd') is-invalid @enderror" cols="30" rows="10"></textarea>
+                                @error('alamat_opd')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan OPD</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -314,5 +343,28 @@
         //         }
         //     })
         // });
+
+        function onChangeSelect(url, id, name) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    provinsi_id: id
+                },
+                success: function (data) {
+                    $('#' + name).empty();
+                    $('#' + name).append('<option> -- Pilih Kabupaten -- </option>');
+                    $.each(data, function (key, value) {
+                        $('#' + name).append('<option value="' + value.id + '">' + value.nama_kabupaten + '</option>');
+                    });
+                }
+            });
+        }
+
+        $(function () {
+            $('#provinsi_id').on('change', function () {
+                onChangeSelect('{{ route("getkabupaten") }}', $(this).val(), 'kabupaten_id');
+            });
+        });
     </script>
 @endpush

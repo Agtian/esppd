@@ -48,7 +48,7 @@ class SppdController extends Controller
     {
         $validatedData = $request->validate([
             'dasar'                     => 'required',
-            'undangan_dari'             => 'required',
+            'daftar_opd_id'             => 'required',
             'jumlah_hari'               => 'required',
             'hari'                      => 'required',
             'tgl_mulai'                 => 'required',
@@ -73,11 +73,14 @@ class SppdController extends Controller
         $romawi     = $addRomawi.'/'.$tahun;
         $no_sppd    = '094/'.$noUrutPerjal.'/'.$romawi;
 
+        $getDetOPD   = DaftarOPD::findOrFail($validatedData['daftar_opd_id']);
+
         $perjalananDinas = PerjalananDinas::create([
             'no_perjal'                 => $valNoPerjal,
             'no_sppd'                   => $no_sppd,
             'dasar'                     => $validatedData['dasar'],
-            'undangan_dari'             => $validatedData['undangan_dari'],
+            'daftar_opd_id'             => $validatedData['daftar_opd_id'],
+            'undangan_dari'             => $getDetOPD->nama_opd,
             'tgl_ditetapkan'            => $validatedData['tgl_sppd'],
             'jumlah_hari'               => $validatedData['jumlah_hari'],
             'hari'                      => $validatedData['hari'],
@@ -110,5 +113,28 @@ class SppdController extends Controller
         // }
 
         return redirect('dashboard/admin/sppd/create')->with('message', 'SPPD added successfully.');
+    }
+
+    public function storeOPD(Request $request)
+    {
+        dd($request);
+        $validatedData = $request->validate([
+            'provinsi_id'       => 'integer|required',
+            'kabupaten_id'      => 'integer|required',
+            'nama_opd'          => 'required',
+            'status_opd'        => 'required',
+            'alamat_opd'        => 'required',
+        ]);
+
+        DaftarOPD::create([
+            'kementerian_id'    => $request->kementerian_id,
+            'provinsi_id'       => $validatedData['provinsi_id'],
+            'kabupaten_id'      => $validatedData['kabupaten_id'],
+            'nama_opd'          => $validatedData['nama_opd'],
+            'status_opd'        => $validatedData['status_opd'],
+            'alamat'            => $validatedData['alamat_opd'],
+        ]);
+
+        return redirect('dashboard/admin/sppd/create')->with('message', 'OPD berhasil disimpan !');
     }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Master\PendidikanKualifikasiController;
 use App\Http\Controllers\Admin\Master\UnitKerjaController;
 use App\Http\Controllers\Admin\Report\BiayaController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Dependent\DropdownController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,10 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('provinces', [DropdownController::class, 'getProvinsi'])->name('getprovinsi');
+
+Route::get('kabupatens', [DropdownController::class, 'getKabupaten'])->name('getkabupaten');
 
 Route::get('/dashboard/dashboard-v1', [App\Http\Controllers\Dashboard\DashboardV1::class, 'index'])->name('dashboard-v1');
 Route::get('/dashboard/dashboard-v2', [App\Http\Controllers\Dashboard\DashboardV2::class, 'index'])->name('dashboard-v2');
@@ -57,9 +62,10 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
         Route::get('/sppd', 'index');
         Route::get('/sppd/create', 'create');
         Route::post('/sppd', 'store');
-        Route::get('/sppd/{sppd}/edit', 'edit');
-        Route::put('/sppd/{sppd}', 'update');
-        Route::get('/sppd/{sppd}/delete', 'destroy');
+        Route::post('/sppd/add-opd', 'storeOPD');
+        // Route::get('/sppd/{sppd}/edit', 'edit');
+        // Route::put('/sppd/{sppd}', 'update');
+        // Route::get('/sppd/{sppd}/delete', 'destroy');
 
         Route::get('/sppd/autocomplete-get-pegawai', 'getPegawai');
     });
