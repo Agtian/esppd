@@ -275,10 +275,11 @@
                             <div class="col-sm-9">
                                 <select name="status_opd" class="form-control @error('status_opd') is-invalid @enderror">
                                     <option value=""> -- Pilih Status OPD -- </option>
+                                    <option value="5">Organisasi Pemerintah Negara</option>
                                     <option value="1">Kementerian</option>
                                     <option value="2">Provinsi</option>
                                     <option value="3">Kabupaten</option>
-                                    <option value="4">Organisasi / Lembaga</option>
+                                    <option value="4">Organisasi / Lembaga / Rumah Sakit Swasta</option>
                                 </select>
                                 @error('status_opd')
                                     <span class="invalid-feedback" role="alert">
@@ -288,14 +289,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Alamat</label>
+                            <label class="col-sm-3 col-form-label">Alamat OPD</label>
                             <div class="col-sm-9">
-                                <textarea name="alamat_opd" class="form-control @error('alamat_opd') is-invalid @enderror" cols="30" rows="10"></textarea>
-                                @error('alamat_opd')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <textarea name="alamat_opd" class="form-control" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                     </div>
@@ -321,28 +317,6 @@
                 closeOnSelect : true,
             });
         });
-        // $(function () {
-        //     $('.livesearch_pegawai').select2({
-        //         placeholder: 'Pilih Pegawai',
-        //         ajax: {
-        //             url: '/dashboard/admin/sppd/autocomplete-get-pegawai',
-        //             dataType: 'json',
-        //             delay: 250,
-        //             processResults: function (data) {
-        //                 return {
-        //                     results: $.map(data, function (item) {
-        //                         return {
-        //                             text: item.nama_pegawai,
-        //                             id: item.pegawai_id,
-        //                             selected: 'false'
-        //                         }
-        //                     })
-        //                 };
-        //             },
-        //             cache: true
-        //         }
-        //     })
-        // });
 
         function onChangeSelect(url, id, name) {
             $.ajax({

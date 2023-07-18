@@ -117,13 +117,11 @@ class SppdController extends Controller
 
     public function storeOPD(Request $request)
     {
-        dd($request);
         $validatedData = $request->validate([
             'provinsi_id'       => 'integer|required',
             'kabupaten_id'      => 'integer|required',
             'nama_opd'          => 'required',
             'status_opd'        => 'required',
-            'alamat_opd'        => 'required',
         ]);
 
         DaftarOPD::create([
@@ -132,7 +130,7 @@ class SppdController extends Controller
             'kabupaten_id'      => $validatedData['kabupaten_id'],
             'nama_opd'          => $validatedData['nama_opd'],
             'status_opd'        => $validatedData['status_opd'],
-            'alamat'            => $validatedData['alamat_opd'],
+            'alamat'            => $request->alamat_opd,
         ]);
 
         return redirect('dashboard/admin/sppd/create')->with('message', 'OPD berhasil disimpan !');

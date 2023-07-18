@@ -468,11 +468,11 @@
                 @this.set('pegawai_id_search', data);
 
                 window.livewire.on('data-change-event', ()=>{
-                $('#select_pegawais').select2({
-                    theme: 'bootstrap4',
-                    // closeOnSelect: true
+                    $('#select_pegawais').select2({
+                        theme: 'bootstrap4',
+                        // closeOnSelect: true
+                    });
                 });
-            });
             });
         });
 
@@ -483,7 +483,7 @@
                 // closeOnSelect: true,
                 ajax: { 
                 url: "{{url('dashboard/admin/get-pegawais')}}",
-                type: "post",
+                type: "POST",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
@@ -497,7 +497,7 @@
                     results: response
                     };
                 },
-                cache: true
+                    cache: true
                 }
 
             });
