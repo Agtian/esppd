@@ -75,6 +75,44 @@ class PelaksanaSPPDController extends Controller
 
     public function filterData(Request $request)
     {
-        dd($request);
+        if ($request->pegawai_id == null && $request->daftar_opd_id == null && $request->tgl_awal == null && $request->tgl_akhir == null) {
+            $resultAktifSPPD    = PerjalananDinas::paginate(10);
+        } elseif ($request->pegawai_id != null && $request->daftar_opd_id == null && $request->tgl_awal == null && $request->tgl_akhir == null) {
+            $resultAktifSPPD    = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'pelaksanaperjalanandinas.perjalanandinas_id', '=', 'perjalanandinas.id')
+                                    ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
+                                    ->paginate(10);
+        } elseif ($request->pegawai_id != null && $request->daftar_opd_id != null && $request->tgl_awal == null && $request->tgl_akhir == null) {
+            $resultAktifSPPD    = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'pelaksanaperjalanandinas.perjalanandinas_id', '=', 'perjalanandinas.id')
+                                    ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
+                                    ->where('daftar_opd_id', $request->daftar_opd_id)
+                                    ->paginate(10);
+        } elseif ($request->pegawai_id != null && $request->daftar_opd_id != null && $request->tgl_awal != null && $request->tgl_akhir != null) {
+            $resultAktifSPPD    = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'pelaksanaperjalanandinas.perjalanandinas_id', '=', 'perjalanandinas.id')
+                                    ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
+                                    ->where('daftar_opd_id', $request->daftar_opd_id)
+                                    ->where('tgl_awal', $request->tgl_awal)
+                                    ->where('tgl_akhir', $request->tgl_akhir)
+                                    ->paginate(10);
+        } elseif ($request->pegawai_id != null && $request->daftar_opd_id == null && $request->tgl_awal != null && $request->tgl_akhir != null) {
+            $resultAktifSPPD    = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'pelaksanaperjalanandinas.perjalanandinas_id', '=', 'perjalanandinas.id')
+                                    ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
+                                    ->where('tgl_awal', $request->tgl_awal)
+                                    ->where('tgl_akhir', $request->tgl_akhir)
+                                    ->paginate(10);
+        } elseif ($request->pegawai_id == null && $request->daftar_opd_id != null && $request->tgl_awal != null && $request->tgl_akhir != null) {
+            $resultAktifSPPD    = PerjalananDinas::where('daftar_opd_id', $request->daftar_opd_id)
+                                    ->where('tgl_awal', $request->tgl_awal)
+                                    ->where('tgl_akhir', $request->tgl_akhir)
+                                    ->paginate(10);
+        } elseif ($request->pegawai_id == null && $request->daftar_opd_id != null && $request->tgl_awal == null && $request->tgl_akhir == null) {
+            $resultAktifSPPD    = PerjalananDinas::where('daftar_opd_id', $request->daftar_opd_id)
+                                    ->paginate(10);
+        } elseif ($request->pegawai_id == null && $request->daftar_opd_id == null && $request->tgl_awal != null && $request->tgl_akhir != null) {
+            $resultAktifSPPD    = PerjalananDinas::where('tgl_awal', $request->tgl_awal)
+                                    ->where('tgl_akhir', $request->tgl_akhir)
+                                    ->paginate(10);
+        }
+
+        return view('layouts.admin.sppd.pelaksana-sppd-filter-result', compact('resultAktifSPPD'));
     }
 }
