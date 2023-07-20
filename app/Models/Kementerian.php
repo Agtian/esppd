@@ -12,4 +12,9 @@ class Kementerian extends Model
     protected $table = 'kementerian';
 
     protected $guarded = [];
+
+    public function daftarKOPDs()
+    {
+        return $this->hasMany(DaftarOPD::class, 'kementerian_id', 'id');
+    }
 }

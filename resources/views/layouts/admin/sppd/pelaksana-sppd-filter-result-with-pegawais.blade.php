@@ -24,7 +24,6 @@
     </section>
 
     <section class="content">
-
         <div class="card card-dark">
             <div class="card-header  border-transparent">
                 <h3 class="card-title">Filter Data</h3>
@@ -87,32 +86,6 @@
         @endif
 
         <div class="card card-dark">
-            <div class="card-body p-2">
-                <div class="card card-info card-outline">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="fas fa-edit"></i> Detail Filter Data
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped table-bordered m-0">
-                            <tr>
-                                <td width="200">Nama</td>
-                                <td>{{ $pegawais }}</td>
-                            </tr>
-                            <tr>
-                                <td width="200">Surat Dari / OPD</td>
-                                <td>{{ $daftarOPD }}</td>
-                            </tr>
-                            <tr>
-                                <td width="200">Periode Tanggal SPPD</td>
-                                <td>{{ $tanggalFilter }}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
             <div class="card-header border-transparent">
                 <h3 class="card-title">Tabel Data Pelaksana SPPD</h3>
     
@@ -125,6 +98,37 @@
                     </button>
                 </div>
             </div>
+            
+            <div class="card-body p-2">
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-edit"></i> Detail Filter Data
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered m-0">
+                            <tr>
+                                <td width="200">Nama</td>
+                                <td>{{ $pegawais->gelardepan.' '.$pegawais->nama_pegawai.' '.$pegawais->gelarbelakang_nama }}</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Surat Dari / OPD</td>
+                                <td>{{ $daftarOPD }}</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Periode Tanggal SPPD</td>
+                                <td>{{ $tanggalFilter }}</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Total SPPD</td>
+                                <td>{{ $totalSPPD != 0 ? $totalSPPD : 'Data tidak tersedia !' }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered m-0">
@@ -145,17 +149,7 @@
                                 <tr>
                                     <td>{{ date('d-m-Y', strtotime($item->tgl_sppd)) }}</td>
                                     <td>{{ $item->no_sppd }}</td>
-                                    <td>
-                                        <ul class="nav nav-pills flex-column">
-                                            @forelse ($item->pelaksanaPerjals as $listPelaksana)
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#"> {{ $listPelaksana->nama_pegawai.' '.$listPelaksana->gelarbelakang_nama }}</a>
-                                                </li>
-                                            @empty
-                                                <button class="btn btn-md btn-outline-danger">Pelaksana SPPD tidak tersedia !</button>
-                                            @endforelse
-                                        </ul>
-                                    </td>
+                                    <td>{{ $item->nama_pegawai.' '.$item->gelarbelakang_nama }}</td>
                                     <td>{{ $item->dasar }}</td>
                                     <td>{{ $item->maksud_perjalanan }}</td>
                                     <td>{{ $item->tempat_tujuan }}</td>
@@ -168,7 +162,7 @@
                                             </button>
                                             <div class="dropdown-menu" role="menu">
                                                 <button class="dropdown-item" wire:click="openDetail({{ $item->id }})">Detail</button>
-                                                @if ($item->pelaksanaPerjals->count() <= 4)
+                                                @if ($item->count() <= 4)
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item" href="{{ url('printout/surat-tugas-i/'.$item->id) }}" target="_blank">Surat Tugas</a>
                                                     <a class="dropdown-item" href="{{ url('printout/sppd/'.$item->id) }}" target="_blank">SPPD</a>
@@ -185,7 +179,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9">Data Not Found</td>
+                                    <td colspan="9" align="center">Data Not Found</td>
                                 </tr>
                             @endforelse
                         </tbody>

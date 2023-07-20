@@ -73,46 +73,112 @@ class PelaksanaSPPDController extends Controller
         return response()->json($response); 
     }
 
+    public function getDaftarOPDDetails($daftar_opd_id)
+    {
+        $querydaftarOPD = DaftarOPD::find($daftar_opd_id);
+        if ($querydaftarOPD->kementerians == null) {
+            $nama_opd   = $querydaftarOPD->provinsis->nama_provinsi.' - '.$querydaftarOPD->kabupatens->nama_kabupaten.' - '.$querydaftarOPD->nama_opd;
+        } else {
+            $nama_opd   = $querydaftarOPD->kementerians->nama_kementerian.' - '.$querydaftarOPD->provinsis->nama_provinsi.' - '.$querydaftarOPD->kabupatens->nama_kabupaten.' - '.$querydaftarOPD->nama_opd;
+        }
+
+        return $nama_opd;
+    }
+
     public function filterData(Request $request)
     {
         if ($request->pegawai_id == null && $request->daftar_opd_id == null && $request->tgl_awal == null && $request->tgl_akhir == null) {
             $resultAktifSPPD    = PerjalananDinas::paginate(10);
+            return view('layouts.admin.sppd.pelaksana-sppd-filter-result', compact('resultAktifSPPD'));
+
         } elseif ($request->pegawai_id != null && $request->daftar_opd_id == null && $request->tgl_awal == null && $request->tgl_akhir == null) {
-            $resultAktifSPPD    = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'pelaksanaperjalanandinas.perjalanandinas_id', '=', 'perjalanandinas.id')
+            $resultAktifSPPD    = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
                                     ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
                                     ->paginate(10);
+            $pegawais           = PelaksanaPerjalananDinas::where('pegawai_id', $request->pegawai_id)->first();
+            $daftarOPD          = 'Semua OPD.';
+            $tanggalFilter      = 'Semua tanggal yang tersedia.';
+            $totalSPPD          = PelaksanaPerjalananDinas::where('pegawai_id', $request->pegawai_id)->count();
+            return view('layouts.admin.sppd.pelaksana-sppd-filter-result-with-pegawais', compact('resultAktifSPPD', 'pegawais', 'daftarOPD', 'tanggalFilter', 'totalSPPD'));
+
         } elseif ($request->pegawai_id != null && $request->daftar_opd_id != null && $request->tgl_awal == null && $request->tgl_akhir == null) {
-            $resultAktifSPPD    = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'pelaksanaperjalanandinas.perjalanandinas_id', '=', 'perjalanandinas.id')
-                                    ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
-                                    ->where('daftar_opd_id', $request->daftar_opd_id)
+            $resultAktifSPPD    = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
+                                    ->where('pegawai_id', $request->pegawai_id)
+                                    ->where('perjalanandinas.daftar_opd_id', $request->daftar_opd_id)
                                     ->paginate(10);
+            $pegawais           = PelaksanaPerjalananDinas::where('pegawai_id', $request->pegawai_id)->first();
+            $daftarOPD          = $this->getDaftarOPDDetails($request->daftar_opd_id);
+            $tanggalFilter      = 'Semua tanggal yang tersedia.';
+            $totalSPPD          = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
+                                    ->where('pegawai_id', $request->pegawai_id)
+                                    ->where('daftar_opd_id', $request->daftar_opd_id)
+                                    ->count();
+            return view('layouts.admin.sppd.pelaksana-sppd-filter-result-with-pegawais', compact('resultAktifSPPD', 'pegawais', 'daftarOPD', 'tanggalFilter', 'totalSPPD'));
+
         } elseif ($request->pegawai_id != null && $request->daftar_opd_id != null && $request->tgl_awal != null && $request->tgl_akhir != null) {
-            $resultAktifSPPD    = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'pelaksanaperjalanandinas.perjalanandinas_id', '=', 'perjalanandinas.id')
+            $resultAktifSPPD    = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
                                     ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
-                                    ->where('daftar_opd_id', $request->daftar_opd_id)
-                                    ->where('tgl_awal', $request->tgl_awal)
-                                    ->where('tgl_akhir', $request->tgl_akhir)
+                                    ->where('perjalanandinas.daftar_opd_id', $request->daftar_opd_id)
+                                    ->whereBetween('perjalanandinas.tgl_sppd', [$request->tgl_awal, $request->tgl_akhir])
                                     ->paginate(10);
+            $pegawais           = PelaksanaPerjalananDinas::where('pegawai_id', $request->pegawai_id)->first();
+            $daftarOPD          = $this->getDaftarOPDDetails($request->daftar_opd_id);
+            $tanggalFilter      = date('d-m-Y', strtotime($request->tgl_awal)).' s.d '.date('d-m-Y', strtotime($request->tgl_akhir));
+            $totalSPPD          = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
+                                    ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
+                                    ->where('perjalanandinas.daftar_opd_id', $request->daftar_opd_id)
+                                    ->whereBetween('perjalanandinas.tgl_sppd', [$request->tgl_awal, $request->tgl_akhir])
+                                    ->count();
+            return view('layouts.admin.sppd.pelaksana-sppd-filter-result-with-pegawais', compact('resultAktifSPPD', 'pegawais', 'daftarOPD', 'tanggalFilter', 'totalSPPD'));
+
         } elseif ($request->pegawai_id != null && $request->daftar_opd_id == null && $request->tgl_awal != null && $request->tgl_akhir != null) {
-            $resultAktifSPPD    = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'pelaksanaperjalanandinas.perjalanandinas_id', '=', 'perjalanandinas.id')
+            $resultAktifSPPD    = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
                                     ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
-                                    ->where('tgl_awal', $request->tgl_awal)
-                                    ->where('tgl_akhir', $request->tgl_akhir)
+                                    ->whereBetween('perjalanandinas.tgl_sppd', [$request->tgl_awal, $request->tgl_akhir])
                                     ->paginate(10);
+            $pegawais           = PelaksanaPerjalananDinas::where('pegawai_id', $request->pegawai_id)->first();
+            $daftarOPD          = 'Semua OPD.';
+            $tanggalFilter      = date('d-m-Y', strtotime($request->tgl_awal)).' s.d '.date('d-m-Y', strtotime($request->tgl_akhir));
+            $totalSPPD          = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
+                                    ->where('pelaksanaperjalanandinas.pegawai_id', $request->pegawai_id)
+                                    ->whereBetween('perjalanandinas.tgl_sppd', [$request->tgl_awal, $request->tgl_akhir])
+                                    ->count();
+            return view('layouts.admin.sppd.pelaksana-sppd-filter-result-with-pegawais', compact('resultAktifSPPD', 'pegawais', 'daftarOPD', 'tanggalFilter', 'totalSPPD'));
+
         } elseif ($request->pegawai_id == null && $request->daftar_opd_id != null && $request->tgl_awal != null && $request->tgl_akhir != null) {
             $resultAktifSPPD    = PerjalananDinas::where('daftar_opd_id', $request->daftar_opd_id)
-                                    ->where('tgl_awal', $request->tgl_awal)
-                                    ->where('tgl_akhir', $request->tgl_akhir)
+                                    ->whereBetween('perjalanandinas.tgl_sppd', [$request->tgl_awal, $request->tgl_akhir])
                                     ->paginate(10);
+            $pegawais           = 'Semua pagawai';
+            $daftarOPD          =  $this->getDaftarOPDDetails($request->daftar_opd_id);
+            $tanggalFilter      = date('d-m-Y', strtotime($request->tgl_awal)).' s.d '.date('d-m-Y', strtotime($request->tgl_akhir));
+            $totalSPPD          = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
+                                    ->whereBetween('perjalanandinas.tgl_sppd', [$request->tgl_awal, $request->tgl_akhir])
+                                    ->where('perjalanandinas.daftar_opd_id', $request->daftar_opd_id)
+                                    ->count();
+            return view('layouts.admin.sppd.pelaksana-sppd-filter-result', compact('resultAktifSPPD', 'pegawais', 'daftarOPD', 'tanggalFilter', 'totalSPPD'));
+
         } elseif ($request->pegawai_id == null && $request->daftar_opd_id != null && $request->tgl_awal == null && $request->tgl_akhir == null) {
             $resultAktifSPPD    = PerjalananDinas::where('daftar_opd_id', $request->daftar_opd_id)
                                     ->paginate(10);
-        } elseif ($request->pegawai_id == null && $request->daftar_opd_id == null && $request->tgl_awal != null && $request->tgl_akhir != null) {
-            $resultAktifSPPD    = PerjalananDinas::where('tgl_awal', $request->tgl_awal)
-                                    ->where('tgl_akhir', $request->tgl_akhir)
-                                    ->paginate(10);
-        }
+            $pegawais           = 'Semua pagawai';
+            $daftarOPD          =  $this->getDaftarOPDDetails($request->daftar_opd_id);
+            $tanggalFilter      = 'Semua tanggal yang tersedia.';
+            $totalSPPD          = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
+                                    ->where('perjalanandinas.daftar_opd_id', $request->daftar_opd_id)
+                                    ->count();
+            return view('layouts.admin.sppd.pelaksana-sppd-filter-result', compact('resultAktifSPPD', 'pegawais', 'daftarOPD', 'tanggalFilter', 'totalSPPD'));
 
-        return view('layouts.admin.sppd.pelaksana-sppd-filter-result', compact('resultAktifSPPD'));
+        } elseif ($request->pegawai_id == null && $request->daftar_opd_id == null && $request->tgl_awal != null && $request->tgl_akhir != null) {
+            $resultAktifSPPD    = PerjalananDinas::whereBetween('perjalanandinas.tgl_sppd', [$request->tgl_awal, $request->tgl_akhir])
+                                    ->paginate(10);
+            $pegawais           = 'Semua pagawai';
+            $daftarOPD          = 'Semua OPD.';
+            $tanggalFilter      = date('d-m-Y', strtotime($request->tgl_awal)).' s.d '.date('d-m-Y', strtotime($request->tgl_akhir));
+            $totalSPPD          = PelaksanaPerjalananDinas::leftJoin('perjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
+                                    ->whereBetween('perjalanandinas.tgl_sppd', [$request->tgl_awal, $request->tgl_akhir])
+                                    ->count();
+            return view('layouts.admin.sppd.pelaksana-sppd-filter-result', compact('resultAktifSPPD', 'pegawais', 'daftarOPD', 'tanggalFilter', 'totalSPPD'));
+        }
     }
 }
