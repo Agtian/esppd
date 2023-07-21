@@ -15,6 +15,8 @@ use App\Models\PGSQL\Pegawai_m;
 use App\Models\PGSQL\Pegawai_v;
 use App\Models\PGSQL\UnitKerja_m;
 use App\Models\RincianBiaya;
+use App\Models\UserActivities;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -236,6 +238,13 @@ class TableDataAktifSppd extends Component
                 'tgl_sppd'              => $this->tgl_sppd,
             ]);
 
+            UserActivities::create([
+                'user_id'           => Auth::user()->id,
+                'name_activity'     => 'Menginput pegawai sebagai pelaksana perjalanan dinas.',
+                'activity_time'     => date('Y-m-d H:i:s'),
+                'database_activity' => 1,
+            ]);
+
             $this->dispatchBrowserEvent('close-modal');
             $this->resetInput();
             $this->emit(event:'refreshComponent');
@@ -295,6 +304,14 @@ class TableDataAktifSppd extends Component
         ]);
 
         PelaksanaPerjalananDinas::findOrFail($pelaksanaperjalanandinas_id)->delete();
+
+        UserActivities::create([
+            'user_id'           => Auth::user()->id,
+            'name_activity'     => "Menghapus pegawai ($getDataPelaksanaPerjal->nama_pegawai) pelaksana perjalanan dinas.",
+            'activity_time'     => date('Y-m-d H:i:s'),
+            'database_activity' => 1,
+        ]);
+
         $this->emit(event:'refreshComponent');
         session()->flash('message', 'Pelaksana perjalanan dinas berhasil dihapus');
     }
