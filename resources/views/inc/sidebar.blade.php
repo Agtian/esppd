@@ -90,6 +90,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ url('dashboard/admin/daftar-opd') }}" class="nav-link {{ request()->segment(3) == 'daftar-opd' ? 'active bg-primary' : '' }}">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p class="text">Master Daftar OPD</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ url('dashboard/admin/golongan-pegawai') }}" class="nav-link {{ request()->segment(3) == 'golongan-pegawai' ? 'active bg-primary' : '' }}">
                         <i class="nav-icon fas fa-star"></i>
                         <p>

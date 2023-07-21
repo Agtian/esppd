@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DevelopmentSPPD\PelaksanaSPPDController;
 use App\Http\Controllers\Admin\DevelopmentSPPD\PrintOutController;
 use App\Http\Controllers\Admin\DevelopmentSPPD\SppdController;
+use App\Http\Controllers\Admin\Master\DaftarOPD;
 use App\Http\Controllers\Admin\Master\GolPegawaiController;
 use App\Http\Controllers\Admin\Master\InstalasiController;
 use App\Http\Controllers\Admin\Master\JabatanController;
@@ -106,6 +107,13 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
 
     Route::controller(GolPegawaiController::class)->group(function () {
         Route::get('/golongan-pegawai', 'index');
+    });
+
+    Route::controller(DaftarOPD::class)->group(function () {
+        Route::get('/daftar-opd', 'index');
+        Route::get('/daftar-opd/{id}/edit', 'edit');
+        Route::post('/daftar-opd/create', 'store')->name('createdDaftarOPD');
+        Route::put('/daftar-opd/{id}', 'update');
     });
     
     Route::controller(InstalasiController::class)->group(function () {
