@@ -91,7 +91,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('dashboard/admin/daftar-opd') }}" class="nav-link {{ request()->segment(3) == 'daftar-opd' ? 'active bg-primary' : '' }}">
-                        <i class="nav-icon fas fa-user"></i>
+                        <i class="nav-icon fas fa-home"></i>
                         <p class="text">Master Daftar OPD</p>
                     </a>
                 </li>
