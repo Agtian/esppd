@@ -318,11 +318,20 @@ class TableDataAktifSppd extends Component
 
     public function sppdValidasi(int $perjalanandinas_id)
     {
-        PerjalananDinas::findOrFail($perjalanandinas_id)->update([
-            'status_sppd'   => 1,
-        ]);
+        $validasiData = PelaksanaPerjalananDinas::where('perjalanandinas_id', $perjalanandinas_id)
+                        ->where('uang_harian', 0)    
+                        ->get();
 
-        session()->flash('message', "SPPD berhasil diselesaikan dan telah ditutup !");
-        $this->resetInput();
+        if ($validasiData->count() > 0) {
+            session()->flash('message-danger', "Gagal diselesaikan, cek kembali rincian biaya pelaksana. Sistem menemukan kolom uang harian belum diisi.");
+            $this->resetInput();
+        } else {
+            PerjalananDinas::findOrFail($perjalanandinas_id)->update([
+                'status_sppd'   => 1,
+            ]);
+            session()->flash('message', "SPPD berhasil diselesaikan dan telah ditutup !");
+            $this->resetInput();
+            $this->showDetail =! $this->showDetail;
+        }
     }
 }

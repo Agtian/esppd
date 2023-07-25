@@ -86,7 +86,6 @@ class TableRincianBiayaPerjal extends Component
             'biaya_penginapan'       => 'integer',
             'uang_representasi'      => 'integer',
             'biaya_pesawat'          => 'integer',
-            'total_biaya'            => 'integer',
             'biaya_tol'              => 'integer',
             'biaya_lainnya'          => 'integer',
             'resultTotalBiaya'       => 'integer',
