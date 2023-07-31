@@ -80,6 +80,22 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('dashboard/admin/rincian-biaya-bpk') }}" class="nav-link {{ request()->is('dashboard/admin/rincian-biaya-bpk') ? 'active bg-primary' : '' }}">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            Rincian Biaya BPK
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('dashboard/admin/perjalanan-dinas-direktur') }}" class="nav-link {{ request()->is('dashboard/admin/perjalanan-dinas-direktur') ? 'active bg-primary' : '' }}">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            Perjal Direktur
+                        </p>
+                    </a>
+                </li>
 
                 <li class="nav-header mt-3">SETTINGS</li>
                 <li class="nav-item">

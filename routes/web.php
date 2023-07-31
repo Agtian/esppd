@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\Master\PendidikanController;
 use App\Http\Controllers\Admin\Master\PendidikanKualifikasiController;
 use App\Http\Controllers\Admin\Master\UnitKerjaController;
 use App\Http\Controllers\Admin\Report\BiayaController;
+use App\Http\Controllers\Admin\Report\PerjalananDinasDirekturController;
+use App\Http\Controllers\Admin\Report\RincianBiayaBPKController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Dependent\DropdownController;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +100,22 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
         Route::post('/biaya-sppd-filter', 'filterData');
 
         Route::post('/printout/laporan-pengeluaran-sppd', 'laporanPengeluaranSPPD');
+    });
+
+    Route::controller(RincianBiayaBPKController::class)->group(function () {
+        Route::get('/rincian-biaya-bpk', 'index');
+        Route::post('/rincian-biaya-bpk/filter-data', 'filterData');
+        Route::get('/rincian-biaya-bpk/{rincianbiaya}/edit', 'edit');
+        Route::put('/rincian-biaya-bpk/{rincianbiaya}', 'update');
+        Route::get('/rincian-biaya-bpk/{rincianbiaya}/delete', 'destroy');
+    });
+
+    Route::controller(PerjalananDinasDirekturController::class)->group(function () {
+        Route::get('/perjalanan-dinas-direktur', 'index');
+        Route::post('/perjalanan-dinas-direktur/filter-data', 'filterData');
+        Route::get('/perjalanan-dinas-direktur/{perjaldirektur}/edit', 'edit');
+        Route::put('/perjalanan-dinas-direktur/{perjaldirektur}', 'update');
+        Route::get('/perjalanan-dinas-direktur/{perjaldirektur}/delete', 'destroy');
     });
 
     Route::controller(PelaksanaSPPDController::class)->group(function () {
