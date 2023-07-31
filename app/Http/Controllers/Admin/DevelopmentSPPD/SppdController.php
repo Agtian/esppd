@@ -32,6 +32,21 @@ class SppdController extends Controller
         ]));
     }
 
+    public function dataSPPD()
+    {
+        $resultDataSPPD = PerjalananDinas::where('status_sppd', 1)->paginate(10);
+        return view('layouts.admin.sppd.data-sppd', compact('resultDataSPPD'));
+    }
+
+    public function dataSPPDUnvalidated(int $sppd)
+    {
+        PerjalananDinas::findOrFail($sppd)->update([
+            'status_sppd'   => 0,
+        ]);
+
+        return redirect('dashboard/admin/data-sppd')->with('message', 'SPPD berhasil batal validasi.');
+    }
+
     public function getPegawai(Request $request)
     {
         $pegawais = [];

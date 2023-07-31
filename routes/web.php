@@ -64,12 +64,15 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
         Route::get('/sppd/create', 'create');
         Route::post('/sppd', 'store');
         Route::post('/sppd/add-opd', 'storeOPD');
-        // Route::get('/sppd/{sppd}/edit', 'edit');
-        // Route::put('/sppd/{sppd}', 'update');
+        Route::put('/sppd/{sppd}', 'dataSPPDUnvalidated');
         // Route::get('/sppd/{sppd}/delete', 'destroy');
+        Route::get('/data-sppd', 'dataSPPD');
+        // Route::get('/data-sppd/{sppd}', 'dataSPPDUnvalidated');
 
         Route::get('/sppd/autocomplete-get-pegawai', 'getPegawai');
     });
+
+
 
     Route::controller(UserController::class)->group(function () {
         Route::get('/user', 'index');
@@ -103,6 +106,7 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'isAdmin'])->group(functio
 
         Route::post('/get-pegawais', 'getPegawais')->name('getpegawais');
         Route::post('/get-daftar-opd', 'getDaftarOPD')->name('getdaftaropd');
+        Route::post('/get-maksud-perjalanan', 'getMaksudPerjalanan')->name('getmaksudperjalanan');
     });
 
     Route::controller(GolPegawaiController::class)->group(function () {

@@ -30,7 +30,7 @@
                 </li>
 
                 <li class="nav-header mt-3">DEVELOPMENT</li>
-                <li class="nav-item {{ request()->segment(3) == 'sppd' ? 'menu-open' : '' }}">
+                <li class="nav-item {{ request()->segment(3) == 'sppd' || request()->segment(3) == 'data-sppd' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>
@@ -51,6 +51,13 @@
                                 class="nav-link {{ request()->is('dashboard/admin/sppd') ? 'active bg-primary' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>SPPD Aktif</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('dashboard/admin/data-sppd') }}"
+                                class="nav-link {{ request()->is('dashboard/admin/data-sppd') ? 'active bg-primary' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data SPPD</p>
                             </a>
                         </li>
                     </ul>

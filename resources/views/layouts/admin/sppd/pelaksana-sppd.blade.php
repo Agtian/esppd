@@ -56,6 +56,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-3 col-form-label">Maksud Perjalanan Dinas</label>
+                                <div class="col-9">
+                                    <select class="form-control" id="select_maksud_perjalanan" name="maksud_perjalanan"></select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-3 col-form-label">Tanggal SPPD</label>
                                 <div class="col-4">
                                     <input type="date" class="form-control" name="tgl_awal" placeholder="Tanggal Awal">
@@ -233,6 +239,35 @@
                     },
                     cache: true
                 }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $(document).ready(function(){
+            $("#select_maksud_perjalanan" ).select2({
+                theme: 'bootstrap4',
+                // closeOnSelect: true,
+                ajax: { 
+                    url: "{{ url('dashboard/admin/get-maksud-perjalanan') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            searchmaksudperjalanan: params.term // search term
+                        };
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+
             });
         });
     </script>
