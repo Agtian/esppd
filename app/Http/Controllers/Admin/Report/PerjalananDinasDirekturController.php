@@ -13,7 +13,7 @@ class PerjalananDinasDirekturController extends Controller
         $resultPerjalDirektur = PerjalananDinas::leftJoin('pelaksanaperjalanandinas', 'perjalanandinas.id', '=', 'pelaksanaperjalanandinas.perjalanandinas_id')
                                     ->where('pelaksanaperjalanandinas.nomorindukpegawai', '197011112005011003')
                                     ->paginate(10);
-        return view('layouts.admin.report.rincian-biaya-bpk.index', compact('resultPerjalDirektur'));
+        return view('layouts.admin.report.perjalanan-dinas-direktur.index', compact('resultPerjalDirektur'));
     }
 
     public function filterData(Request $request)
@@ -22,6 +22,6 @@ class PerjalananDinasDirekturController extends Controller
                                     ->where('pelaksanaperjalanandinas.nomorindukpegawai', '197011112005011003')
                                     ->whereBetween('perjalanandinas.tgl_sppd', [$request->tanggal_mulai, $request->tanggal_selesai])
                                     ->paginate(10);
-        return view('layouts.admin.report.rincian-biaya-bpk.index', compact('resultPerjalDirektur'));
+        return view('layouts.admin.report.perjalanan-dinas-direktur.index', compact('resultPerjalDirektur'));
     }
 }

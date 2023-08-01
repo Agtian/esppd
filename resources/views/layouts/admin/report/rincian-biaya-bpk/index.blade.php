@@ -86,9 +86,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($resultPerjalDirektur as $item)
+                            @forelse ($resultRincianBiayaBPK as $item)
                                 <tr>
-                                    <td>{{ $resultPerjalDirektur->firstItem() + $loop->index }}.</td>
+                                    <td>{{ $resultRincianBiayaBPK->firstItem() + $loop->index }}.</td>
                                     <td>{{ date('Y-m-d', strtotime($item->tgl_sppd)) }}</td>
                                     <td>{{ date('Y-m-d', strtotime($item->tgl_mulai)).' s.d '.date('Y-m-d', strtotime($item->tgl_selesai)) }}</td>
                                     <td>{{ $item->no_sppd }}</td>
@@ -132,7 +132,7 @@
                 </div>
             </div>
             <div class="card-footer clearfix">
-                {{ $resultPerjalDirektur->links() }}
+                {{ $resultRincianBiayaBPK->links() }}
             </div>
         </div>
             
