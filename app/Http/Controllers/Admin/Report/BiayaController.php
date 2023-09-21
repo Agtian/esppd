@@ -22,7 +22,7 @@ class BiayaController extends Controller
         $detail                 = PerjalananDinas::findOrFail($id);
         $pelaksanaArr           = PelaksanaPerjalananDinas::where('perjalanandinas_id', $id)->get();
         $confSppd               = KonfigurasiSppd::find(1);
-        $perjalanandinas_id     = $id;        
+        $perjalanandinas_id     = $id;
         return view('layouts.admin.report.biaya-sppd.edit', compact('detail', 'confSppd', 'pelaksanaArr', 'perjalanandinas_id'));
     }
 
